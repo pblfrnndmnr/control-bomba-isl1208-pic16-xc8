@@ -1,21 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////////////
-///                               isl1208.C                                           ///
+///                               isl1208.C                                          ///
 ///                     Driver for Real Time Clock                                   ///
-///                     modified by Redpic 08/2006                                   ///
-///                  http://picmania.garcia-cuervo.com                               ///
+///                     modified by Pablo Fernando Manieri - Enero 2015              ///
 ///                                                                                  ///
-/// void isl1208_init(val)                                                            ///
+///                                                                                  ///
+/// void isl1208_init(val)                                                           ///
 ///                  - Enable oscillator without clearing the seconds register       ///
-///                    used when PIC loses power and isl1208 run from 3V BAT          ///
+///                    used when PIC loses power and isl1208 run from 3V BAT         ///
 ///                  - Config Control Register with next parameters:                 ///
-///                     isl1208_ALL_DISABLED          All disabled                    ///
-///                     isl1208_OUT_ON_DISABLED_HIHG  Out to Hight on Disable Out     ///
-///                     isl1208_OUT_ENABLED           Out Enabled                     ///
-///                     isl1208_OUT_1_HZ              Freq. Out to 1 Hz               ///
-///                     isl1208_OUT_4_KHZ             Freq. Out to 4.096 Khz          ///
-///                     isl1208_OUT_8_KHZ             Freq. Out to 8.192 Khz          ///
-///                     isl1208_OUT_32_KHZ            Freq. Out to 32.768 Khz         ///
-///                                                                                  ///
+///                     isl1208_ALL_DISABLED          All disabled                   ///
+///                     isl1208_OUT_ON_DISABLED_HIHG  Out to Hight on Disable Out    ///
+///                     isl1208_OUT_ENABLED           Out Enabled                    ///
+///                     isl1208_OUT_1_HZ              Freq. Out to 1 Hz              ///
+///                     isl1208_OUT_4_KHZ             Freq. Out to 4.096 Khz         ///
+///                     isl1208_OUT_8_KHZ             Freq. Out to 8.192 Khz         ///
+///                     isl1208_OUT_32_KHZ            Freq. Out to 32.768 Khz        ///
+///                                                                                 ///
 ///                     Example init:                                                ///
 ///                     isl1208_init(isl1208_ALL_DISABLED);                            ///
 ///                     isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);           ///
