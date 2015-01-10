@@ -1,9 +1,9 @@
-///////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 ///                               isl1208.C                                          ///
 ///                     Driver for Real Time Clock                                   ///
 ///                     modified by Pablo Fernando Manieri - Enero 2015              ///
 ///                                                                                  ///
-///                                                                                  ///
+/// bool ISL1208_ready(void) - Testea si el RTC está presente                        ///
 /// void isl1208_init(val)                                                           ///
 ///                  - Enable oscillator without clearing the seconds register       ///
 ///                    used when PIC loses power and isl1208 run from 3V BAT         ///
@@ -15,27 +15,26 @@
 ///                     isl1208_OUT_4_KHZ             Freq. Out to 4.096 Khz         ///
 ///                     isl1208_OUT_8_KHZ             Freq. Out to 8.192 Khz         ///
 ///                     isl1208_OUT_32_KHZ            Freq. Out to 32.768 Khz        ///
-///                                                                                 ///
+///                                                                                  ///
 ///                     Example init:                                                ///
-///                     isl1208_init(isl1208_ALL_DISABLED);                            ///
-///                     isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);           ///
+///                     isl1208_init(isl1208_ALL_DISABLED);                          ///
+///                     isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);        ///
 ///                                                                                  ///
-/// void isl1208_set_date_time(day,mth,year,dow,hour,min,sec) - Set the date/time     ///
+/// void isl1208_set_date_time(day,mth,year,dow,hour,min,sec) - Set the date/time    ///
 ///                                                                                  ///
-/// void isl1208_get_date(day,mth,year,dow)                   - Get the date          ///
+/// void isl1208_get_date(day,mth,year,dow) - Get the date                           ///
 ///                                                                                  ///
-/// void isl1208_get_time(hr,min,sec)                         - Get the time          ///
+/// void isl1208_get_time(hr,min,sec) - Get the time                                 ///
 ///                                                                                  ///
-/// char isl1208_read_nvram_unsigned char(char addr)                   - Read unsigned char in address  ///
+/// char isl1208_read_nvram_unsigned char(char addr) - Read unsigned char in address ///
 ///                                                                                  ///
-/// void isl1208_write_nvram_unsigned char(char addr, char value)      - Write unsigned char in address ///
+/// void isl1208_write_nvram_unsigned char(char addr, char value) - Write unsigned   ///
+///                                                                  char in address ///
 ///                                                                                  ///
-/// void isl1208_get_day_of_week(char* ptr)                   - Get string Day Of Week///
+/// void isl1208_get_day_of_week(char* ptr) - Get string Day Of Week                 ///
 ///                                                                                  ///
-/// If defined USE_INTERRUPTS all functions disable Global Interrupts on starts and  ///
-///                           enable Global on ends else usar can do it hiself       ///
 ///                                                                                  ///
-///////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
 #include <xc.h>
 #include <stdio.h>
@@ -64,7 +63,7 @@ unsigned char ISL1208_Read_status(void)
    write_i2c(isl1208_Read);
    SR=read_i2c(NOACK);
    stop_i2c();
-   return SR;     // Invert ACK returned so TRUE = ACK OK
+   return SR;     
 }
 
 void isl1208_init(unsigned char val){
