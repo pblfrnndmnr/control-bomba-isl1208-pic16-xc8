@@ -160,7 +160,6 @@ void main() {
           __delay_ms(500);
     
     };
-    
     isl1208SR.Valor=0x00;
     isl1208SR.Valor=ISL1208_Read_status();
     if (isl1208SR.RTCF){//Si se reseteo el RTC, envio directamente a configurar la hora
