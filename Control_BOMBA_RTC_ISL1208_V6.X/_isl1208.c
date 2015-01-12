@@ -59,7 +59,7 @@ unsigned char ISL1208_Read_status(void)
   start_i2c();            // If the write command is acknowledged,
    write_i2c(isl1208_Write);  // then the device is ready.
    write_i2c(0x07);
-   start_i2c();
+   rstart_i2c();//TODO cambiado start por rstart
    write_i2c(isl1208_Read);
    SR=read_i2c(NOACK);
    stop_i2c();
