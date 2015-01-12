@@ -106,20 +106,20 @@ void setup_i2c (char x)
 
   char start_i2c (void)
   { 
-    while (( SSPCON2 & 0x1F ) | R_nW );
+    while (( SSPCON2 & 0x1F ) || R_nW );
     SEN = 1;
     return !BCLIF;
   }
 
   void rstart_i2c (void)
   {
-    while (( SSPCON2 & 0x1F ) | R_nW );
+    while (( SSPCON2 & 0x1F ) || R_nW );
     RSEN = 1;
   }
 
   void stop_i2c (void)
   {
-    while (( SSPCON2 & 0x1F ) | R_nW );
+    while (( SSPCON2 & 0x1F ) || R_nW );
     PEN = 1;
   }
 
@@ -127,7 +127,7 @@ void setup_i2c (char x)
   {
     if (SSPM3 == 1)
     {
-      while (( SSPCON2 & 0x1F ) | R_nW );
+      while (( SSPCON2 & 0x1F ) || R_nW );
       SSPBUF = data;
       while (R_nW == 1);
       //while(ACKSTAT==1);
@@ -147,11 +147,11 @@ void setup_i2c (char x)
 
     if (SSPM3 == 1)
     {
-      while (( SSPCON2 & 0x1F ) | R_nW );
+      while (( SSPCON2 & 0x1F ) || R_nW );
       RCEN = 1;
-      while (( SSPCON2 & 0x1F ) | R_nW );
+      while (( SSPCON2 & 0x1F ) || R_nW );
       dato = SSPBUF;
-      while (( SSPCON2 & 0x1F ) | R_nW );
+      while (( SSPCON2 & 0x1F ) || R_nW );
       ACKDT = respuesta;
       ACKEN = 1;
       return dato;
