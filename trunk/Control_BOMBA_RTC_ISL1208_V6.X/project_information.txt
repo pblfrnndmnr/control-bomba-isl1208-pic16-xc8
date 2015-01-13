@@ -1,12 +1,12 @@
 <Application Description for Project Goes Here>
 
 Project Owner(s):
-Author(s):
-Hardware Platform:
-Debuggers Used:
-Programmers Used:
-MPLAB Version:
-C Compiler Version:
+Author(s): Pablo Fernando Manieri
+Hardware Platform: PIC16F877A
+Debuggers Used: PicKit2
+Programmers Used: PicKit2
+MPLAB Version: MPLABX 2.10
+C Compiler Version: XC8 1.31
 Final Checksum:
 
 FILES INCLUDED IN THE PROJECT TREE:
