@@ -1,6 +1,6 @@
 <Application Description for Project Goes Here>
 
-Project Owner(s):
+Project Owner(s): Pablo Fernando Manieri
 Author(s): Pablo Fernando Manieri
 Hardware Platform: PIC16F877A
 Debuggers Used: PicKit2
