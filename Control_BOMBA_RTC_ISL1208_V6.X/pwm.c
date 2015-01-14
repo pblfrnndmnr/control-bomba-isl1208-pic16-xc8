@@ -26,7 +26,7 @@ void set_periodo_buzzer(void){
     PR2=asignaPR2;//periodo;;//periodo; //asigno el periodo
     T2CONbits.TMR2ON=1; //Habilito el timer2
     T2CONbits.T2CKPS=1; //prescaler en 4
-   // CCP1CONbits.CCP1M=0b1100; //Configuro el CCp1 como PWM
+    // CCP1CONbits.CCP1M=0b1100; //Configuro el CCp1 como PWM
     RB2=0;
    TRISC2=0;//pongo el pin RC2/PWM1 como salida
 #warning No olvidar que si el PWM_duty > PWM_period no queda bien definida la frecuencia
