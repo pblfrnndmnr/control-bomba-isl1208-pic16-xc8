@@ -82,7 +82,7 @@ void main() {
 
     TRISB = 0b00111111; //Configuro las entradas de las teclas y la entrada del reloj
     PORTB = 0;
-    TRISC2 = 0; //Configuro el pin de activacion de la bomba como salida
+    TRISC0 = 0; //Configuro el pin de activacion de la bomba como salida
     TRISD = 0x00;
     PORTD = 0;
     TRISE = 0b00000000;
