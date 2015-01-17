@@ -42,6 +42,7 @@
 #include "system.h"        /* System funct/params, like osc/peripheral config */
 #include "HardI2C.h"
 #include "_isl1208.h"
+#include "user.h"
 
 bool ISL1208_ready(void) {
     bool ack;
@@ -100,14 +101,26 @@ void isl1208_init(unsigned char val) {
 
 }
 
-void isl1208_set_date_time(unsigned char day, unsigned char mth, unsigned char year, unsigned char dow, unsigned char hr, unsigned char min, unsigned char sec) {
+void isl1208_set_date_time(unsigned char* day, unsigned char* mth, unsigned char* year, unsigned char* dow, unsigned char hr, unsigned char min, unsigned char sec) {
 
 #ifndef USE_INTERRUPTS
     //di();
 #endif
 
     sec &= 0x7F;
-    hr &= 0x3F;
+   hr &= 0x3F;
+    start_i2c();
+    write_i2c(isl1208_Write);
+    write_i2c(0x07);
+    write_i2c(0b00010000);
+    stop_i2c();
+   isl1208SR.Valor=ISL1208_Read_status();
+
+    
+    sprintf(cadenaamostrar, "%X   ",isl1208SR.Valor);
+
+
+
 
     start_i2c();
     I2Cstate = write_i2c(isl1208_Write);
@@ -115,10 +128,10 @@ void isl1208_set_date_time(unsigned char day, unsigned char mth, unsigned char y
     write_i2c(isl1208_bin2bcd(sec));
     write_i2c(isl1208_bin2bcd(min));
     write_i2c(isl1208_bin2bcd(hr));
-    write_i2c(isl1208_bin2bcd(dow));
-    write_i2c(isl1208_bin2bcd(day));
-    write_i2c(isl1208_bin2bcd(mth));
-    write_i2c(isl1208_bin2bcd(year));
+    write_i2c(isl1208_bin2bcd(*day));
+    write_i2c(isl1208_bin2bcd(*mth));
+    write_i2c(isl1208_bin2bcd(*year));
+    write_i2c(isl1208_bin2bcd(*dow));
     stop_i2c();
 
 #ifndef USE_INTERRUPTS
@@ -136,12 +149,12 @@ void isl1208_get_date(unsigned char* day, unsigned char* mth, unsigned char* yea
     start_i2c();
     I2Cstate = write_i2c(isl1208_Write);
     write_i2c(0x03);
-    start_i2c();
+    rstart_i2c();
     write_i2c(isl1208_Read);
-    *dow = isl1208_bcd2bin(read_i2c(ACK) & 0x07);
     *day = isl1208_bcd2bin(read_i2c(ACK) & 0x3f);
     *mth = isl1208_bcd2bin(read_i2c(ACK) & 0x1f);
-    *year = isl1208_bcd2bin(read_i2c(NOACK));
+    *year = isl1208_bcd2bin(read_i2c(ACK));
+    *dow = isl1208_bcd2bin(read_i2c(NOACK) & 0x07);
     stop_i2c();
 #ifndef USE_INTERRUPTS
     // ei();
@@ -159,7 +172,7 @@ void isl1208_get_time(unsigned char *hr, unsigned char* min, unsigned char *sec)
     I2Cstate = write_i2c(isl1208_Write);
     write_i2c(0x00);
 
-    start_i2c();
+    rstart_i2c();
     write_i2c(isl1208_Read);
     *sec = isl1208_bcd2bin(read_i2c(ACK) & 0x7f);
     * min = isl1208_bcd2bin(read_i2c(ACK) & 0x7f);
