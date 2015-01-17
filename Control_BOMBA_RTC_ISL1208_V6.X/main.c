@@ -529,7 +529,8 @@ void main() {
         }
         if (!bandera_startglobal && bandera_grabafechay_hora) {
 
-            isl1208_set_date_time(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow, (*horario).hrs, (*horario).min, 00);
+            isl1208_set_time((*horario).hrs, (*horario).min, 00);
+            isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
             bandera_grabafechay_hora = 0;
 
         vGotoxyLCD(1, 2);

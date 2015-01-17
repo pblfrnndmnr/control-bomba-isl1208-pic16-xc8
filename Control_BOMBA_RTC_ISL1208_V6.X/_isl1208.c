@@ -101,7 +101,7 @@ void isl1208_init(unsigned char val) {
 
 }
 
-void isl1208_set_date_time(unsigned char* day, unsigned char* mth, unsigned char* year, unsigned char* dow, unsigned char hr, unsigned char min, unsigned char sec) {
+void isl1208_set_time(unsigned char hr, unsigned char min, unsigned char sec) {
 
 #ifndef USE_INTERRUPTS
     //di();
@@ -127,7 +127,32 @@ void isl1208_set_date_time(unsigned char* day, unsigned char* mth, unsigned char
     write_i2c(0x00);
     write_i2c(isl1208_bin2bcd(sec));
     write_i2c(isl1208_bin2bcd(min));
-    write_i2c(isl1208_bin2bcd(hr));
+    write_i2c(isl1208_bin2bcd(hr)|0b10000000);
+   stop_i2c();
+
+#ifndef USE_INTERRUPTS
+    //  ei();
+#endif
+
+}
+void isl1208_set_date(unsigned char* day, unsigned char* mth, unsigned char* year, unsigned char* dow) {
+
+#ifndef USE_INTERRUPTS
+    //di();
+#endif
+
+    start_i2c();
+    write_i2c(isl1208_Write);
+    write_i2c(0x07);
+    write_i2c(0b00010000);
+    stop_i2c();
+   isl1208SR.Valor=ISL1208_Read_status();
+
+
+    sprintf(cadenaamostrar, "%X   ",isl1208SR.Valor);
+    start_i2c();
+    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(0x03);
     write_i2c(isl1208_bin2bcd(*day));
     write_i2c(isl1208_bin2bcd(*mth));
     write_i2c(isl1208_bin2bcd(*year));
