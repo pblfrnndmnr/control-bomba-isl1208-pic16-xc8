@@ -262,7 +262,7 @@ void interrupt isr(void) {
           }*/
 
         bandera_startglobal = 0;
-        if (Pulsacion(3, BOTON_MENU, INMEDIATO, LOGICA_INVERSA)) {
+        if (Pulsacion(3, BOTON_ONOFF, INMEDIATO, LOGICA_INVERSA)) {
 
             bandera_startglobal = 1;
         }

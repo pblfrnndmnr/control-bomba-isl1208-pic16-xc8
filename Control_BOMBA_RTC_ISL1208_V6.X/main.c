@@ -69,13 +69,8 @@ void main() {
     PSA = 0; //Prescaler is assigned to the Timer0 module
     OPTION_REGbits.PS = 0b101; //: Prescaler Rate Select bits 1/64
     //setup_timer_1(T1_INTERNAL | T1_DIV_BY_1);
-    T1CONbits.T1CKPS = 0;
-    T1CONbits.T1OSCEN = 0;
-    T1CONbits.T1SYNC = 0;
-    T1CONbits.TMR1CS = 0;
-    T1CONbits.TMR1ON = 1;
+    T1CON = 1;
     CCP1CONbits.CCP1M = 0;
-    CCP2CONbits.CCP2M = 0;
     //configura_USART();
     setup_i2c(I2C_MASTER);
 
@@ -135,36 +130,50 @@ void main() {
     ADIF = 0;
     INTF = 0; // borro las banderas de interrupcion
     TMR0IF = 0;
-    
 
-    
+
+
     if (ISL1208_ready()){
-    sprintf(cadenaamostrar, "RTC OK");
-    vGotoxyLCD(1, 1);
-    char *cadena = &cadenaamostrar[0];
-    while (*cadena != '\0')
-        vLCD_Putc(*cadena++);
-    
-    __delay_ms(500);
-           __delay_ms(500);
-              __delay_ms(500);
+        sprintf(cadenaamostrar, "RTC OK");
+        vGotoxyLCD(1, 1);
+        char *cadena = &cadenaamostrar[0];
+        while (*cadena != '\0')
+            vLCD_Putc(*cadena++);
+
+        __delay_ms(500);
+        __delay_ms(500);
+        __delay_ms(500);
     }else {
-    sprintf(cadenaamostrar, "RTC ERRO");
-    vGotoxyLCD(1, 1);
-    char *cadena = &cadenaamostrar[0];
-    while (*cadena != '\0')
-        vLCD_Putc(*cadena++);
-    
-    __delay_ms(500);
-       __delay_ms(500);
-          __delay_ms(500);
-    
+        sprintf(cadenaamostrar, "RTC ERRO");
+        vGotoxyLCD(1, 1);
+        char *cadena = &cadenaamostrar[0];
+        while (*cadena != '\0')
+            vLCD_Putc(*cadena++);
+
+        __delay_ms(500);
+        __delay_ms(500);
+        __delay_ms(500);
+
     };
-    isl1208SR.Valor=0x00;
-    isl1208SR.Valor=ISL1208_Read_status();
-    if (isl1208SR.RTCF){//Si se reseteo el RTC, envio directamente a configurar la hora
-        menuactual=MENU_CONFIGURAHORARIO;
-        
+    isl1208SR.Valor = 0x00;
+    isl1208SR.Valor = ISL1208_Read_status();
+    sprintf(cadenaamostrar, "%X",isl1208SR.Valor);
+        vGotoxyLCD(1, 2);
+        char *cadena = &cadenaamostrar[0];
+        while (*cadena != '\0')
+            vLCD_Putc(*cadena++);
+
+        __delay_ms(500);
+        __delay_ms(500);
+        __delay_ms(500);
+
+
+    if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
+        menuactual = MENU_CONFIGURAHORARIO;
+
+    }else
+    {
+     lee_y_transmite_date_and_time();
     }
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
@@ -182,8 +191,8 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
                 if (!I2Cstate) {
                     if (flanco) {
-
-                        //  if (refrescadisplay) //TODO lee_y_transmite_date_and_time();
+                        lee_y_transmite_date_and_time();
+                         //if (refrescadisplay) lee_y_transmite_date_and_time();
                         sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
                         sprintf(cadenaamostrar2, "             ");
                     } else {
@@ -492,7 +501,7 @@ void main() {
 
         }
         //TODO borrAr esta linea
-        refrescadisplay = 1;
+        //refrescadisplay = 1;
         if (refrescadisplay) {
             vGotoxyLCD(1, 1);
             char *cadena = &cadenaamostrar[0];
@@ -520,8 +529,14 @@ void main() {
         }
         if (!bandera_startglobal && bandera_grabafechay_hora) {
 
-            //TODO  isl1208_set_date_time(fecha.day, fecha.month, fecha.yr, fecha.dow, horario.hrs, horario.min, 00);
+            isl1208_set_date_time(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow, (*horario).hrs, (*horario).min, 00);
             bandera_grabafechay_hora = 0;
+
+        vGotoxyLCD(1, 2);
+            char *cadena = &cadenaamostrar[0];
+            while (*cadena != '\0')
+                vLCD_Putc(*cadena++);
+            __delay_ms(500);
         }
 
 

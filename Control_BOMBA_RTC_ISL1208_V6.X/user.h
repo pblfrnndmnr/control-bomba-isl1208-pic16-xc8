@@ -79,14 +79,14 @@ typedef union {//8bits
     unsigned char Valor;
 
     struct {
-        bool RTCF; //REAL TIME CLOCK FAIL BIT (RTCF)
-        bool BAT; //BATTERY BIT (BAT)
-        bool ALM; //ALARM BIT (ALM)
-        bool : 1;
-        bool WRTC; //WRITE RTC ENABLE BIT (WRTC)
-        bool : 1;
-        bool XTOSCB; //CRYSTAL OSCILLATOR ENABLE BIT (XTOSCB)
-        bool ARST; //AUTO RESET ENABLE BIT (ARST)
+       unsigned RTCF:1; //REAL TIME CLOCK FAIL BIT (RTCF)
+        unsigned BAT:1; //BATTERY BIT (BAT)
+        unsigned ALM:1; //ALARM BIT (ALM)
+        unsigned : 1;
+        unsigned WRTC:1; //WRITE RTC ENABLE BIT (WRTC)
+        unsigned : 1;
+        unsigned XTOSCB:1; //CRYSTAL OSCILLATOR ENABLE BIT (XTOSCB)
+       unsigned ARST:1; //AUTO RESET ENABLE BIT (ARST)
 
     };
 } isl1208_SR_t;
@@ -98,10 +98,10 @@ typedef union {//8bits
 
     struct {
         unsigned FO : 4; //FREQUENCY OUT CONTROL BITS (FO <3:0>)
-        bool FOBATB; //FREQUENCY OUTPUT AND INTERRUPT BIT (FOBATB)
-        bool LPMODE; //LOW POWER MODE BIT (LPMODE)
-        bool ALME; //ALARM ENABLE BIT (ALME)
-        bool IM; //INTERRUPT/ALARM MODE BIT (IM)
+        unsigned FOBATB:1; //FREQUENCY OUTPUT AND INTERRUPT BIT (FOBATB)
+        unsigned LPMODE:1; //LOW POWER MODE BIT (LPMODE)
+        unsigned ALME:1; //ALARM ENABLE BIT (ALME)
+        unsigned IM:1; //INTERRUPT/ALARM MODE BIT (IM)
     };
 } isl1208_INT_t;
 
