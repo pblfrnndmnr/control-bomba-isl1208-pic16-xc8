@@ -110,9 +110,8 @@ unsigned char isl1208_bcd2bin(unsigned char bcd_value);
 
 void isl1208_init(unsigned char val);
 
-void isl1208_set_date_time(unsigned char* day, unsigned char* mth,
-        unsigned char* year, unsigned char* dow, unsigned char hr,
-        unsigned char min, unsigned char sec);
+void isl1208_set_time(unsigned char hr, unsigned char min, unsigned char sec);
+void isl1208_set_date(unsigned char* day, unsigned char* mth, unsigned char* year, unsigned char* dow);
 
 void isl1208_get_date(unsigned char * day, unsigned char *mth, unsigned char *year, unsigned char *dow);
 void isl1208_get_time(unsigned char *hr, unsigned char *min, unsigned char *sec);
