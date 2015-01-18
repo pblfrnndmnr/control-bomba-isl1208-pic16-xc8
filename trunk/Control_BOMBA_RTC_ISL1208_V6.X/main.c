@@ -84,26 +84,26 @@ void main() {
     PORTE = 0;
 
     vInitLCD();
-
+    static char * cadena;
     sprintf(cadenaamostrar, cadena_esp);
     sprintf(cadenaamostrar2, cadena_esp);
     vGotoxyLCD(1, 1);
-    char *cadena = &cadenaamostrar[0];
+    cadena = cadenaamostrar;
     while (*cadena != '\0')
         vLCD_Putc(*cadena++);
     vGotoxyLCD(1, 2);
-    char *cadena = &cadenaamostrar2[0];
+    cadena = cadenaamostrar2;
     while (*cadena != '\0')
         vLCD_Putc(*cadena++);
     refrescadisplay = 0;
     __delay_ms(500);
     sprintf(cadenaamostrar, "Ini...");
     vGotoxyLCD(1, 1);
-    char *cadena = &cadenaamostrar[0];
+    cadena = cadenaamostrar;
     while (*cadena != '\0')
         vLCD_Putc(*cadena++);
     vGotoxyLCD(1, 2);
-    char *cadena = &cadenaamostrar2[0];
+    cadena = cadenaamostrar2;
     while (*cadena != '\0')
         vLCD_Putc(*cadena++);
     refrescadisplay = 0;
@@ -136,7 +136,7 @@ void main() {
     if (ISL1208_ready()) {
         sprintf(cadenaamostrar, "RTC OK");
         vGotoxyLCD(1, 1);
-        char *cadena = &cadenaamostrar[0];
+        cadena = cadenaamostrar;
         while (*cadena != '\0')
             vLCD_Putc(*cadena++);
 
@@ -146,7 +146,7 @@ void main() {
     } else {
         sprintf(cadenaamostrar, "RTC ERRO");
         vGotoxyLCD(1, 1);
-        char *cadena = &cadenaamostrar[0];
+        cadena = cadenaamostrar;
         while (*cadena != '\0')
             vLCD_Putc(*cadena++);
 
@@ -468,7 +468,7 @@ void main() {
                 break;
         }
 
-        switch (estadofalla) {
+        switch (estadofallacorriente) {
             case CORRIENTENORMAL:
             {
                 break;
@@ -479,15 +479,15 @@ void main() {
             }
 
         }
-        //TODO borrAr esta linea
+        //TODO borrar esta linea
         //refrescadisplay = 1;
         if (refrescadisplay) {
             vGotoxyLCD(1, 1);
-            char *cadena = &cadenaamostrar[0];
+            cadena = cadenaamostrar;
             while (*cadena != '\0')
                 vLCD_Putc(*cadena++);
             vGotoxyLCD(1, 2);
-            char *cadena = &cadenaamostrar2[0];
+            cadena = cadenaamostrar2;
             while (*cadena != '\0')
                 vLCD_Putc(*cadena++);
 

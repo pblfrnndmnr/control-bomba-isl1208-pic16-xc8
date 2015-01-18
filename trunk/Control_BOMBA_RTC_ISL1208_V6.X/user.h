@@ -171,8 +171,10 @@ bool estadobomba = 0;
 bool estadonivel = 0;
 #define CORRIENTENORMAL 0
 #define FALLACORRIENTE 1
-bool estadofalla = 0;
-
+bool estadofallacorriente = 0;
+#define VOLTAJENORMAL 0
+#define FALLAVOLTAJE 1
+bool estadofallavoltaje= 0;
 unsigned int medidaI_adc = 0;
 #define OFFSET_I .3
 unsigned int medidaV_adc = 0;
