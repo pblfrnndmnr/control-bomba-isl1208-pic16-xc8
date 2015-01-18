@@ -49,13 +49,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 void lee_y_transmite_date_and_time(void) {
-
-    // isl1208_get_day_of_week( sdow);
-    isl1208_get_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-    //TODO arreglar el accceso a la estructura por puntero
-    isl1208_get_time(&horarioactual.hrs, &horarioactual.min, &horarioactual.sec);
-    // printf ("%s %02d/%02d/%02d\r\n ",sdow,fecha.day,fecha.month,fecha.yr);
-    //printf("%02d:%02d:%02d\r\n", horario.hrs,horario.min,horario.sec);
+      isl1208_get_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+      isl1208_get_time(&horarioactual.hrs, &horarioactual.min, &horarioactual.sec);  
 }
 
 void main() {
@@ -169,6 +164,8 @@ void main() {
 
     while (1) {//
         // di(); //
+        //Inicia Procesa los menú
+        ////////////////////////////////////////
         switch (menuactual) {
             case MENU_MUESTRAHORA:
             {
@@ -414,6 +411,13 @@ void main() {
                 unsigned int adcdecimalI;
                 unsigned int adcenteroV;
                 mediciondecorriente = (float) medidaI_adc * 50 / 1024;
+                //convierto el valor decimal a float
+                //para una entrada de 3.3V la lectura es 1023
+                //para 0 V la lectura es 0
+                //para una maxima lectura quiero que en el display se observe 50A
+                //Deseo que tambien me muestre 1 decimal, separo la parte entera y la decimal
+                //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
+                //cada 20 muestras tengo aproximdamente 1A
                 float mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
                 adcenteroI = (unsigned int) mediciondecorriente;
                 adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
@@ -425,20 +429,11 @@ void main() {
             default:
                 break;
         };
-
-
-        switch (activabomba) {
-            case ENCIENDEBOMBA:
-            {
-                salidabomba = 1;
-                break;
-            }
-            case APAGABOMBA:
-            {
-                salidabomba = 0;
-                break;
-            }
-        }
+        //////////////////////////////////////////////////////////
+        //Finaliza Procesa los menú
+        
+        //Verifica estados de falla
+        /////////////////////////////////////////////////////////
         switch (estadobomba) {
             case BOMBAAPAGADA:
             {
@@ -450,8 +445,8 @@ void main() {
 
                 break;
             }
-
-
+            default:
+                break;
         }
         switch (estadonivel) {
             case NIVELNORMAL:
@@ -477,10 +472,45 @@ void main() {
             {
                 break;
             }
-
+            default:
+                break;
         }
-        //TODO borrar esta linea
-        //refrescadisplay = 1;
+        switch (estadofallavoltaje) {
+            case VOLTAJENORMAL:
+            {
+                break;
+            }
+            case FALLAVOLTAJE:
+            {
+                break;
+            }
+            default:
+                break;
+        }
+        //////////////////////////////////////////////////////
+        //Fin Verifica estados de falla
+
+        //Activa o desactiva la Bomba
+        ///////////////////////////////////////////////////////
+        switch (activabomba) {
+            case ENCIENDEBOMBA:
+            {
+                salidabomba = 1;
+                break;
+            }
+            case APAGABOMBA:
+            {
+                salidabomba = 0;
+                break;
+            }
+            default:
+                break;
+        }
+        //////////////////////////////////////////////////////
+        //Fin Activa o desactiva la Bomba
+
+        //Actualiza Display
+        /////////////////////////////////////////////
         if (refrescadisplay) {
             vGotoxyLCD(1, 1);
             cadena = cadenaamostrar;
@@ -493,15 +523,11 @@ void main() {
 
             refrescadisplay = 0;
         }
+        ////////////////////////////////////////////////
+        //Fin Actualiza Display
 
-        //convierto el valor decimal a float
-        //para una entrada de 3.3V la lectura es 1023
-        //para 0 V la lectura es 0
-        //para una maxima lectura quiero que en el display se observe 50A
-        //como deseo que tambien me muetre los decimales.
-        //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
-        //cada 20 muestras tengo aproximdamente 1A
-
+        //Graba Nuevos datos en el RC
+        /////////////////////////////////////////////////
         if (bandera_startglobal) {
             bandera_grabafechay_hora = 1;
 
@@ -511,20 +537,9 @@ void main() {
             isl1208_set_time((*horario).hrs, (*horario).min, 00);
             isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
             bandera_grabafechay_hora = 0;
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
+        //////////////////////////////////////////////////////////////////
+        //Finaliza Graba Nuevos datos en el RC
         NOP();
         NOP();
 
