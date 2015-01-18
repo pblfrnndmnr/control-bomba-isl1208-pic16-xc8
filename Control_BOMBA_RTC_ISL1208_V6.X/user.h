@@ -44,7 +44,8 @@ bool flanco = 0;
 #define SINO 0x06
 #define TIEMPOENCENDIDO 0x07
 #define TIEMPOFALLA 0x08
-#define NOHACENADA 0x09
+#define PERIODOENCENDIDO 0X09
+#define NOHACENADA 0x0A
 //bandera para modificar minutos horas dia mes año
 bool modificafecha = NOHACENADA;
 bool banderasino = 0;
@@ -143,7 +144,7 @@ float mediciondecorriente;
 #define SUBMENU_CONFIGURAHORAENCENDIDO 11 //submenu para configurar la hora de encendido
 #define SUBMENU_CONFIGURAMINUTOSENCENDIDO 12 //submenu para configurar la hora de encendido
 #define SUBMENU_CONFIGURATIEMPOENCENDIDO 13 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
-#define SUBMENU_CONFIGURAREPITECADA12HORAS 14 //submenu para indicar si se repite el encendido cada 12 horas
+#define SUBMENU_CONFIGURAPERIODOENCENDIDO 14 //submenu para indicar si se repite el encendido cada 12 horas
 
 #define MENU_CONFIGURAFALLACORRIENTE 15//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
 #define MENU_CONFIGURATIEMPOFALLACORRIENTE 16 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos
@@ -154,6 +155,8 @@ float mediciondecorriente;
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
 #define TIEMPOMAXIMOFALLA 30 //segundos 
 #define TIEMPOMAXIMONIVEL 15 //es el tiempo que hay que esperar en caso de que se llegue al nivel minimo para apagar el motor
+#define TIEMPOMAXIMOPERIODO 7 //cada cuantos dias se riega.
+unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
 unsigned char tiempofalla = 0;
 unsigned char menuactual = MENU_MUESTRAHORA;

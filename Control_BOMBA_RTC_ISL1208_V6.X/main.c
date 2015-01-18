@@ -49,8 +49,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 void lee_y_transmite_date_and_time(void) {
-      isl1208_get_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-      isl1208_get_time(&horarioactual.hrs, &horarioactual.min, &horarioactual.sec);  
+    isl1208_get_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+    isl1208_get_time(&horarioactual.hrs, &horarioactual.min, &horarioactual.sec);
 }
 
 void main() {
@@ -150,6 +150,10 @@ void main() {
         __delay_ms(500);
 
     };
+    fecha.day=1;
+    fecha.month=1;
+    fecha.yr=15;
+    fecha.dow=4;
     isl1208SR.Valor = 0x00;
     isl1208SR.Valor = ISL1208_Read_status();
     if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
@@ -338,19 +342,16 @@ void main() {
                 }
                 break;
             }
-            case SUBMENU_CONFIGURAREPITECADA12HORAS:
+            case SUBMENU_CONFIGURAPERIODOENCENDIDO:
             {
-                modificafecha = SINO;
+                modificafecha = PERIODOENCENDIDO;
 
-                if (flanco)
-                    if (banderasino) {
-                        sprintf(cadenaamostrar, "REPIT SI");
-                        sprintf(cadenaamostrar2, cadena_esp);
-                    } else {
-                        sprintf(cadenaamostrar, "REPIT NO");
-                        sprintf(cadenaamostrar2, cadena_esp);
-                    } else {
-                    sprintf(cadenaamostrar, "REPIT   ");
+                if (flanco || haycambio) {
+                    sprintf(cadenaamostrar, "c/%u dias",periodoencendido);
+                    sprintf(cadenaamostrar2, cadena_esp);
+                    haycambio = 0;
+                } else {
+                    sprintf(cadenaamostrar, "c/  dias");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
@@ -431,7 +432,7 @@ void main() {
         };
         //////////////////////////////////////////////////////////
         //Finaliza Procesa los menú
-        
+
         //Verifica estados de falla
         /////////////////////////////////////////////////////////
         switch (estadobomba) {
