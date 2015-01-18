@@ -48,3 +48,22 @@ int aniobisiesto(unsigned char year)
 {
     return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 }
+
+unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio){
+//se usa el algoritmo de Zeller
+   unsigned char a,y,m,dow;
+
+   a = (14 -*mes) / 12;
+y = *anio - a;  
+m = *mes + 12 * a - 2;
+
+//Para el calendario Juliano:
+//d = (5 + dia + y + y/4 + (31*m)/12) mod 7
+
+//Para el calendario Gregoriano:
+ dow = (*dia + y + y/4 - y/100 + y/400 + (31*m)/12) % 7;
+
+//El resultado es un cero (0) para el domingo, 1 para el lunes? 6 para el sábado
+
+ return (dow);
+}

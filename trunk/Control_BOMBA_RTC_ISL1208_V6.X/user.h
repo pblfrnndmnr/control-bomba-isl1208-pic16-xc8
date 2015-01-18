@@ -113,7 +113,7 @@ Horario_t horarioenc;
 Horario_t horarioactual;
 isl1208_SR_t isl1208SR;
 isl1208_INT_t isl1208INT;
-char sdow[11];
+//char sdow[11];
 
 bool bandera_startglobal = 0;
 //bool bandera_modificaglobal=0;
@@ -186,5 +186,5 @@ int promedio_adc[4] = {0, 0, 0, 0};
 void InitApp(void); /* I/O and Peripheral Initialization */
 void putch(char data);
 int aniobisiesto(unsigned char year);
-
+unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio);
 #endif
