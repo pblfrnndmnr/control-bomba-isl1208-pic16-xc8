@@ -287,7 +287,7 @@ void interrupt isr(void) {
             else
                 menuactual = 0;
         }
-        INTCONbits.T0IF = 0;
+        T0IF = 0;
     } else {
         ///interrupciones no contempladas
     }

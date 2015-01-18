@@ -58,7 +58,7 @@ unsigned char ISL1208_Read_status(void) {
     start_i2c(); // If the write command is acknowledged,
     write_i2c(isl1208_Write); // then the device is ready.
     write_i2c(0x07);
-    rstart_i2c(); //TODO cambiado start por rstart
+    rstart_i2c(); 
     write_i2c(isl1208_Read);
     SR = read_i2c(NOACK);
     stop_i2c();
@@ -73,28 +73,7 @@ void isl1208_init(unsigned char val) {
     //di();
 #endif
     //TODO Verificar secuencia correcta para pode escribir en el ISL1208
-    start_i2c();
-    write_i2c(isl1208_Write);
-    write_i2c(0x00);
-    rstart_i2c();
-    write_i2c(isl1208_Read);
-    seconds = isl1208_bcd2bin(read_i2c(NOACK));
-    stop_i2c();
-    seconds &= 0x7F;
-
-    __delay_us(3);
-
-    start_i2c();
-    write_i2c(isl1208_Write);
-    write_i2c(0x00);
-    write_i2c(isl1208_bin2bcd(seconds));
-    stop_i2c();
-    start_i2c();
-    write_i2c(isl1208_Write);
-    write_i2c(0x07);
-    write_i2c(val);
-    stop_i2c();
-
+    
 #ifndef USE_INTERRUPTS
     //ei();
 #endif
@@ -108,6 +87,7 @@ void isl1208_set_time(unsigned char hr, unsigned char min, unsigned char sec) {
 #endif
 
     sec &= 0x7F;
+    min &= 0x7F;
     hr &= 0x3F;
     start_i2c();
     write_i2c(isl1208_Write);
@@ -195,6 +175,45 @@ void isl1208_get_time(unsigned char *hr, unsigned char* min, unsigned char *sec)
 
 #ifndef USE_INTERRUPTS
     // ei();
+#endif
+
+}
+
+void isl1208_set_time_enc(unsigned char hr, unsigned char min, unsigned char sec) {
+//TODO terminar de implementar la funcion de escritura de la alarma.
+#ifndef USE_INTERRUPTS
+    //di();
+#endif
+    min &=0x7F;
+    hr &= 0x3F;
+    
+    start_i2c();
+    write_i2c(isl1208_Write);
+    write_i2c(0x0C);
+    write_i2c(isl1208_bin2bcd(0));
+    write_i2c(isl1208_bin2bcd(min)| 0b10000000); //habilita la alarma de minutos
+    write_i2c(isl1208_bin2bcd(hr) | 0b10000000); //habilita la alarma de horas
+    stop_i2c();
+
+#ifndef USE_INTERRUPTS
+    //  ei();
+#endif
+
+}
+void isl1208_set_dow_enc(unsigned char dow) {
+//TODO terminar de implementar la funcion de escritura de dow.
+#ifndef USE_INTERRUPTS
+    //di();
+#endif
+    dow &=0x07;
+    start_i2c();
+    write_i2c(isl1208_Write);
+    write_i2c(0x11);
+    write_i2c(isl1208_bin2bcd(dow)| 0b10000000); //habilita la alarma de dow
+    stop_i2c();
+
+#ifndef USE_INTERRUPTS
+    //  ei();
 #endif
 
 }

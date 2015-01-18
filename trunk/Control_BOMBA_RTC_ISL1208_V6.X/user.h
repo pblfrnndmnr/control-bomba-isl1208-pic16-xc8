@@ -143,8 +143,8 @@ float mediciondecorriente;
 //#este menu tiene submenu
 #define SUBMENU_CONFIGURAHORAENCENDIDO 11 //submenu para configurar la hora de encendido
 #define SUBMENU_CONFIGURAMINUTOSENCENDIDO 12 //submenu para configurar la hora de encendido
-#define SUBMENU_CONFIGURATIEMPOENCENDIDO 13 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
-#define SUBMENU_CONFIGURAPERIODOENCENDIDO 14 //submenu para indicar si se repite el encendido cada 12 horas
+#define SUBMENU_CONFIGURAPERIODOENCENDIDO 13 //submenu para indicar cada cuantos dias se prende la bomba
+#define SUBMENU_CONFIGURATIEMPOENCENDIDO 14 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
 
 #define MENU_CONFIGURAFALLACORRIENTE 15//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
 #define MENU_CONFIGURATIEMPOFALLACORRIENTE 16 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos

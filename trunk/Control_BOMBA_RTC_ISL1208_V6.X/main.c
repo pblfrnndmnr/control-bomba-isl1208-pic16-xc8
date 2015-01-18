@@ -35,10 +35,6 @@
 //#use delay(clock=20000000)
 //#use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7)
 
-// Libreria isl1208.c //////////////////////////////////////////////////////////
-
-#define RTC_SDA  PIN_B0
-#define RTC_SCL  PIN_B1
 
 #define USE_INTERRUPTS 1
 
@@ -190,7 +186,7 @@ void main() {
             {
 
                 if (flanco) {
-                    //TODO lee_y_transmite_date_and_time();
+                    lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                 }
@@ -328,20 +324,7 @@ void main() {
                 break;
             }
 
-            case SUBMENU_CONFIGURATIEMPOENCENDIDO:
-            {
-                modificafecha = TIEMPOENCENDIDO;
-
-                if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
-                    sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
-                } else {
-                    sprintf(cadenaamostrar, "ENCEN:  ");
-                    sprintf(cadenaamostrar2, cadena_esp);
-                }
-                break;
-            }
+            
             case SUBMENU_CONFIGURAPERIODOENCENDIDO:
             {
                 modificafecha = PERIODOENCENDIDO;
@@ -352,6 +335,21 @@ void main() {
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "c/  dias");
+                    sprintf(cadenaamostrar2, cadena_esp);
+                }
+                break;
+            }
+
+            case SUBMENU_CONFIGURATIEMPOENCENDIDO:
+            {
+                modificafecha = TIEMPOENCENDIDO;
+
+                if (flanco || haycambio) {
+                    sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
+                    sprintf(cadenaamostrar2, cadena_esp);
+                    haycambio = 0;
+                } else {
+                    sprintf(cadenaamostrar, "ENCEN:  ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
