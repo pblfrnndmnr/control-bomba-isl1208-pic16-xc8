@@ -100,10 +100,9 @@
 
 
 
-char I2Cstate;
 
 const unsigned char days_of_week[7][3] = {"Do\0", "Lu\0", "Ma\0", "Mi\0", "Ju\0", "Vi\0", "Sa\0"};
-
+const unsigned char cadena_esp[]="        ";
 bool ISL1208_ready(void);
 unsigned char isl1208_bin2bcd(unsigned char binary_value);
 unsigned char isl1208_bcd2bin(unsigned char bcd_value);
@@ -117,7 +116,8 @@ void isl1208_get_date(unsigned char * day, unsigned char *mth, unsigned char *ye
 void isl1208_get_time(unsigned char *hr, unsigned char *min, unsigned char *sec);
 char isl1208_read_nvram_byte(char addr);
 void isl1208_write_nvram_byte(char addr, char value);
-void isl1208_get_day_of_week(char* ptr);
+int aniobisiesto(unsigned char year);
+unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio);
 unsigned char ISL1208_Read_status(void);
 ///////////////////////////////////////////////////////////////////////////////
 

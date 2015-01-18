@@ -16,6 +16,7 @@
 #include "Pulsadores.h"
 #include "pwm.h"
 #include "adcPic16.h"
+#include "_isl1208.h"
 /* Interrupt Routines                                                         */
 /******************************************************************************/
 

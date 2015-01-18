@@ -117,8 +117,8 @@ isl1208_INT_t isl1208INT;
 
 bool bandera_startglobal = 0;
 //bool bandera_modificaglobal=0;
-char cadenaamostrar[16];
-char cadenaamostrar2[16];
+char cadenaamostrar[8];
+char cadenaamostrar2[8];
 bool bandera_grabafechay_hora = 0;
 float mediciondecorriente;
 
@@ -185,6 +185,5 @@ int promedio_adc[4] = {0, 0, 0, 0};
 /* User level functions prototypes (i.e. InitApp) go here */
 void InitApp(void); /* I/O and Peripheral Initialization */
 void putch(char data);
-int aniobisiesto(unsigned char year);
-unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio);
+
 #endif

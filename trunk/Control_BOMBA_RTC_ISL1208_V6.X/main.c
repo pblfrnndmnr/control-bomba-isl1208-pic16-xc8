@@ -84,7 +84,9 @@ void main() {
     PORTE = 0;
 
     vInitLCD();
-    sprintf(cadenaamostrar, "        ");
+
+    sprintf(cadenaamostrar, cadena_esp);
+    sprintf(cadenaamostrar2, cadena_esp);
     vGotoxyLCD(1, 1);
     char *cadena = &cadenaamostrar[0];
     while (*cadena != '\0')
@@ -131,9 +133,7 @@ void main() {
     INTF = 0; // borro las banderas de interrupcion
     TMR0IF = 0;
 
-
-
-    if (ISL1208_ready()){
+    if (ISL1208_ready()) {
         sprintf(cadenaamostrar, "RTC OK");
         vGotoxyLCD(1, 1);
         char *cadena = &cadenaamostrar[0];
@@ -143,7 +143,7 @@ void main() {
         __delay_ms(500);
         __delay_ms(500);
         __delay_ms(500);
-    }else {
+    } else {
         sprintf(cadenaamostrar, "RTC ERRO");
         vGotoxyLCD(1, 1);
         char *cadena = &cadenaamostrar[0];
@@ -157,30 +157,15 @@ void main() {
     };
     isl1208SR.Valor = 0x00;
     isl1208SR.Valor = ISL1208_Read_status();
-    sprintf(cadenaamostrar, "%X",isl1208SR.Valor);
-        vGotoxyLCD(1, 2);
-        char *cadena = &cadenaamostrar[0];
-        while (*cadena != '\0')
-            vLCD_Putc(*cadena++);
-
-        __delay_ms(500);
-        __delay_ms(500);
-        __delay_ms(500);
-
-
     if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
         menuactual = MENU_CONFIGURAHORARIO;
 
-    }else
-    {
-     lee_y_transmite_date_and_time();
+    } else {
+        lee_y_transmite_date_and_time();
     }
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
     //TODO   isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);
-
-    //TODO lee_y_transmite_date_and_time();
-
 
     while (1) {//
         // di(); //
@@ -189,16 +174,15 @@ void main() {
             {
                 horario = &horarioactual;
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
-       
-                    if (flanco) {
-                        lee_y_transmite_date_and_time();
-                         //if (refrescadisplay) lee_y_transmite_date_and_time();
-                        sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
-                        sprintf(cadenaamostrar2, "             ");
-                    } else {
-                        sprintf(cadenaamostrar, "%02d %02d    ", horarioactual.hrs, horarioactual.min);
-                        sprintf(cadenaamostrar2, "             ");
-                    }
+
+                if (flanco) {
+                    lee_y_transmite_date_and_time();
+                    sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar2, cadena_esp);
+                } else {
+                    sprintf(cadenaamostrar, "%02d %02d    ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar2, cadena_esp);
+                }
                 break;
             }
             case MENU_MUESTRAFECHA:
@@ -218,7 +202,7 @@ void main() {
 
                 if (flanco) {
                     sprintf(cadenaamostrar, "SET HORA ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
 
                 break;
@@ -229,11 +213,11 @@ void main() {
                 horario = &horarioactual;
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  :%02d    ", horarioactual.min);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -243,11 +227,11 @@ void main() {
                 horario = &horarioactual;
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d:      ", horarioactual.hrs);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -256,7 +240,7 @@ void main() {
 
                 if (flanco) {
                     sprintf(cadenaamostrar, "SET FECHA");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -271,7 +255,7 @@ void main() {
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -281,11 +265,11 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]); 
+                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -295,11 +279,11 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);                   
+                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -308,7 +292,7 @@ void main() {
 
                 if (flanco) {
                     sprintf(cadenaamostrar, "SET ENC  ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
 
                 break;
@@ -319,11 +303,11 @@ void main() {
                 horario = &horarioenc;
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  :%02d    ", horarioenc.min);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
 
                 break;
@@ -334,11 +318,11 @@ void main() {
                 horario = &horarioenc;
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d:      ", horarioenc.hrs);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -349,11 +333,11 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "ENCEN:  ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -364,13 +348,13 @@ void main() {
                 if (flanco)
                     if (banderasino) {
                         sprintf(cadenaamostrar, "REPIT SI");
-                        sprintf(cadenaamostrar2, "             ");
+                        sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                         sprintf(cadenaamostrar, "REPIT NO");
-                        sprintf(cadenaamostrar2, "             ");
+                        sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                     sprintf(cadenaamostrar, "REPIT   ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -381,13 +365,13 @@ void main() {
                 if (flanco)
                     if (banderasino) {
                         sprintf(cadenaamostrar, "NORMAL A ");
-                        sprintf(cadenaamostrar2, "             ");
+                        sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                         sprintf(cadenaamostrar, "NORMAL C ");
-                        sprintf(cadenaamostrar2, "             ");
+                        sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                     sprintf(cadenaamostrar, "NORMAL   ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -397,11 +381,11 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "FALLA:%02d", tiempofalla);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "FALLA:  ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -413,13 +397,13 @@ void main() {
                 if (flanco)
                     if (banderasino) {
                         sprintf(cadenaamostrar, "NORMAL A ");
-                        sprintf(cadenaamostrar2, "             ");
+                        sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                         sprintf(cadenaamostrar, "NORMAL C ");
-                        sprintf(cadenaamostrar2, "             ");
+                        sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                     sprintf(cadenaamostrar, "NORMAL   ");
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, cadena_esp);
                 }
 
                 break;
@@ -528,11 +512,7 @@ void main() {
             isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
             bandera_grabafechay_hora = 0;
 
-        vGotoxyLCD(1, 2);
-            char *cadena = &cadenaamostrar[0];
-            while (*cadena != '\0')
-                vLCD_Putc(*cadena++);
-            __delay_ms(500);
+
         }
 
 
