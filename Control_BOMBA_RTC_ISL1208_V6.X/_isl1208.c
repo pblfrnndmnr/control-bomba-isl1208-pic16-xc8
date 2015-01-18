@@ -74,7 +74,7 @@ void isl1208_init(unsigned char val) {
 #endif
     //TODO Verificar secuencia correcta para pode escribir en el ISL1208
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(0x00);
     rstart_i2c();
     write_i2c(isl1208_Read);
@@ -108,33 +108,26 @@ void isl1208_set_time(unsigned char hr, unsigned char min, unsigned char sec) {
 #endif
 
     sec &= 0x7F;
-   hr &= 0x3F;
+    hr &= 0x3F;
     start_i2c();
     write_i2c(isl1208_Write);
     write_i2c(0x07);
     write_i2c(0b00010000);
     stop_i2c();
-   isl1208SR.Valor=ISL1208_Read_status();
-
-    
-    sprintf(cadenaamostrar, "%X   ",isl1208SR.Valor);
-
-
-
-
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(0x00);
     write_i2c(isl1208_bin2bcd(sec));
     write_i2c(isl1208_bin2bcd(min));
-    write_i2c(isl1208_bin2bcd(hr)|0b10000000);
-   stop_i2c();
+    write_i2c(isl1208_bin2bcd(hr) | 0b10000000);
+    stop_i2c();
 
 #ifndef USE_INTERRUPTS
     //  ei();
 #endif
 
 }
+
 void isl1208_set_date(unsigned char* day, unsigned char* mth, unsigned char* year, unsigned char* dow) {
 
 #ifndef USE_INTERRUPTS
@@ -146,12 +139,8 @@ void isl1208_set_date(unsigned char* day, unsigned char* mth, unsigned char* yea
     write_i2c(0x07);
     write_i2c(0b00010000);
     stop_i2c();
-   isl1208SR.Valor=ISL1208_Read_status();
-
-
-    sprintf(cadenaamostrar, "%X   ",isl1208SR.Valor);
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(0x03);
     write_i2c(isl1208_bin2bcd(*day));
     write_i2c(isl1208_bin2bcd(*mth));
@@ -172,7 +161,7 @@ void isl1208_get_date(unsigned char* day, unsigned char* mth, unsigned char* yea
 #endif
 
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(0x03);
     rstart_i2c();
     write_i2c(isl1208_Read);
@@ -194,7 +183,7 @@ void isl1208_get_time(unsigned char *hr, unsigned char* min, unsigned char *sec)
 #endif
 
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(0x00);
 
     rstart_i2c();
@@ -219,7 +208,7 @@ char isl1208_read_nvram_byte(char addr) {
 #endif
 
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(addr);
 
     start_i2c();
@@ -242,7 +231,7 @@ void isl1208_write_nvram_byte(char addr, char value) {
 #endif
 
     start_i2c();
-    I2Cstate = write_i2c(isl1208_Write);
+    write_i2c(isl1208_Write);
     write_i2c(addr);
     write_i2c(value);
     stop_i2c();
@@ -252,25 +241,28 @@ void isl1208_write_nvram_byte(char addr, char value) {
 #endif
 
 }
-
-void isl1208_get_day_of_week(char* ptr) {
-
-    unsigned char *plday;
-    unsigned char *plmonth;
-    unsigned char *plyr;
-    unsigned char *pldow;
-    unsigned char lday = 0;
-    unsigned char lmonth = 0;
-    unsigned char lyr = 0;
-    unsigned char ldow = 0;
-    plday = &lday;
-    plmonth = &lmonth;
-    plyr = &lyr;
-    pldow = &ldow;
-    isl1208_get_date(plday, plmonth, plyr, pldow);
-    sprintf(ptr, "%s", days_of_week[*pldow - 1]);
+int aniobisiesto(unsigned char year)
+{
+    return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 }
+unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio){
+//se usa el algoritmo de Zeller
+   unsigned char a,y,m,dow;
 
+   a = (14 -*mes) / 12;
+y = *anio - a;
+m = *mes + 12 * a - 2;
+
+//Para el calendario Juliano:
+//d = (5 + dia + y + y/4 + (31*m)/12) mod 7
+
+//Para el calendario Gregoriano:
+ dow = (*dia + y + y/4 - y/100 + y/400 + (31*m)/12) % 7;
+
+//El resultado es un cero (0) para el domingo, 1 para el lunes? 6 para el sábado
+
+ return (dow);
+}
 ///////////////////////////////////////////////////////////////////////////////
 
 unsigned char isl1208_bin2bcd(unsigned char binary_value) {
