@@ -45,7 +45,7 @@ FILES INCLUDED IN THE PROJECT BUT NOT IN THE PROJECT TREE:
 
 #include <htc.h>             /* Global Header File */
 #include <stdint.h>          /* For uint8_t definition */
-#include <stdbool.h>         /* For true/false definition */
+#include <std__bit.h>         /* For true/false definition */
 
 These files come with the HiTech compiler.  Check the compiler documentation for
 more information on these files.
