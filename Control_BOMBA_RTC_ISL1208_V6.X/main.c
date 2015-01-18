@@ -189,7 +189,7 @@ void main() {
             {
                 horario = &horarioactual;
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
-                if (!I2Cstate) {
+       
                     if (flanco) {
                         lee_y_transmite_date_and_time();
                          //if (refrescadisplay) lee_y_transmite_date_and_time();
@@ -199,12 +199,6 @@ void main() {
                         sprintf(cadenaamostrar, "%02d %02d    ", horarioactual.hrs, horarioactual.min);
                         sprintf(cadenaamostrar2, "             ");
                     }
-                } else {
-                    sprintf(cadenaamostrar, "RTC erro");
-                    sprintf(cadenaamostrar2, "             ");
-                }
-
-
                 break;
             }
             case MENU_MUESTRAFECHA:
@@ -213,7 +207,7 @@ void main() {
                 if (flanco) {
                     //TODO lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                 }
 
 
@@ -272,7 +266,8 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+                    //sprintf(cadenaamostrar2, "             ");
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
@@ -286,7 +281,7 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]); 
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
@@ -300,7 +295,7 @@ void main() {
 
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, "             ");
+                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);                   
                     haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
