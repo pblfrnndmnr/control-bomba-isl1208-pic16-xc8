@@ -200,20 +200,62 @@ void isl1208_set_time_enc(unsigned char hr, unsigned char min, unsigned char sec
 #endif
 
 }
-void isl1208_set_dow_enc(unsigned char dow) {
+void isl1208_set_dow_enc(unsigned char *dow) {
 //TODO terminar de implementar la funcion de escritura de dow.
 #ifndef USE_INTERRUPTS
     //di();
 #endif
-    dow &=0x07;
+    *dow &=0x07;
     start_i2c();
     write_i2c(isl1208_Write);
     write_i2c(0x11);
-    write_i2c(isl1208_bin2bcd(dow)| 0b10000000); //habilita la alarma de dow
+    write_i2c(isl1208_bin2bcd(*dow)| 0b10000000); //habilita la alarma de dow
     stop_i2c();
 
 #ifndef USE_INTERRUPTS
     //  ei();
+#endif
+
+}
+
+void isl1208_get_dow_enc(unsigned char *dow) {
+//TODO terminar de implementar la funcion de escritura de dow.
+#ifndef USE_INTERRUPTS
+    //di();
+#endif
+
+    start_i2c();
+    write_i2c(isl1208_Write);
+    write_i2c(0x11);
+    rstart_i2c();
+    write_i2c(isl1208_Read);
+    *dow = isl1208_bcd2bin(read_i2c(NOACK) & 0x07);
+    stop_i2c();
+
+#ifndef USE_INTERRUPTS
+    //  ei();
+#endif
+
+}
+void isl1208_get_time_enc(unsigned char *hr, unsigned char* min, unsigned char *sec) {
+
+#ifndef USE_INTERRUPTS
+    // di();
+#endif
+
+    start_i2c();
+    write_i2c(isl1208_Write);
+    write_i2c(0x0C);
+
+    rstart_i2c();
+    write_i2c(isl1208_Read);
+    *sec = isl1208_bcd2bin(read_i2c(ACK) & 0x7f);
+    * min = isl1208_bcd2bin(read_i2c(ACK) & 0x7f);
+    * hr = isl1208_bcd2bin(read_i2c(NOACK) & 0x3f);
+    stop_i2c();
+
+#ifndef USE_INTERRUPTS
+    // ei();
 #endif
 
 }

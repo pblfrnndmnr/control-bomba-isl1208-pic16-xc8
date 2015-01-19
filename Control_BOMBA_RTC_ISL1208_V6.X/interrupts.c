@@ -112,13 +112,7 @@ void interrupt isr(void) {
                 }
             }
         }
-
-
-        //interrupcion_pulsadores();
         static char maximodia;
-        //TODO calculo de los segundos y minutos que pasaron
-
-
         if (Pulsacion(0, BOTON_Subir, CON_REPETICION, LOGICA_INVERSA)) {
 
             refrescadisplay = 1;
@@ -262,16 +256,6 @@ void interrupt isr(void) {
                 fecha.day = maximodia;
         }
 
-        //bandera_modificaglobal=0;
-        /*  if (Pulsacion(3, Modifica, SIN_REPETICION, LOGICA_INVERSA)) {
-               refrescadisplay = 1;
-              if (modificafecha < ANIO)
-                  modificafecha = modificafecha + 1;
-              else
-                  modificafecha = HORA;
-              //bandera_modificaglobal=1;
-
-          }*/
 
         bandera_startglobal = 0;
         if (Pulsacion(3, BOTON_ONOFF, INMEDIATO, LOGICA_INVERSA)) {
