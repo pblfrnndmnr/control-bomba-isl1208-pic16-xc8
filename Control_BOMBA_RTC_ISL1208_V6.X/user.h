@@ -15,7 +15,7 @@ unsigned char cuenta500ms;
 #define TIEMPODEESPERA=10 //segundos
 unsigned char tiempoanterior = 0, tiempoactual = 0;
 bool expirotiempo = 0;
-unsigned char activapor;
+unsigned char activapwmpor;
 /*  Application specific user parameters used in user.c may go here */
 
 
