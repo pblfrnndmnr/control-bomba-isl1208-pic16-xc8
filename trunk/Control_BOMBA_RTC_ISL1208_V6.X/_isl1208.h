@@ -116,7 +116,10 @@ void isl1208_get_date(unsigned char * day, unsigned char *mth, unsigned char *ye
 void isl1208_get_time(unsigned char *hr, unsigned char *min, unsigned char *sec);
 
 void isl1208_set_time_enc(unsigned char hr, unsigned char min, unsigned char sec);
-void isl1208_set_dow_enc(unsigned char dow);
+void isl1208_set_dow_enc(unsigned char *dow);
+
+void isl1208_get_dow_enc(unsigned char *dow);
+void isl1208_get_time_enc(unsigned char *hr, unsigned char *min, unsigned char *sec);
 
 char isl1208_read_nvram_byte(char addr);
 void isl1208_write_nvram_byte(char addr, char value);
