@@ -69,11 +69,11 @@ void interrupt isr(void) {
             cuenta40ms++;
         } else {
             cuenta40ms = 0;
-            if (activapor > 0) {
-                activapor--;
+            if (activapwmpor > 0) {
+                activapwmpor--;
             } else {
                 buzzer_off();
-                activapor = 0;
+                activapwmpor = 0;
             }
             if (cuenta500ms < 11) {
                 cuenta500ms++;

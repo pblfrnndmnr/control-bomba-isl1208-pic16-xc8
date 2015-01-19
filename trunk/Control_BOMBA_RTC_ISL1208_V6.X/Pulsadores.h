@@ -11,8 +11,8 @@ ONOFF-     RB5
 
  **************************/
 
-
-#define ANTIRREBOTES    20    // Nº de ciclos mínimo antes de detectar otra pulsación
+//TODO cambiado antirrebotes de 20 a 50 para probar mejor respuesta de los pulsadores
+#define ANTIRREBOTES    50    // Nº de ciclos mínimo antes de detectar otra pulsación
 #define CAMBIO1         100   // Nº de ciclos para el primer intervalo
 #define CAMBIO2         500   // Nº de ciclos para el segundo intervalo
 #define CAMBIO3         2000  // Nº de ciclos para el tercer intervalo

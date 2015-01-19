@@ -157,6 +157,11 @@ void main() {
 
     } else {
         lee_y_transmite_date_and_time();
+
+        /*TODO leer el valor de la alarma de encendido en algun lado cuando se cambia el
+         valor de horarioenc pero no se guarda
+         */
+          isl1208_get_time_enc(&horarioenc.hrs,&horarioenc.min, &horarioenc.sec);
     }
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
@@ -532,9 +537,14 @@ void main() {
 
         }
         if (!bandera_startglobal && bandera_grabafechay_hora) {
-
+            if (horario==&horarioactual){
             isl1208_set_time((*horario).hrs, (*horario).min, 00);
             isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+            }
+            if (horario==&horarioenc){
+            isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
+            //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+            }
             bandera_grabafechay_hora = 0;
         }
         //////////////////////////////////////////////////////////////////
