@@ -162,6 +162,7 @@ void main() {
          valor de horarioenc pero no se guarda
          */
           isl1208_get_time_enc(&horarioenc.hrs,&horarioenc.min, &horarioenc.sec);
+          isl1208_get_dow_enc(&fechaenc.dow);
     }
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
@@ -544,6 +545,7 @@ void main() {
             if (horario==&horarioenc){
             isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
             //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+            isl1208_set_dow_enc(&fechaenc.dow);
             }
             bandera_grabafechay_hora = 0;
         }
