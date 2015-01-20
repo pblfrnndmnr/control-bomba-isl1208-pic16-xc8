@@ -109,6 +109,7 @@ typedef union {//8bits
 
 
 Fecha_t fecha;
+Fecha_t fechaenc;
 Horario_t * horario;
 Horario_t horarioenc;
 Horario_t horarioactual;
