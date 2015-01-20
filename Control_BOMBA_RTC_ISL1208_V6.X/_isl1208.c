@@ -180,7 +180,6 @@ void isl1208_get_time(unsigned char *hr, unsigned char* min, unsigned char *sec)
 }
 
 void isl1208_set_time_enc(unsigned char hr, unsigned char min, unsigned char sec) {
-//TODO terminar de implementar la funcion de escritura de la alarma.
 #ifndef USE_INTERRUPTS
     //di();
 #endif

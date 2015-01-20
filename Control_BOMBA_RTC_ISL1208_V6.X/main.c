@@ -146,10 +146,10 @@ void main() {
         __delay_ms(500);
 
     };
-    fecha.day=1;
-    fecha.month=1;
-    fecha.yr=15;
-    fecha.dow=4;
+    fecha.day = 1;
+    fecha.month = 1;
+    fecha.yr = 15;
+    fecha.dow = 4;
     isl1208SR.Valor = 0x00;
     isl1208SR.Valor = ISL1208_Read_status();
     if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
@@ -161,8 +161,9 @@ void main() {
         /*TODO leer el valor de la alarma de encendido en algun lado cuando se cambia el
          valor de horarioenc pero no se guarda
          */
-          isl1208_get_time_enc(&horarioenc.hrs,&horarioenc.min, &horarioenc.sec);
-          isl1208_get_dow_enc(&fechaenc.dow);
+        isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
+        isl1208_get_dow_enc(&fechaenc.dow);
+        //TODO tengo que detectar si la alarma se activo cunado el sistema estaba apagado y procesarla
     }
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
@@ -330,13 +331,13 @@ void main() {
                 break;
             }
 
-            
+
             case SUBMENU_CONFIGURAPERIODOENCENDIDO:
             {
                 modificafecha = PERIODOENCENDIDO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "c/%u dias",periodoencendido);
+                    sprintf(cadenaamostrar, "c/%u dias", periodoencendido);
                     sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
@@ -538,14 +539,14 @@ void main() {
 
         }
         if (!bandera_startglobal && bandera_grabafechay_hora) {
-            if (horario==&horarioactual){
-            isl1208_set_time((*horario).hrs, (*horario).min, 00);
-            isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+            if (horario == &horarioactual) {
+                isl1208_set_time((*horario).hrs, (*horario).min, 00);
+                isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
             }
-            if (horario==&horarioenc){
-            isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
-            //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-            isl1208_set_dow_enc(&fechaenc.dow);
+            if (horario == &horarioenc) {
+                isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
+                //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+                isl1208_set_dow_enc(&fechaenc.dow);
             }
             bandera_grabafechay_hora = 0;
         }
