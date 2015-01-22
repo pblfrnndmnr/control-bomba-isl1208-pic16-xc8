@@ -28,11 +28,11 @@ ONOFF-     RB5
 #define LOGICA_INVERSA  1     // Al pulsar se recibe un 1
 
 
-#define BOTON_Subir      PORTBbits.RB1
-#define BOTON_Bajar      PORTBbits.RB2
-#define BOTON_MENU       PORTBbits.RB3
-#define BOTON_MANAUT     PORTBbits.RB4
-#define BOTON_ONOFF      PORTBbits.RB5
+#define BOTON_Subir      RB2 //PORTBbits.RB1  //TODO cambiado rb2 por rb1 para que qude mejor ubicado los botones bajar y subir
+#define BOTON_Bajar      RB1 //PORTBbits.RB2
+#define BOTON_MENU       RB3 //PORTBbits.RB3
+#define BOTON_MANAUT     RB4 //PORTBbits.RB4
+#define BOTON_ONOFF      RB5 //PORTBbits.RB5
 
 
 
