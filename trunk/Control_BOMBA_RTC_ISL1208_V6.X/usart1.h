@@ -13,7 +13,7 @@
 void configura_USART (void);
 void putch(char data);
 char getch(void) ;
-__bit	kbhit(void);
+bit kbhit(void);
 
 
 
