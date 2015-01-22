@@ -47,7 +47,7 @@ bool flanco = 0;
 #define PERIODOENCENDIDO 0X09
 #define NOHACENADA 0x0A
 //bandera para modificar minutos horas dia mes año
-bool modificafecha = NOHACENADA;
+unsigned char modificafecha = NOHACENADA;
 bool banderasino = 0;
 
 //definicion de los datos para la fecha y horario
