@@ -4,7 +4,7 @@
 /* User Level #define Macros                                                  */
 /******************************************************************************/
 
-#define salidabomba PORTCbits.RC0
+#define salidabomba RC0  //PORTCbits.RC0
 
 
 //contadores para minutos segundos y horas
@@ -14,8 +14,8 @@ unsigned char cuenta500ms;
 
 #define TIEMPODEESPERA=10 //segundos
 unsigned char tiempoanterior = 0, tiempoactual = 0;
-bool expirotiempo = 0;
 unsigned char activapwmpor;
+bool expirotiempo = 0;
 /*  Application specific user parameters used in user.c may go here */
 
 
@@ -25,13 +25,14 @@ unsigned char activapwmpor;
 bool envia_por = LCD;
 bool refrescadisplay = 0;
 bool haycambio = 0;
+bool flanco = 0;
+
 //Definiciones para indicar el inicio de la posicion de los datos del LCD
 #define INICIOHORAS 1
 #define INICIOMINUTOS INICIOHORAS+3
 #define INICIODIA 1
 #define INICIOMES INICIODIA+3
 #define INICIOANIO INICIOMES+3
-bool flanco = 0;
 
 //constantes para saber que se esta modificando
 
@@ -115,13 +116,10 @@ Horario_t horarioenc;
 Horario_t horarioactual;
 isl1208_SR_t isl1208SR;
 isl1208_INT_t isl1208INT;
-//char sdow[11];
 
-bool bandera_startglobal = 0;
-//bool bandera_modificaglobal=0;
 char cadenaamostrar[8];
 char cadenaamostrar2[8];
-bool bandera_grabafechay_hora = 0;
+
 float mediciondecorriente;
 
 //Definicion de las entradas del menu
@@ -161,6 +159,10 @@ unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
 unsigned char tiempofalla = 0;
 unsigned char menuactual = MENU_MUESTRAHORA;
+
+
+bool bandera_grabafechay_hora = 0;
+bool bandera_startglobal = 0;
 
 //constantes y variables de indicacion del estado de la bomba
 #define APAGABOMBA 0
