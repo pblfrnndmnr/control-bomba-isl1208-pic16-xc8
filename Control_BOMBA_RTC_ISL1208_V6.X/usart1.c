@@ -66,7 +66,7 @@ void putch(char data) {
  char getch(void) {
     return RCREG;
 }
-
+ 
 bit kbhit (void){ //el ide no reconoce __bit pero funciona
      return RCIF;
  }
