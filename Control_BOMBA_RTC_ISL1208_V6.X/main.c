@@ -165,7 +165,7 @@ void main() {
         isl1208_get_dow_enc(&fechaenc.dow);
   
         if(isl1208SR.ALM){
-        //TODOse activo la alarma cuando estaba apagado, procesar
+        //TODO se activo la alarma cuando estaba apagado, procesar
         
         }
     }
