@@ -163,7 +163,7 @@ void main() {
          */
         isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
         isl1208_get_dow_enc(&fechaenc.dow);
-        //TODO tengo que detectar si la alarma se activo cunado el sistema estaba apagado y procesarla
+        //TODO tengo que detectar si la alarma se activo cuando el sistema estaba apagado y procesarla
     }
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
