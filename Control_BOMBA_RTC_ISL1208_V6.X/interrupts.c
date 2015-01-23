@@ -263,7 +263,7 @@ void interrupt isr(void) {
             bandera_startglobal = 1;
         }
 
-        if (Pulsacion(4, BOTON_MENU, SIN_REPETICION/*INMEDIATO*/, LOGICA_INVERSA)) {
+        if (Pulsacion(4, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
 
             buzzer_on();
             if (menuactual < ULTIMOMENU)
