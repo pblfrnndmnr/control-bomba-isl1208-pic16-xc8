@@ -1,7 +1,7 @@
 Disassembly Listing for Control_BOMBA_RTC_ISL1208_V6
 Generated From:
 /home/fernando/MPLABXProjects/Control_BOMBA_RTC_ISL1208_V6.X/dist/ISL1208_XC8_16f877a/production/Control_BOMBA_RTC_ISL1208_V6.X.production.cof
-22/01/2015 00:11:17
+23/01/2015 18:43:30
 
 ---  /opt/microchip/xc8/v1.31/sources/pic/ftdiv.c  ------------------------------------------------------
 1:             /*	Floating point routines.
@@ -4673,19 +4673,23 @@ Generated From:
 0217  2174     CALL 0x174
 0218  120A     BCF PCLATH, 0x4
 0219  118A     BCF PCLATH, 0x3
-166:                   //TODO tengo que detectar si la alarma se activo cunado el sistema estaba apagado y procesarla
-167:               }
-168:               ei(); //enable_interrupts(global);
+166:             
+167:                   if(isl1208SR.ALM){
+168:                   //TODOse activo la alarma cuando estaba apagado, procesar
+169:                   
+170:                   }
+171:               }
+172:               ei(); //enable_interrupts(global);
 021A  178B     BSF INTCON, 0x7
 021B  2CF5     GOTO 0x4F5
-169:               // Inicializa isl1208
-170:               //TODO   isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);
-171:           
-172:               while (1) {//
-173:                   // di(); //
-174:                   //Inicia Procesa los menú
-175:                   ////////////////////////////////////////
-176:                   switch (menuactual) {
+173:               // Inicializa isl1208
+174:               //TODO   isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);
+175:           
+176:               while (1) {//
+177:                   // di(); //
+178:                   //Inicia Procesa los menú
+179:                   ////////////////////////////////////////
+180:                   switch (menuactual) {
 04F5  1683     BSF STATUS, 0x5
 04F6  1303     BCF STATUS, 0x6
 04F7  0844     MOVF a, W
@@ -4755,24 +4759,24 @@ Generated From:
 1033  120A     BCF PCLATH, 0x4
 1034  118A     BCF PCLATH, 0x3
 1035  2BCA     GOTO 0x3CA
-177:                       case MENU_MUESTRAHORA:
-178:                       {
-179:                           horario = &horarioactual;
+181:                       case MENU_MUESTRAHORA:
+182:                       {
+183:                           horario = &horarioactual;
 021C  30DE     MOVLW 0xDE
 021D  00FD     MOVWF horario
-180:                           //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
-181:           
-182:                           if (flanco) {
+184:                           //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
+185:           
+186:                           if (flanco) {
 021E  087C     MOVF flanco, W
 021F  1903     BTFSC STATUS, 0x2
 0220  2A46     GOTO 0x246
-183:                               lee_y_transmite_date_and_time();
+187:                               lee_y_transmite_date_and_time();
 0221  120A     BCF PCLATH, 0x4
 0222  158A     BSF PCLATH, 0x3
 0223  2078     CALL 0x78
 0224  120A     BCF PCLATH, 0x4
 0225  118A     BCF PCLATH, 0x3
-184:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+188:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
 0226  3058     MOVLW 0x58
 0227  1283     BCF STATUS, 0x5
 0228  00C7     MOVWF f
@@ -4794,7 +4798,7 @@ Generated From:
 0238  25BE     CALL 0x5BE
 0239  120A     BCF PCLATH, 0x4
 023A  118A     BCF PCLATH, 0x3
-185:                               sprintf(cadenaamostrar2, cadena_esp);
+189:                               sprintf(cadenaamostrar2, cadena_esp);
 023B  3031     MOVLW 0x31
 023C  00C7     MOVWF f
 023D  3098     MOVLW 0x98
@@ -4805,9 +4809,9 @@ Generated From:
 0242  25BE     CALL 0x5BE
 0243  120A     BCF PCLATH, 0x4
 0244  118A     BCF PCLATH, 0x3
-186:                           } else {
+190:                           } else {
 0245  2D04     GOTO 0x504
-187:                               sprintf(cadenaamostrar, "%02d %02d    ", horarioactual.hrs, horarioactual.min);
+191:                               sprintf(cadenaamostrar, "%02d %02d    ", horarioactual.hrs, horarioactual.min);
 0246  304A     MOVLW 0x4A
 0247  1283     BCF STATUS, 0x5
 0248  00C7     MOVWF f
@@ -4829,7 +4833,7 @@ Generated From:
 0258  25BE     CALL 0x5BE
 0259  120A     BCF PCLATH, 0x4
 025A  118A     BCF PCLATH, 0x3
-188:                               sprintf(cadenaamostrar2, cadena_esp);
+192:                               sprintf(cadenaamostrar2, cadena_esp);
 025B  3031     MOVLW 0x31
 025C  00C7     MOVWF f
 025D  3098     MOVLW 0x98
@@ -4841,23 +4845,23 @@ Generated From:
 0263  120A     BCF PCLATH, 0x4
 0264  118A     BCF PCLATH, 0x3
 0265  2D04     GOTO 0x504
-189:                           }
-190:                           break;
-191:                       }
-192:                       case MENU_MUESTRAFECHA:
-193:                       {
-194:           
-195:                           if (flanco) {
+193:                           }
+194:                           break;
+195:                       }
+196:                       case MENU_MUESTRAFECHA:
+197:                       {
+198:           
+199:                           if (flanco) {
 0266  087C     MOVF flanco, W
 0267  1903     BTFSC STATUS, 0x2
 0268  2D04     GOTO 0x504
-196:                               lee_y_transmite_date_and_time();
+200:                               lee_y_transmite_date_and_time();
 0269  120A     BCF PCLATH, 0x4
 026A  158A     BSF PCLATH, 0x3
 026B  2078     CALL 0x78
 026C  120A     BCF PCLATH, 0x4
 026D  118A     BCF PCLATH, 0x3
-197:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+201:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
 026E  303A     MOVLW 0x3A
 026F  1283     BCF STATUS, 0x5
 0270  00C7     MOVWF f
@@ -4878,7 +4882,7 @@ Generated From:
 027F  25BE     CALL 0x5BE
 0280  120A     BCF PCLATH, 0x4
 0281  118A     BCF PCLATH, 0x3
-198:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+202:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
 0282  306E     MOVLW 0x6E
 0283  00B8     MOVWF anio
 0284  306D     MOVLW 0x6D
@@ -4904,44 +4908,44 @@ Generated From:
 0298  1803     BTFSC STATUS, 0x0
 0299  3E01     ADDLW 0x1
 029A  2BEA     GOTO 0x3EA
-199:                           }
-200:           
-201:           
-202:                           break;
-203:                       }
-204:                       case MENU_CONFIGURAHORARIO:
-205:                       {
-206:           
-207:                           if (flanco) {
+203:                           }
+204:           
+205:           
+206:                           break;
+207:                       }
+208:                       case MENU_CONFIGURAHORARIO:
+209:                       {
+210:           
+211:                           if (flanco) {
 029B  087C     MOVF flanco, W
 029C  1903     BTFSC STATUS, 0x2
 029D  2D04     GOTO 0x504
-208:                               sprintf(cadenaamostrar, "SET HORA ");
+212:                               sprintf(cadenaamostrar, "SET HORA ");
 029E  30E7     MOVLW 0xE7
 029F  1283     BCF STATUS, 0x5
 02A0  00C7     MOVWF f
 02A1  3098     MOVLW 0x98
 02A2  2BE0     GOTO 0x3E0
-209:                               sprintf(cadenaamostrar2, cadena_esp);
-210:                           }
-211:           
-212:                           break;
-213:                       }
-214:                       case SUBMENU_CONFIGURAHORA:
-215:                       {
-216:                           modificafecha = HORA;
+213:                               sprintf(cadenaamostrar2, cadena_esp);
+214:                           }
+215:           
+216:                           break;
+217:                       }
+218:                       case SUBMENU_CONFIGURAHORA:
+219:                       {
+220:                           modificafecha = HORA;
 02A3  30DE     MOVLW 0xDE
 02A4  01E4     CLRF 0x64
-217:                           horario = &horarioactual;
+221:                           horario = &horarioactual;
 02A3  30DE     MOVLW 0xDE
 02A5  00FD     MOVWF horario
-218:                           if (flanco || haycambio) {
+222:                           if (flanco || haycambio) {
 02A6  08FC     MOVF flanco, F
 02A7  1903     BTFSC STATUS, 0x2
 02A8  0842     MOVF m, W
 02A9  1903     BTFSC STATUS, 0x2
 02AA  2ACD     GOTO 0x2CD
-219:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+223:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
 02AB  3058     MOVLW 0x58
 02AC  1283     BCF STATUS, 0x5
 02AD  00C7     MOVWF f
@@ -4963,7 +4967,7 @@ Generated From:
 02BD  25BE     CALL 0x5BE
 02BE  120A     BCF PCLATH, 0x4
 02BF  118A     BCF PCLATH, 0x3
-220:                               sprintf(cadenaamostrar2, cadena_esp);
+224:                               sprintf(cadenaamostrar2, cadena_esp);
 02C0  3031     MOVLW 0x31
 02C1  00C7     MOVWF f
 02C2  3098     MOVLW 0x98
@@ -4974,12 +4978,12 @@ Generated From:
 02C7  25BE     CALL 0x5BE
 02C8  120A     BCF PCLATH, 0x4
 02C9  118A     BCF PCLATH, 0x3
-221:                               haycambio = 0;
+225:                               haycambio = 0;
 02CA  1683     BSF STATUS, 0x5
 02CB  01C2     CLRF m
-222:                           } else {
+226:                           } else {
 02CC  2D04     GOTO 0x504
-223:                               sprintf(cadenaamostrar, "  :%02d    ", horarioactual.min);
+227:                               sprintf(cadenaamostrar, "  :%02d    ", horarioactual.min);
 02CD  309C     MOVLW 0x9C
 02CE  1283     BCF STATUS, 0x5
 02CF  00C7     MOVWF f
@@ -4988,31 +4992,31 @@ Generated From:
 02D2  1683     BSF STATUS, 0x5
 02D3  085F     MOVF mediciondevoltaje, W
 02D4  2B84     GOTO 0x384
-224:                               sprintf(cadenaamostrar2, cadena_esp);
-225:                           }
-226:                           break;
-227:                       }
-228:                       case SUBMENU_CONFIGURAMINUTOS:
+228:                               sprintf(cadenaamostrar2, cadena_esp);
+229:                           }
+230:                           break;
+231:                       }
+232:                       case SUBMENU_CONFIGURAMINUTOS:
 02D5  30DE     MOVLW 0xDE
-229:                       {
-230:                           modificafecha = MINUTOS;
+233:                       {
+234:                           modificafecha = MINUTOS;
 02D6  01E4     CLRF 0x64
 02D7  0AE4     INCF 0x64, F
-231:                           horario = &horarioactual;
+235:                           horario = &horarioactual;
 02D5  30DE     MOVLW 0xDE
 02D8  00FD     MOVWF horario
-232:                           if (flanco || haycambio) {
+236:                           if (flanco || haycambio) {
 02D9  08FC     MOVF flanco, F
 02DA  1D03     BTFSS STATUS, 0x2
 02DB  2AAB     GOTO 0x2AB
 02DC  0842     MOVF m, W
 02DD  1D03     BTFSS STATUS, 0x2
-233:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+237:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
 02DE  2AAB     GOTO 0x2AB
-234:                               sprintf(cadenaamostrar2, cadena_esp);
-235:                               haycambio = 0;
-236:                           } else {
-237:                               sprintf(cadenaamostrar, "%02d:      ", horarioactual.hrs);
+238:                               sprintf(cadenaamostrar2, cadena_esp);
+239:                               haycambio = 0;
+240:                           } else {
+241:                               sprintf(cadenaamostrar, "%02d:      ", horarioactual.hrs);
 02DF  3090     MOVLW 0x90
 02E0  1283     BCF STATUS, 0x5
 02E1  00C7     MOVWF f
@@ -5021,45 +5025,45 @@ Generated From:
 02E4  1683     BSF STATUS, 0x5
 02E5  0860     MOVF 0x60, W
 02E6  2B84     GOTO 0x384
-238:                               sprintf(cadenaamostrar2, cadena_esp);
-239:                           }
-240:                           break;
-241:                       }
-242:                       case MENU_CONFIGURAFECHA:
-243:                       {
-244:           
-245:                           if (flanco) {
+242:                               sprintf(cadenaamostrar2, cadena_esp);
+243:                           }
+244:                           break;
+245:                       }
+246:                       case MENU_CONFIGURAFECHA:
+247:                       {
+248:           
+249:                           if (flanco) {
 02E7  087C     MOVF flanco, W
 02E8  1903     BTFSC STATUS, 0x2
 02E9  2D04     GOTO 0x504
-246:                               sprintf(cadenaamostrar, "SET FECHA");
+250:                               sprintf(cadenaamostrar, "SET FECHA");
 02EA  30FB     MOVLW 0xFB
 02EB  1283     BCF STATUS, 0x5
 02EC  00C7     MOVWF f
 02ED  3098     MOVLW 0x98
 02EE  2BE0     GOTO 0x3E0
-247:                               sprintf(cadenaamostrar2, cadena_esp);
-248:                           }
-249:                           break;
-250:                       }
-251:                       case SUBMENU_CONFIGURADIA:
-252:                       {
-253:                           modificafecha = DIA;
+251:                               sprintf(cadenaamostrar2, cadena_esp);
+252:                           }
+253:                           break;
+254:                       }
+255:                       case SUBMENU_CONFIGURADIA:
+256:                       {
+257:                           modificafecha = DIA;
 02EF  3002     MOVLW 0x2
 02F0  00E4     MOVWF 0x64
-254:           
-255:                           if (flanco || haycambio) {
+258:           
+259:                           if (flanco || haycambio) {
 02F1  08FC     MOVF flanco, F
 02F2  1903     BTFSC STATUS, 0x2
 02F3  0842     MOVF m, W
 02F4  1D03     BTFSS STATUS, 0x2
 02F5  2B15     GOTO 0x315
-256:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-257:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-258:                               //sprintf(cadenaamostrar2, "             ");
-259:                               haycambio = 0;
-260:                           } else {
-261:                               sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
+260:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+261:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+262:                               //sprintf(cadenaamostrar2, "             ");
+263:                               haycambio = 0;
+264:                           } else {
+265:                               sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
 02F6  3082     MOVLW 0x82
 02F7  1283     BCF STATUS, 0x5
 02F8  00C7     MOVWF f
@@ -5067,27 +5071,27 @@ Generated From:
 02FA  00C8     MOVWF 0x48
 02FB  086D     MOVF 0x6D, W
 02FC  2B0A     GOTO 0x30A
-262:                               sprintf(cadenaamostrar2, cadena_esp);
-263:                           }
-264:                           break;
-265:                       }
-266:                       case SUBMENU_CONFIGURAMES:
-267:                       {
-268:                           modificafecha = MES;
+266:                               sprintf(cadenaamostrar2, cadena_esp);
+267:                           }
+268:                           break;
+269:                       }
+270:                       case SUBMENU_CONFIGURAMES:
+271:                       {
+272:                           modificafecha = MES;
 02FD  3003     MOVLW 0x3
 02FE  00E4     MOVWF 0x64
-269:           
-270:                           if (flanco || haycambio) {
+273:           
+274:                           if (flanco || haycambio) {
 02FF  08FC     MOVF flanco, F
 0300  1903     BTFSC STATUS, 0x2
 0301  0842     MOVF m, W
 0302  1D03     BTFSS STATUS, 0x2
 0303  2B15     GOTO 0x315
-271:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
-272:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-273:                               haycambio = 0;
-274:                           } else {
-275:                               sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
+275:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+276:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+277:                               haycambio = 0;
+278:                           } else {
+279:                               sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
 0304  3074     MOVLW 0x74
 0305  1283     BCF STATUS, 0x5
 0306  00C7     MOVWF f
@@ -5098,23 +5102,23 @@ Generated From:
 030B  01CA     CLRF cntr
 030C  086E     MOVF 0x6E, W
 030D  2B4B     GOTO 0x34B
-276:                               sprintf(cadenaamostrar2, cadena_esp);
-277:                           }
-278:                           break;
-279:                       }
-280:                       case SUBMENU_CONFIGURAANIO:
-281:                       {
-282:                           modificafecha = ANIO;
+280:                               sprintf(cadenaamostrar2, cadena_esp);
+281:                           }
+282:                           break;
+283:                       }
+284:                       case SUBMENU_CONFIGURAANIO:
+285:                       {
+286:                           modificafecha = ANIO;
 030E  3004     MOVLW 0x4
 030F  00E4     MOVWF 0x64
-283:           
-284:                           if (flanco || haycambio) {
+287:           
+288:                           if (flanco || haycambio) {
 0310  08FC     MOVF flanco, F
 0311  1903     BTFSC STATUS, 0x2
 0312  0842     MOVF m, W
 0313  1903     BTFSC STATUS, 0x2
 0314  2B42     GOTO 0x342
-285:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+289:                               sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
 0315  303A     MOVLW 0x3A
 0316  1283     BCF STATUS, 0x5
 0317  00C7     MOVWF f
@@ -5135,7 +5139,7 @@ Generated From:
 0326  25BE     CALL 0x5BE
 0327  120A     BCF PCLATH, 0x4
 0328  118A     BCF PCLATH, 0x3
-286:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+290:                               sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
 0329  306E     MOVLW 0x6E
 032A  00B8     MOVWF anio
 032B  306D     MOVLW 0x6D
@@ -5161,9 +5165,9 @@ Generated From:
 033F  1803     BTFSC STATUS, 0x0
 0340  3E01     ADDLW 0x1
 0341  2AC3     GOTO 0x2C3
-287:                               haycambio = 0;
-288:                           } else {
-289:                               sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
+291:                               haycambio = 0;
+292:                           } else {
+293:                               sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
 0342  3066     MOVLW 0x66
 0343  1283     BCF STATUS, 0x5
 0344  00C7     MOVWF f
@@ -5177,47 +5181,47 @@ Generated From:
 034C  30CA     MOVLW 0xCA
 034D  01CC     CLRF f2
 034E  2BE2     GOTO 0x3E2
-290:                               sprintf(cadenaamostrar2, cadena_esp);
-291:                           }
-292:                           break;
-293:                       }
-294:                       case MENU_CONFIGURAENCENDIDO:
-295:                       {
-296:           
-297:                           if (flanco) {
+294:                               sprintf(cadenaamostrar2, cadena_esp);
+295:                           }
+296:                           break;
+297:                       }
+298:                       case MENU_CONFIGURAENCENDIDO:
+299:                       {
+300:           
+301:                           if (flanco) {
 034F  087C     MOVF flanco, W
 0350  1903     BTFSC STATUS, 0x2
 0351  2D04     GOTO 0x504
-298:                               sprintf(cadenaamostrar, "SET ENC  ");
+302:                               sprintf(cadenaamostrar, "SET ENC  ");
 0352  30D3     MOVLW 0xD3
 0353  1283     BCF STATUS, 0x5
 0354  00C7     MOVWF f
 0355  3098     MOVLW 0x98
 0356  2BE0     GOTO 0x3E0
-299:                               sprintf(cadenaamostrar2, cadena_esp);
-300:                           }
-301:           
-302:                           break;
-303:                       }
-304:                       case SUBMENU_CONFIGURAHORAENCENDIDO:
-305:                       {
-306:                           modificafecha = HORA;
+303:                               sprintf(cadenaamostrar2, cadena_esp);
+304:                           }
+305:           
+306:                           break;
+307:                       }
+308:                       case SUBMENU_CONFIGURAHORAENCENDIDO:
+309:                       {
+310:                           modificafecha = HORA;
 0357  30E1     MOVLW 0xE1
 0358  01E4     CLRF 0x64
-307:                           horario = &horarioenc;
+311:                           horario = &horarioenc;
 0357  30E1     MOVLW 0xE1
 0359  00FD     MOVWF horario
-308:                           if (flanco || haycambio) {
+312:                           if (flanco || haycambio) {
 035A  08FC     MOVF flanco, F
 035B  1903     BTFSC STATUS, 0x2
 035C  0842     MOVF m, W
 035D  1D03     BTFSS STATUS, 0x2
 035E  2B70     GOTO 0x370
-309:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
-310:                               sprintf(cadenaamostrar2, cadena_esp);
-311:                               haycambio = 0;
-312:                           } else {
-313:                               sprintf(cadenaamostrar, "  :%02d    ", horarioenc.min);
+313:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
+314:                               sprintf(cadenaamostrar2, cadena_esp);
+315:                               haycambio = 0;
+316:                           } else {
+317:                               sprintf(cadenaamostrar, "  :%02d    ", horarioenc.min);
 035F  309C     MOVLW 0x9C
 0360  1283     BCF STATUS, 0x5
 0361  00C7     MOVWF f
@@ -5226,27 +5230,27 @@ Generated From:
 0364  1683     BSF STATUS, 0x5
 0365  0862     MOVF 0x62, W
 0366  2B84     GOTO 0x384
-314:                               sprintf(cadenaamostrar2, cadena_esp);
-315:                           }
-316:           
-317:                           break;
-318:                       }
-319:                       case SUBMENU_CONFIGURAMINUTOSENCENDIDO:
+318:                               sprintf(cadenaamostrar2, cadena_esp);
+319:                           }
+320:           
+321:                           break;
+322:                       }
+323:                       case SUBMENU_CONFIGURAMINUTOSENCENDIDO:
 0367  30E1     MOVLW 0xE1
-320:                       {
-321:                           modificafecha = MINUTOS;
+324:                       {
+325:                           modificafecha = MINUTOS;
 0368  01E4     CLRF 0x64
 0369  0AE4     INCF 0x64, F
-322:                           horario = &horarioenc;
+326:                           horario = &horarioenc;
 0367  30E1     MOVLW 0xE1
 036A  00FD     MOVWF horario
-323:                           if (flanco || haycambio) {
+327:                           if (flanco || haycambio) {
 036B  08FC     MOVF flanco, F
 036C  1903     BTFSC STATUS, 0x2
 036D  0842     MOVF m, W
 036E  1903     BTFSC STATUS, 0x2
 036F  2B7D     GOTO 0x37D
-324:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
+328:                               sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
 0370  3058     MOVLW 0x58
 0371  1283     BCF STATUS, 0x5
 0372  00C7     MOVWF f
@@ -5260,10 +5264,10 @@ Generated From:
 037A  1683     BSF STATUS, 0x5
 037B  0862     MOVF 0x62, W
 037C  2AB7     GOTO 0x2B7
-325:                               sprintf(cadenaamostrar2, cadena_esp);
-326:                               haycambio = 0;
-327:                           } else {
-328:                               sprintf(cadenaamostrar, "%02d:      ", horarioenc.hrs);
+329:                               sprintf(cadenaamostrar2, cadena_esp);
+330:                               haycambio = 0;
+331:                           } else {
+332:                               sprintf(cadenaamostrar, "%02d:      ", horarioenc.hrs);
 037D  3090     MOVLW 0x90
 037E  1283     BCF STATUS, 0x5
 037F  00C7     MOVWF f
@@ -5276,25 +5280,25 @@ Generated From:
 0386  30CA     MOVLW 0xCA
 0387  01CA     CLRF cntr
 0388  2BE2     GOTO 0x3E2
-329:                               sprintf(cadenaamostrar2, cadena_esp);
-330:                           }
-331:                           break;
-332:                       }
-333:           
-334:           
-335:                       case SUBMENU_CONFIGURAPERIODOENCENDIDO:
-336:                       {
-337:                           modificafecha = PERIODOENCENDIDO;
+333:                               sprintf(cadenaamostrar2, cadena_esp);
+334:                           }
+335:                           break;
+336:                       }
+337:           
+338:           
+339:                       case SUBMENU_CONFIGURAPERIODOENCENDIDO:
+340:                       {
+341:                           modificafecha = PERIODOENCENDIDO;
 0389  3009     MOVLW 0x9
 038A  00E4     MOVWF 0x64
-338:           
-339:                           if (flanco || haycambio) {
+342:           
+343:                           if (flanco || haycambio) {
 038B  08FC     MOVF flanco, F
 038C  1903     BTFSC STATUS, 0x2
 038D  0842     MOVF m, W
 038E  1903     BTFSC STATUS, 0x2
 038F  2B98     GOTO 0x398
-340:                               sprintf(cadenaamostrar, "c/%u dias", periodoencendido);
+344:                               sprintf(cadenaamostrar, "c/%u dias", periodoencendido);
 0390  3005     MOVLW 0x5
 0391  1283     BCF STATUS, 0x5
 0392  00C7     MOVWF f
@@ -5303,33 +5307,33 @@ Generated From:
 0395  1683     BSF STATUS, 0x5
 0396  0865     MOVF adcenteroI, W
 0397  2BC0     GOTO 0x3C0
-341:                               sprintf(cadenaamostrar2, cadena_esp);
-342:                               haycambio = 0;
-343:                           } else {
-344:                               sprintf(cadenaamostrar, "c/  dias");
+345:                               sprintf(cadenaamostrar2, cadena_esp);
+346:                               haycambio = 0;
+347:                           } else {
+348:                               sprintf(cadenaamostrar, "c/  dias");
 0398  3033     MOVLW 0x33
 0399  1283     BCF STATUS, 0x5
 039A  00C7     MOVWF f
 039B  3099     MOVLW 0x99
 039C  2BE0     GOTO 0x3E0
-345:                               sprintf(cadenaamostrar2, cadena_esp);
-346:                           }
-347:                           break;
-348:                       }
-349:           
-350:                       case SUBMENU_CONFIGURATIEMPOENCENDIDO:
-351:                       {
-352:                           modificafecha = TIEMPOENCENDIDO;
+349:                               sprintf(cadenaamostrar2, cadena_esp);
+350:                           }
+351:                           break;
+352:                       }
+353:           
+354:                       case SUBMENU_CONFIGURATIEMPOENCENDIDO:
+355:                       {
+356:                           modificafecha = TIEMPOENCENDIDO;
 039D  3007     MOVLW 0x7
 039E  00E4     MOVWF 0x64
-353:           
-354:                           if (flanco || haycambio) {
+357:           
+358:                           if (flanco || haycambio) {
 039F  08FC     MOVF flanco, F
 03A0  1903     BTFSC STATUS, 0x2
 03A1  0842     MOVF m, W
 03A2  1903     BTFSC STATUS, 0x2
 03A3  2BAC     GOTO 0x3AC
-355:                               sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
+359:                               sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
 03A4  30BE     MOVLW 0xBE
 03A5  1283     BCF STATUS, 0x5
 03A6  00C7     MOVWF f
@@ -5338,50 +5342,50 @@ Generated From:
 03A9  1683     BSF STATUS, 0x5
 03AA  0846     MOVF y, W
 03AB  2BC0     GOTO 0x3C0
-356:                               sprintf(cadenaamostrar2, cadena_esp);
-357:                               haycambio = 0;
-358:                           } else {
-359:                               sprintf(cadenaamostrar, "ENCEN:  ");
+360:                               sprintf(cadenaamostrar2, cadena_esp);
+361:                               haycambio = 0;
+362:                           } else {
+363:                               sprintf(cadenaamostrar, "ENCEN:  ");
 03AC  3021     MOVLW 0x21
 03AD  1283     BCF STATUS, 0x5
 03AE  00C7     MOVWF f
 03AF  3099     MOVLW 0x99
 03B0  2BE0     GOTO 0x3E0
-360:                               sprintf(cadenaamostrar2, cadena_esp);
-361:                           }
-362:                           break;
-363:                       }
-364:                       case MENU_CONFIGURAFALLACORRIENTE:
-365:                       {
-366:                           modificafecha = SINO;
+364:                               sprintf(cadenaamostrar2, cadena_esp);
+365:                           }
+366:                           break;
+367:                       }
+368:                       case MENU_CONFIGURAFALLACORRIENTE:
+369:                       {
+370:                           modificafecha = SINO;
 03B1  2BCA     GOTO 0x3CA
-367:           
-368:                           if (flanco)
-369:                               if (banderasino) {
-370:                                   sprintf(cadenaamostrar, "NORMAL A ");
-371:                                   sprintf(cadenaamostrar2, cadena_esp);
-372:                               } else {
-373:                                   sprintf(cadenaamostrar, "NORMAL C ");
-374:                                   sprintf(cadenaamostrar2, cadena_esp);
-375:                               } else {
-376:                               sprintf(cadenaamostrar, "NORMAL   ");
-377:                               sprintf(cadenaamostrar2, cadena_esp);
-378:                           }
-379:                           break;
-380:                       }
-381:                       case MENU_CONFIGURATIEMPOFALLACORRIENTE:
-382:                       {
-383:                           modificafecha = TIEMPOFALLA;
+371:           
+372:                           if (flanco)
+373:                               if (banderasino) {
+374:                                   sprintf(cadenaamostrar, "NORMAL A ");
+375:                                   sprintf(cadenaamostrar2, cadena_esp);
+376:                               } else {
+377:                                   sprintf(cadenaamostrar, "NORMAL C ");
+378:                                   sprintf(cadenaamostrar2, cadena_esp);
+379:                               } else {
+380:                               sprintf(cadenaamostrar, "NORMAL   ");
+381:                               sprintf(cadenaamostrar2, cadena_esp);
+382:                           }
+383:                           break;
+384:                       }
+385:                       case MENU_CONFIGURATIEMPOFALLACORRIENTE:
+386:                       {
+387:                           modificafecha = TIEMPOFALLA;
 03B2  3008     MOVLW 0x8
 03B3  00E4     MOVWF 0x64
-384:           
-385:                           if (flanco || haycambio) {
+388:           
+389:                           if (flanco || haycambio) {
 03B4  08FC     MOVF flanco, F
 03B5  1903     BTFSC STATUS, 0x2
 03B6  0842     MOVF m, W
 03B7  1903     BTFSC STATUS, 0x2
 03B8  2BC5     GOTO 0x3C5
-386:                               sprintf(cadenaamostrar, "FALLA:%02d", tiempofalla);
+390:                               sprintf(cadenaamostrar, "FALLA:%02d", tiempofalla);
 03B9  30B3     MOVLW 0xB3
 03BA  1283     BCF STATUS, 0x5
 03BB  00C7     MOVWF f
@@ -5394,51 +5398,51 @@ Generated From:
 03C2  30CA     MOVLW 0xCA
 03C3  01CA     CLRF cntr
 03C4  2ABB     GOTO 0x2BB
-387:                               sprintf(cadenaamostrar2, cadena_esp);
-388:                               haycambio = 0;
-389:                           } else {
-390:                               sprintf(cadenaamostrar, "FALLA:  ");
+391:                               sprintf(cadenaamostrar2, cadena_esp);
+392:                               haycambio = 0;
+393:                           } else {
+394:                               sprintf(cadenaamostrar, "FALLA:  ");
 03C5  3018     MOVLW 0x18
 03C6  1283     BCF STATUS, 0x5
 03C7  00C7     MOVWF f
 03C8  3099     MOVLW 0x99
 03C9  2BE0     GOTO 0x3E0
-391:                               sprintf(cadenaamostrar2, cadena_esp);
-392:                           }
-393:                           break;
-394:                       }
-395:                       case MENU_CONFIGURAINDICACIONDENIVEL:
-396:                       {
-397:                           modificafecha = SINO;
+395:                               sprintf(cadenaamostrar2, cadena_esp);
+396:                           }
+397:                           break;
+398:                       }
+399:                       case MENU_CONFIGURAINDICACIONDENIVEL:
+400:                       {
+401:                           modificafecha = SINO;
 03CA  3006     MOVLW 0x6
 03CB  00E4     MOVWF 0x64
-398:           
-399:           
-400:                           if (flanco)
+402:           
+403:           
+404:                           if (flanco)
 03CC  087C     MOVF flanco, W
 03CD  1903     BTFSC STATUS, 0x2
 03CE  2BDC     GOTO 0x3DC
-401:                               if (banderasino) {
+405:                               if (banderasino) {
 03CF  0836     MOVF sign, W
 03D0  1903     BTFSC STATUS, 0x2
 03D1  2BD7     GOTO 0x3D7
-402:                                   sprintf(cadenaamostrar, "NORMAL A ");
+406:                                   sprintf(cadenaamostrar, "NORMAL A ");
 03D2  30DD     MOVLW 0xDD
 03D3  1283     BCF STATUS, 0x5
 03D4  00C7     MOVWF f
 03D5  3098     MOVLW 0x98
 03D6  2BE0     GOTO 0x3E0
-403:                                   sprintf(cadenaamostrar2, cadena_esp);
-404:                               } else {
-405:                                   sprintf(cadenaamostrar, "NORMAL C ");
+407:                                   sprintf(cadenaamostrar2, cadena_esp);
+408:                               } else {
+409:                                   sprintf(cadenaamostrar, "NORMAL C ");
 03D7  30F1     MOVLW 0xF1
 03D8  1283     BCF STATUS, 0x5
 03D9  00C7     MOVWF f
 03DA  3098     MOVLW 0x98
 03DB  2BE0     GOTO 0x3E0
-406:                                   sprintf(cadenaamostrar2, cadena_esp);
-407:                               } else {
-408:                               sprintf(cadenaamostrar, "NORMAL   ");
+410:                                   sprintf(cadenaamostrar2, cadena_esp);
+411:                               } else {
+412:                               sprintf(cadenaamostrar, "NORMAL   ");
 03DC  30C9     MOVLW 0xC9
 03DD  1283     BCF STATUS, 0x5
 03DE  00C7     MOVWF f
@@ -5450,22 +5454,22 @@ Generated From:
 03E4  25BE     CALL 0x5BE
 03E5  120A     BCF PCLATH, 0x4
 03E6  118A     BCF PCLATH, 0x3
-409:                               sprintf(cadenaamostrar2, cadena_esp);
+413:                               sprintf(cadenaamostrar2, cadena_esp);
 03E7  3031     MOVLW 0x31
 03E8  00C7     MOVWF f
 03E9  3098     MOVLW 0x98
 03EA  00C8     MOVWF 0x48
 03EB  2CED     GOTO 0x4ED
-410:                           }
-411:           
-412:                           break;
-413:                       }
-414:                       case MENU_MUESTRAMEDICIONES:
-415:                       {
-416:                           unsigned int adcenteroI;
-417:                           unsigned int adcdecimalI;
-418:                           unsigned int adcenteroV;
-419:                           mediciondecorriente = (float) medidaI_adc * 50 / 1024;
+414:                           }
+415:           
+416:                           break;
+417:                       }
+418:                       case MENU_MUESTRAMEDICIONES:
+419:                       {
+420:                           unsigned int adcenteroI;
+421:                           unsigned int adcdecimalI;
+422:                           unsigned int adcenteroV;
+423:                           mediciondecorriente = (float) medidaI_adc * 50 / 1024;
 03EC  1283     BCF STATUS, 0x5
 03ED  3080     MOVLW 0x80
 03EE  01CC     CLRF f2
@@ -5523,14 +5527,14 @@ Generated From:
 0422  084E     MOVF 0x4E, W
 0423  1683     BSF STATUS, 0x5
 0424  00AC     MOVWF hr
-420:                           //convierto el valor decimal a float
-421:                           //para una entrada de 3.3V la lectura es 1023
-422:                           //para 0 V la lectura es 0
-423:                           //para una maxima lectura quiero que en el display se observe 50A
-424:                           //Deseo que tambien me muestre 1 decimal, separo la parte entera y la decimal
-425:                           //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
-426:                           //cada 20 muestras tengo aproximdamente 1A
-427:                           float mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
+424:                           //convierto el valor decimal a float
+425:                           //para una entrada de 3.3V la lectura es 1023
+426:                           //para 0 V la lectura es 0
+427:                           //para una maxima lectura quiero que en el display se observe 50A
+428:                           //Deseo que tambien me muestre 1 decimal, separo la parte entera y la decimal
+429:                           //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
+430:                           //cada 20 muestras tengo aproximdamente 1A
+431:                           float mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
 0425  1283     BCF STATUS, 0x5
 0426  3080     MOVLW 0x80
 0427  01CC     CLRF f2
@@ -5583,7 +5587,7 @@ Generated From:
 0456  00E0     MOVWF 0x60
 0457  084E     MOVF 0x4E, W
 0458  00E1     MOVWF 0x61
-428:                           adcenteroI = (unsigned int) mediciondecorriente;
+432:                           adcenteroI = (unsigned int) mediciondecorriente;
 0459  1683     BSF STATUS, 0x5
 045A  082A     MOVF Data, W
 045B  1283     BCF STATUS, 0x5
@@ -5605,7 +5609,7 @@ Generated From:
 046B  00E6     MOVWF 0x66
 046C  0823     MOVF x, W
 046D  00E5     MOVWF adcenteroI
-429:                           adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
+433:                           adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
 046E  1683     BSF STATUS, 0x5
 046F  082A     MOVF Data, W
 0470  1283     BCF STATUS, 0x5
@@ -5692,7 +5696,7 @@ Generated From:
 04C1  00E8     MOVWF 0x68
 04C2  0823     MOVF x, W
 04C3  00E7     MOVWF adcdecimalI
-430:                           adcenteroV = (unsigned int) mediciondevoltaje;
+434:                           adcenteroV = (unsigned int) mediciondevoltaje;
 04C4  085F     MOVF mediciondevoltaje, W
 04C5  00A3     MOVWF x
 04C6  0860     MOVF 0x60, W
@@ -5708,7 +5712,7 @@ Generated From:
 04D0  00EA     MOVWF 0x6A
 04D1  0823     MOVF x, W
 04D2  00E9     MOVWF adcenteroV
-431:                           sprintf(cadenaamostrar, "%2u.%uA   ", (unsigned int) adcenteroI, (unsigned int) adcdecimalI);
+435:                           sprintf(cadenaamostrar, "%2u.%uA   ", (unsigned int) adcenteroI, (unsigned int) adcdecimalI);
 04D3  30A8     MOVLW 0xA8
 04D4  00C7     MOVWF f
 04D5  3098     MOVLW 0x98
@@ -5727,7 +5731,7 @@ Generated From:
 04E2  25BE     CALL 0x5BE
 04E3  120A     BCF PCLATH, 0x4
 04E4  118A     BCF PCLATH, 0x3
-432:                           sprintf(cadenaamostrar2, "%3uV    ", (unsigned int) adcenteroV);
+436:                           sprintf(cadenaamostrar2, "%3uV    ", (unsigned int) adcenteroV);
 04E5  300F     MOVLW 0xF
 04E6  00C7     MOVWF f
 04E7  3099     MOVLW 0x99
@@ -5742,19 +5746,19 @@ Generated From:
 04F0  25BE     CALL 0x5BE
 04F1  120A     BCF PCLATH, 0x4
 04F2  118A     BCF PCLATH, 0x3
-433:                           break;
+437:                           break;
 04F3  1683     BSF STATUS, 0x5
 04F4  2D04     GOTO 0x504
-434:                       }
-435:                       default:
-436:                           break;
-437:                   };
-438:                   //////////////////////////////////////////////////////////
-439:                   //Finaliza Procesa los menú
-440:           
-441:                   //Verifica estados de falla
-442:                   /////////////////////////////////////////////////////////
-443:                   switch (estadobomba) {
+438:                       }
+439:                       default:
+440:                           break;
+441:                   };
+442:                   //////////////////////////////////////////////////////////
+443:                   //Finaliza Procesa los menú
+444:           
+445:                   //Verifica estados de falla
+446:                   /////////////////////////////////////////////////////////
+447:                   switch (estadobomba) {
 0504  1683     BSF STATUS, 0x5
 0505  083E     MOVF 0x3E, W
 0506  3A00     XORLW 0x0
@@ -5764,20 +5768,20 @@ Generated From:
 050A  1903     BTFSC STATUS, 0x2
 050B  2D0D     GOTO 0x50D
 050C  2D0D     GOTO 0x50D
-444:                       case BOMBAAPAGADA:
-445:                       {
-446:           
-447:                           break;
-448:                       }
-449:                       case BOMBAENCENDIDA:
-450:                       {
-451:           
-452:                           break;
-453:                       }
-454:                       default:
-455:                           break;
-456:                   }
-457:                   switch (estadonivel) {
+448:                       case BOMBAAPAGADA:
+449:                       {
+450:           
+451:                           break;
+452:                       }
+453:                       case BOMBAENCENDIDA:
+454:                       {
+455:           
+456:                           break;
+457:                       }
+458:                       default:
+459:                           break;
+460:                   }
+461:                   switch (estadonivel) {
 050D  0841     MOVF 0x41, W
 050E  3A00     XORLW 0x0
 050F  1903     BTFSC STATUS, 0x2
@@ -5786,21 +5790,21 @@ Generated From:
 0512  1903     BTFSC STATUS, 0x2
 0513  2D15     GOTO 0x515
 0514  2D15     GOTO 0x515
-458:                       case NIVELNORMAL:
-459:                       {
-460:           
-461:                           break;
-462:                       }
-463:                       case NIVELBAJO:
-464:                       {
-465:           
-466:                           break;
-467:                       }
-468:                       default:
-469:                           break;
-470:                   }
-471:           
-472:                   switch (estadofallacorriente) {
+462:                       case NIVELNORMAL:
+463:                       {
+464:           
+465:                           break;
+466:                       }
+467:                       case NIVELBAJO:
+468:                       {
+469:           
+470:                           break;
+471:                       }
+472:                       default:
+473:                           break;
+474:                   }
+475:           
+476:                   switch (estadofallacorriente) {
 0515  083F     MOVF 0x3F, W
 0516  3A00     XORLW 0x0
 0517  1903     BTFSC STATUS, 0x2
@@ -5809,18 +5813,18 @@ Generated From:
 051A  1903     BTFSC STATUS, 0x2
 051B  2D1D     GOTO 0x51D
 051C  2D1D     GOTO 0x51D
-473:                       case CORRIENTENORMAL:
-474:                       {
-475:                           break;
-476:                       }
-477:                       case FALLACORRIENTE:
+477:                       case CORRIENTENORMAL:
 478:                       {
 479:                           break;
 480:                       }
-481:                       default:
-482:                           break;
-483:                   }
-484:                   switch (estadofallavoltaje) {
+481:                       case FALLACORRIENTE:
+482:                       {
+483:                           break;
+484:                       }
+485:                       default:
+486:                           break;
+487:                   }
+488:                   switch (estadofallavoltaje) {
 051D  0840     MOVF f2, W
 051E  3A00     XORLW 0x0
 051F  1903     BTFSC STATUS, 0x2
@@ -5829,23 +5833,23 @@ Generated From:
 0522  1903     BTFSC STATUS, 0x2
 0523  2D2B     GOTO 0x52B
 0524  2D2B     GOTO 0x52B
-485:                       case VOLTAJENORMAL:
-486:                       {
-487:                           break;
-488:                       }
-489:                       case FALLAVOLTAJE:
+489:                       case VOLTAJENORMAL:
 490:                       {
 491:                           break;
 492:                       }
-493:                       default:
-494:                           break;
-495:                   }
-496:                   //////////////////////////////////////////////////////
-497:                   //Fin Verifica estados de falla
-498:           
-499:                   //Activa o desactiva la Bomba
-500:                   ///////////////////////////////////////////////////////
-501:                   switch (activabomba) {
+493:                       case FALLAVOLTAJE:
+494:                       {
+495:                           break;
+496:                       }
+497:                       default:
+498:                           break;
+499:                   }
+500:                   //////////////////////////////////////////////////////
+501:                   //Fin Verifica estados de falla
+502:           
+503:                   //Activa o desactiva la Bomba
+504:                   ///////////////////////////////////////////////////////
+505:                   switch (activabomba) {
 052B  0832     MOVF 0x32, W
 052C  3A00     XORLW 0x0
 052D  1903     BTFSC STATUS, 0x2
@@ -5854,36 +5858,36 @@ Generated From:
 0530  1903     BTFSC STATUS, 0x2
 0531  2D25     GOTO 0x525
 0532  2D33     GOTO 0x533
-502:                       case ENCIENDEBOMBA:
-503:                       {
-504:                           salidabomba = 1;
+506:                       case ENCIENDEBOMBA:
+507:                       {
+508:                           salidabomba = 1;
 0525  1283     BCF STATUS, 0x5
 0526  1407     BSF PORTC, 0x0
-505:                           break;
+509:                           break;
 0527  2D33     GOTO 0x533
-506:                       }
-507:                       case APAGABOMBA:
-508:                       {
-509:                           salidabomba = 0;
+510:                       }
+511:                       case APAGABOMBA:
+512:                       {
+513:                           salidabomba = 0;
 0528  1283     BCF STATUS, 0x5
 0529  1007     BCF PORTC, 0x0
-510:                           break;
+514:                           break;
 052A  2D33     GOTO 0x533
-511:                       }
-512:                       default:
-513:                           break;
-514:                   }
-515:                   //////////////////////////////////////////////////////
-516:                   //Fin Activa o desactiva la Bomba
-517:           
-518:                   //Actualiza Display
-519:                   /////////////////////////////////////////////
-520:                   if (refrescadisplay) {
+515:                       }
+516:                       default:
+517:                           break;
+518:                   }
+519:                   //////////////////////////////////////////////////////
+520:                   //Fin Activa o desactiva la Bomba
+521:           
+522:                   //Actualiza Display
+523:                   /////////////////////////////////////////////
+524:                   if (refrescadisplay) {
 0533  1683     BSF STATUS, 0x5
 0534  0845     MOVF dia, W
 0535  1903     BTFSC STATUS, 0x2
 0536  2D74     GOTO 0x574
-521:                       vGotoxyLCD(1, 1);
+525:                       vGotoxyLCD(1, 1);
 0537  1283     BCF STATUS, 0x5
 0538  3001     MOVLW 0x1
 0539  01A5     CLRF y
@@ -5893,11 +5897,11 @@ Generated From:
 053D  2496     CALL 0x496
 053E  120A     BCF PCLATH, 0x4
 053F  118A     BCF PCLATH, 0x3
-522:                       cadena = cadenaamostrar;
+526:                       cadena = cadenaamostrar;
 0540  30CA     MOVLW 0xCA
 0541  1683     BSF STATUS, 0x5
 0542  00C9     MOVWF 0x49
-523:                       while (*cadena != '\0')
+527:                       while (*cadena != '\0')
 0543  0849     MOVF 0x49, W
 0544  0084     MOVWF FSR
 0545  1383     BCF STATUS, 0x7
@@ -5905,7 +5909,7 @@ Generated From:
 0547  1903     BTFSC STATUS, 0x2
 0548  2D55     GOTO 0x555
 0554  2D43     GOTO 0x543
-524:                           vLCD_Putc(*cadena++);
+528:                           vLCD_Putc(*cadena++);
 0549  0849     MOVF 0x49, W
 054A  0084     MOVWF FSR
 054B  0800     MOVF INDF, W
@@ -5917,7 +5921,7 @@ Generated From:
 0551  1683     BSF STATUS, 0x5
 0552  1303     BCF STATUS, 0x6
 0553  0AC9     INCF 0x49, F
-525:                       vGotoxyLCD(1, 2);
+529:                       vGotoxyLCD(1, 2);
 0555  3002     MOVLW 0x2
 0556  1283     BCF STATUS, 0x5
 0557  00A5     MOVWF y
@@ -5927,11 +5931,11 @@ Generated From:
 055B  2496     CALL 0x496
 055C  120A     BCF PCLATH, 0x4
 055D  118A     BCF PCLATH, 0x3
-526:                       cadena = cadenaamostrar2;
+530:                       cadena = cadenaamostrar2;
 055E  30D2     MOVLW 0xD2
 055F  1683     BSF STATUS, 0x5
 0560  00C9     MOVWF 0x49
-527:                       while (*cadena != '\0')
+531:                       while (*cadena != '\0')
 0561  0849     MOVF 0x49, W
 0562  0084     MOVWF FSR
 0563  1383     BCF STATUS, 0x7
@@ -5939,7 +5943,7 @@ Generated From:
 0565  1903     BTFSC STATUS, 0x2
 0566  2D73     GOTO 0x573
 0572  2D61     GOTO 0x561
-528:                           vLCD_Putc(*cadena++);
+532:                           vLCD_Putc(*cadena++);
 0567  0849     MOVF 0x49, W
 0568  0084     MOVWF FSR
 0569  0800     MOVF INDF, W
@@ -5951,37 +5955,37 @@ Generated From:
 056F  1683     BSF STATUS, 0x5
 0570  1303     BCF STATUS, 0x6
 0571  0AC9     INCF 0x49, F
-529:           
-530:                       refrescadisplay = 0;
+533:           
+534:                       refrescadisplay = 0;
 0573  01C5     CLRF dia
-531:                   }
-532:                   ////////////////////////////////////////////////
-533:                   //Fin Actualiza Display
-534:           
-535:                   //Graba Nuevos datos en el RC
-536:                   /////////////////////////////////////////////////
-537:                   if (bandera_startglobal) {
+535:                   }
+536:                   ////////////////////////////////////////////////
+537:                   //Fin Actualiza Display
+538:           
+539:                   //Graba Nuevos datos en el RC
+540:                   /////////////////////////////////////////////////
+541:                   if (bandera_startglobal) {
 0574  0835     MOVF counter, W
 0575  1903     BTFSC STATUS, 0x2
 0576  2D79     GOTO 0x579
-538:                       bandera_grabafechay_hora = 1;
+542:                       bandera_grabafechay_hora = 1;
 0577  01B4     CLRF sign
 0578  0AB4     INCF sign, F
-539:           
-540:                   }
-541:                   if (!bandera_startglobal && bandera_grabafechay_hora) {
+543:           
+544:                   }
+545:                   if (!bandera_startglobal && bandera_grabafechay_hora) {
 0579  08B5     MOVF counter, F
 057A  1D03     BTFSS STATUS, 0x2
 057B  2DBB     GOTO 0x5BB
 057C  0834     MOVF sign, W
 057D  1903     BTFSC STATUS, 0x2
 057E  2DBB     GOTO 0x5BB
-542:                       if (horario == &horarioactual) {
+546:                       if (horario == &horarioactual) {
 057F  087D     MOVF horario, W
 0580  3ADE     XORLW 0xDE
 0581  1D03     BTFSS STATUS, 0x2
 0582  2DA0     GOTO 0x5A0
-543:                           isl1208_set_time((*horario).hrs, (*horario).min, 00);
+547:                           isl1208_set_time((*horario).hrs, (*horario).min, 00);
 0583  0A7D     INCF horario, W
 0584  0084     MOVWF FSR
 0585  1383     BCF STATUS, 0x7
@@ -5998,7 +6002,7 @@ Generated From:
 0590  2293     CALL 0x293
 0591  120A     BCF PCLATH, 0x4
 0592  118A     BCF PCLATH, 0x3
-544:                           isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+548:                           isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
 0593  306D     MOVLW 0x6D
 0594  1283     BCF STATUS, 0x5
 0595  00AA     MOVWF Data
@@ -6012,13 +6016,13 @@ Generated From:
 059D  22CF     CALL 0x2CF
 059E  120A     BCF PCLATH, 0x4
 059F  118A     BCF PCLATH, 0x3
-545:                       }
-546:                       if (horario == &horarioenc) {
+549:                       }
+550:                       if (horario == &horarioenc) {
 05A0  087D     MOVF horario, W
 05A1  3AE1     XORLW 0xE1
 05A2  1D03     BTFSS STATUS, 0x2
 05A3  2DBA     GOTO 0x5BA
-547:                           isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
+551:                           isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
 05A4  0A7D     INCF horario, W
 05A5  0084     MOVWF FSR
 05A6  1383     BCF STATUS, 0x7
@@ -6035,28 +6039,28 @@ Generated From:
 05B1  226A     CALL 0x26A
 05B2  120A     BCF PCLATH, 0x4
 05B3  118A     BCF PCLATH, 0x3
-548:                           //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-549:                           isl1208_set_dow_enc(&fechaenc.dow);
+552:                           //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+553:                           isl1208_set_dow_enc(&fechaenc.dow);
 05B4  30DD     MOVLW 0xDD
 05B5  120A     BCF PCLATH, 0x4
 05B6  158A     BSF PCLATH, 0x3
 05B7  224C     CALL 0x24C
 05B8  120A     BCF PCLATH, 0x4
 05B9  118A     BCF PCLATH, 0x3
-550:                       }
-551:                       bandera_grabafechay_hora = 0;
+554:                       }
+555:                       bandera_grabafechay_hora = 0;
 05BA  01B4     CLRF sign
-552:                   }
-553:                   //////////////////////////////////////////////////////////////////
-554:                   //Finaliza Graba Nuevos datos en el RC
-555:                   NOP();
+556:                   }
+557:                   //////////////////////////////////////////////////////////////////
+558:                   //Finaliza Graba Nuevos datos en el RC
+559:                   NOP();
 05BB  0000     NOP
-556:                   NOP();
+560:                   NOP();
 05BC  0000     NOP
-557:           
-558:               }
-559:           }
-560:           
+561:           
+562:               }
+563:           }
+564:           
 ---  /home/fernando/MPLABXProjects/Control_BOMBA_RTC_ISL1208_V6.X/interrupts.c  -------------------------
 1:             
 2:             /******************************************************************************/
