@@ -447,17 +447,25 @@ void main() {
         switch (estadobomba) {
             case BOMBAAPAGADA:
             {
-                sprintf(cadenaamostrar2, "off");
+                sprintf(cadenaamostrar2, "     off");
                 break;
             }
             case BOMBAENCENDIDA:
             {
-                sprintf(cadenaamostrar2, "on");
+                sprintf(cadenaamostrar2, "      on");
                 break;
             }
             default:
                 break;
         }
+   
+        if ((estadonivel == NIVELNORMAL)&&(estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
+           activabomba = ENCIENDEBOMBA;
+            //TODO acá debo dar la orden para encender la bomba?
+        } else {
+            activabomba = APAGABOMBA;
+        }
+
         switch (estadonivel) {
             case NIVELNORMAL:
             {
@@ -501,6 +509,60 @@ void main() {
         }
         //////////////////////////////////////////////////////
         //Fin Verifica estados de falla
+
+        //Inicio de procesamiento de medicion de voltaje, corriente
+        /////////////////////////////////////////////////////////////
+      //  unsigned int adcenteroI;
+        //unsigned int adcdecimalI;
+        unsigned int adcenteroV;
+
+        //convierto el valor decimal a float
+        //para una entrada de 3.3V la lectura es 1023
+        //para 0 V la lectura es 0
+        //para una maxima lectura quiero que en el display se observe 50A
+        //Deseo que tambien me muestre 1 decimal, separo la parte entera y la decimal
+        //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
+        //cada 20 muestras tengo aproximdamente 1A
+        float mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
+        adcenteroV = (unsigned int) mediciondevoltaje;
+        //Se lee el voltaje de alimentación constantemente
+        if (adcenteroV <= VOLTAJEMAXIMO && adcenteroV >= VOLTAJEMINIMO) {
+            estadofallavoltaje = VOLTAJENORMAL;
+        } else {
+            estadofallavoltaje = FALLAVOLTAJE;
+        }
+
+        //Se lee la corriente consumida solamente cuando la bomba está activada
+        switch (activabomba) {
+            case APAGABOMBA:
+            {
+                break;
+            }
+            case ENCIENDEBOMBA:
+            {
+                mediciondecorriente = (float) medidaI_adc * 50 / 1024;
+                //adcenteroI = (unsigned int) mediciondecorriente;
+                //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
+                if(mediciondecorriente<=CORRIENTEMAXIMA&&mediciondecorriente>=CORRIENTEMINIMA){
+                    estadofallacorriente=CORRIENTENORMAL;
+                        estadonivel == NIVELNORMAL;
+
+                }else{
+                    estadofallacorriente=FALLACORRIENTE;
+        estadonivel == NIVELBAJO;
+
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        // sprintf(cadenaamostrar, "%2u.%uA   ", (unsigned int) adcenteroI, (unsigned int) adcdecimalI);
+        // sprintf(cadenaamostrar2, "%3uV    ", (unsigned int) adcenteroV);
+        /////////////////////////////////////////////////////////////
+        //Fin de procesamiento de medicion de voltaje, corriente
+
 
         //Activa o desactiva la Bomba
         ///////////////////////////////////////////////////////
@@ -559,7 +621,7 @@ void main() {
             bandera_grabafechay_hora = 0;
         }
         //////////////////////////////////////////////////////////////////
-        //Finaliza Graba Nuevos datos en el RC
+        //Finaliza Graba Nuevos datos en el RTC
         NOP();
         NOP();
 

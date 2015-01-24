@@ -186,6 +186,11 @@ unsigned int medidaI_adc = 0;
 unsigned int medidaV_adc = 0;
 bool cambio_de_canal = 0;
 int promedio_adc[4] = {0, 0, 0, 0};
+
+#define VOLTAJEMAXIMO 240
+#define VOLTAJEMINIMO 190
+#define CORRIENTEMAXIMA 50.0 //AMPERES
+#define CORRIENTEMINIMA 2.0 //AMPERES
 /******************************************************************************/
 /* User Function Prototypes                                                   */
 /******************************************************************************/
