@@ -163,10 +163,10 @@ void main() {
          */
         isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
         isl1208_get_dow_enc(&fechaenc.dow);
-  
-        if(isl1208SR.ALM){
-        //TODO se activo la alarma cuando estaba apagado, procesar
-        
+
+        if (isl1208SR.ALM) {
+            //TODO se activo la alarma cuando estaba apagado, procesar
+
         }
     }
     ei(); //enable_interrupts(global);
@@ -447,12 +447,12 @@ void main() {
         switch (estadobomba) {
             case BOMBAAPAGADA:
             {
-
+                sprintf(cadenaamostrar2, "off");
                 break;
             }
             case BOMBAENCENDIDA:
             {
-
+                sprintf(cadenaamostrar2, "on");
                 break;
             }
             default:
@@ -466,7 +466,7 @@ void main() {
             }
             case NIVELBAJO:
             {
-
+                activabomba = 0;
                 break;
             }
             default:
@@ -480,6 +480,7 @@ void main() {
             }
             case FALLACORRIENTE:
             {
+                activabomba = 0;
                 break;
             }
             default:
@@ -492,6 +493,7 @@ void main() {
             }
             case FALLAVOLTAJE:
             {
+                activabomba = 0;
                 break;
             }
             default:
@@ -506,11 +508,13 @@ void main() {
             case ENCIENDEBOMBA:
             {
                 salidabomba = 1;
+                estadobomba = 1;
                 break;
             }
             case APAGABOMBA:
             {
                 salidabomba = 0;
+                estadobomba = 0;
                 break;
             }
             default:
