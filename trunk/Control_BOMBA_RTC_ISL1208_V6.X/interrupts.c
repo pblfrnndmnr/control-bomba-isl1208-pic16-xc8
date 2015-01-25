@@ -18,6 +18,7 @@
 #include "adcPic16.h"
 #include "_isl1208.h"
 /* Interrupt Routines                                                         */
+
 /******************************************************************************/
 
 void interrupt isr(void) {
@@ -88,9 +89,6 @@ void interrupt isr(void) {
 
                     cuentasegundos++;
                 } else {
-                    //TODO quitar esto en la version final
-                    TRISDbits.TRISD3 = 0;
-                    RD3 = !RD3;
                     cuentasegundos = 0;
                     if (cuentaminutos < 60) {
                         cuentaminutos++;
@@ -266,7 +264,7 @@ void interrupt isr(void) {
             bandera_startglobal = 1;
         }
         // </editor-fold>
-         // <editor-fold defaultstate="collapsed" desc="boton menu">
+        // <editor-fold defaultstate="collapsed" desc="boton menu">
         if (Pulsacion(3, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
 
             buzzer_on();
@@ -278,9 +276,9 @@ void interrupt isr(void) {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton manaut">
         if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
-
+            manual_automatico=!manual_automatico;
             buzzer_on();
-            
+
         }
         // </editor-fold>
         T0IF = 0;

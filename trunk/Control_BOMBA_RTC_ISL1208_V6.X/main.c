@@ -21,6 +21,7 @@
 #include "Pulsadores.h"
 #include "pwm.h"
 #include "adcPic16.h"
+#include <string.h>
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
@@ -201,6 +202,7 @@ void main() {
                 if (flanco) {
                     lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar2, cadena_esp);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                 }
 
@@ -444,11 +446,11 @@ void main() {
         //////////////////////////////////////////////////////////
         //Finaliza Procesa los menú
         // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
 
+        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
         //Verifica estados de falla
         /////////////////////////////////////////////////////////
-        if (menuactual != MENU_MUESTRAMEDICIONES && menuactual != MENU_MUESTRAFECHA && (menuactual < SUBMENU_CONFIGURADIA || menuactual > SUBMENU_CONFIGURAANIO))
+        if (menuactual != MENU_MUESTRAMEDICIONES && menuactual != MENU_MUESTRAFECHA && (menuactual < SUBMENU_CONFIGURADIA || menuactual > SUBMENU_CONFIGURAANIO)) {
             switch (estadobomba) {
                 case BOMBAAPAGADA:
                 {
@@ -463,7 +465,21 @@ void main() {
                 default:
                     break;
             }
-
+            switch (manual_automatico) {
+                case MANUAL:
+                {
+                    strncpy(cadenaamostrar2, "MAN:", 4);
+                    break;
+                }
+                case AUTOMATICO:
+                {
+                    strncpy(cadenaamostrar2, "AUT:", 4);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
         if (/*(estadonivel == NIVELNORMAL)&&*/(estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
             if (estadonivel == NIVELNORMAL)
                 activabomba = ENCIENDEBOMBA;
@@ -516,6 +532,7 @@ void main() {
         //////////////////////////////////////////////////////
         //Fin Verifica estados de falla
         // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Inicio de procesamiento de medicion de voltaje, corriente">
 
 
@@ -570,9 +587,8 @@ void main() {
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
         // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Activa o desactiva la Bomba">
-
-
         //Activa o desactiva la Bomba
         ///////////////////////////////////////////////////////
         switch (activabomba) {
@@ -594,8 +610,8 @@ void main() {
         //////////////////////////////////////////////////////
         //Fin Activa o desactiva la Bomba
         // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Actualiza Display">
 
+        // <editor-fold defaultstate="collapsed" desc="Actualiza Display">
         //Actualiza Display
         /////////////////////////////////////////////
         if (refrescadisplay) {
@@ -613,8 +629,8 @@ void main() {
         ////////////////////////////////////////////////
         //Fin Actualiza Display
         // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en el RTC">
 
+        // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en el RTC">
         //Graba Nuevos datos en el RC
         /////////////////////////////////////////////////
         if (bandera_startglobal) {
