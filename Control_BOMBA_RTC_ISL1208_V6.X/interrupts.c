@@ -90,9 +90,7 @@ void interrupt isr(void) {
                 } else {
                     //TODO quitar esto en la version final
                     TRISDbits.TRISD3 = 0;
-                   RD3=!RD3;// PORTDbits.RD3 = !PORTDbits.RD3;
-                    //TODO quitar esto en la version final
-                    salidabomba = !salidabomba;
+                    RD3 = !RD3; // PORTDbits.RD3 = !PORTDbits.RD3;
                     cuentasegundos = 0;
                     if (cuentaminutos < 60) {
                         cuentaminutos++;
