@@ -117,8 +117,8 @@ Horario_t horarioactual;
 isl1208_SR_t isl1208SR;
 isl1208_INT_t isl1208INT;
 
-char cadenaamostrar[8];
-char cadenaamostrar2[8];
+char cadenaamostrar[9];
+char cadenaamostrar2[9];
 
 float mediciondecorriente;
 
@@ -181,6 +181,12 @@ bool estadofallacorriente = 0;
 #define VOLTAJENORMAL 0
 #define FALLAVOLTAJE 1
 bool estadofallavoltaje= 0;
+#define MANUAL 0
+#define AUTOMATICO 1
+bool manual_automatico=MANUAL;
+
+
+
 unsigned int medidaI_adc = 0;
 #define OFFSET_I .3
 unsigned int medidaV_adc = 0;
