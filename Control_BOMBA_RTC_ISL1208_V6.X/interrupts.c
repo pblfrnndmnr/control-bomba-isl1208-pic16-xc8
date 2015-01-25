@@ -110,6 +110,7 @@ void interrupt isr(void) {
                 }
             }
         }
+        // <editor-fold defaultstate="collapsed" desc="boton subir">
         static char maximodia;
         if (Pulsacion(0, BOTON_Subir, CON_REPETICION, LOGICA_INVERSA)) {
 
@@ -182,6 +183,8 @@ void interrupt isr(void) {
             if (fecha.day > maximodia)
                 fecha.day = maximodia;
         }
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="boton bajar">
         if (Pulsacion(1, BOTON_Bajar, CON_REPETICION, LOGICA_INVERSA)) {
 
             refrescadisplay = 1;
@@ -253,6 +256,8 @@ void interrupt isr(void) {
             if (fecha.day > maximodia)
                 fecha.day = maximodia;
         }
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="boton onoff">
 
 
         bandera_startglobal = 0;
@@ -260,6 +265,9 @@ void interrupt isr(void) {
 
             bandera_startglobal = 1;
         }
+        // </editor-fold>
+        // <editor-fold defaultstate="expanded" desc="boton menu">
+
 
         if (Pulsacion(4, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
 
@@ -269,6 +277,7 @@ void interrupt isr(void) {
             else
                 menuactual = 0;
         }
+        // </editor-fold>
         T0IF = 0;
     } else {
         ///interrupciones no contempladas
