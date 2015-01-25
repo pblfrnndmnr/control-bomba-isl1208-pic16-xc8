@@ -20,14 +20,9 @@
 /* Interrupt Routines                                                         */
 /******************************************************************************/
 
-/* Baseline devices don't have interrupts. Note that some PIC16's 
- * are baseline devices.  Unfortunately the baseline detection macro is 
- * _PIC12 */
-#ifndef _PIC18
-#ifndef _PIC12
-
 void interrupt isr(void) {
     if (ADIF && ADIE) {
+        // <editor-fold defaultstate="collapsed" desc="interrupcion adc">
         if (getADCChannel() == MIDECORRIENTE) {
             medidaI_adc = adcRead();
             setADCChannel(MIDETENSION);
@@ -39,7 +34,11 @@ void interrupt isr(void) {
         }
         ADIF = 0;
         cambio_de_canal = 1;
+        // </editor-fold>
     } else if (INTF && INTE) { // INTERRUPCION por EXT2 Clock Out --------------------------------------------
+        // <editor-fold defaultstate="collapsed" desc="interrupcion intf">
+
+
         if (INTEDG == 1) {
             //      ext_int_edge(2,H_TO_L);
             INTEDG = 0;
@@ -55,8 +54,9 @@ void interrupt isr(void) {
         }
         refrescadisplay = 1;
         INTF = 0;
+        // </editor-fold>
     } else if (T0IF && T0IE) {
-
+        // <editor-fold defaultstate="collapsed" desc="interrupcion timer0">
         //Interrupcion por desborde del timer0. Tal como esta configurado, se el timer desborda cada
         //0.0032768seg o sea 3.2768 ms, por lo tanto para que pase alrededor de 0.5segundo, se debe entrar 150 veces
         //como con un unsigned int no funciona uso unsigned char y solo hasta 150
@@ -90,7 +90,7 @@ void interrupt isr(void) {
                 } else {
                     //TODO quitar esto en la version final
                     TRISDbits.TRISD3 = 0;
-                    RD3 = !RD3; // PORTDbits.RD3 = !PORTDbits.RD3;
+                    RD3 = !RD3;
                     cuentasegundos = 0;
                     if (cuentaminutos < 60) {
                         cuentaminutos++;
@@ -267,8 +267,6 @@ void interrupt isr(void) {
         }
         // </editor-fold>
         // <editor-fold defaultstate="expanded" desc="boton menu">
-
-
         if (Pulsacion(4, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
 
             buzzer_on();
@@ -279,32 +277,8 @@ void interrupt isr(void) {
         }
         // </editor-fold>
         T0IF = 0;
+        // </editor-fold>
     } else {
         ///interrupciones no contempladas
     }
-
-    /* This code stub shows general interrupt handling.  Note that these
-    conditional statements are not handled within 3 seperate if blocks.
-    Do not use a seperate if block for each interrupt flag to avoid run
-    time errors. */
-
-#if 0
-
-    /* Add interrupt routine code here. */
-
-    /* Determine which flag generated the interrupt */
-    if (<Interrupt Flag 1 >) {
-        <Interrupt Flag 1 = 0 >; /* Clear Interrupt Flag 1 */
-    } else if (<Interrupt Flag 2 >) {
-        <Interrupt Flag 2 = 0 >; /* Clear Interrupt Flag 2 */
-    } else {
-        /* Unhandled interrupts */
-    }
-
-#endif
-
 }
-#endif
-
-
-#endif
