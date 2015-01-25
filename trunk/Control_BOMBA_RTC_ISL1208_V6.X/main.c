@@ -458,9 +458,10 @@ void main() {
             default:
                 break;
         }
-   
-        if ((estadonivel == NIVELNORMAL)&&(estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
-           activabomba = ENCIENDEBOMBA;
+
+        if (/*(estadonivel == NIVELNORMAL)&&*/(estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
+            if (estadonivel == NIVELNORMAL)
+                activabomba = ENCIENDEBOMBA;
             //TODO acá debo dar la orden para encender la bomba?
         } else {
             activabomba = APAGABOMBA;
@@ -512,7 +513,7 @@ void main() {
 
         //Inicio de procesamiento de medicion de voltaje, corriente
         /////////////////////////////////////////////////////////////
-      //  unsigned int adcenteroI;
+        //  unsigned int adcenteroI;
         //unsigned int adcdecimalI;
         unsigned int adcenteroV;
 
@@ -543,13 +544,13 @@ void main() {
                 mediciondecorriente = (float) medidaI_adc * 50 / 1024;
                 //adcenteroI = (unsigned int) mediciondecorriente;
                 //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
-                if(mediciondecorriente<=CORRIENTEMAXIMA&&mediciondecorriente>=CORRIENTEMINIMA){
-                    estadofallacorriente=CORRIENTENORMAL;
-                        estadonivel == NIVELNORMAL;
+                if (mediciondecorriente <= CORRIENTEMAXIMA && mediciondecorriente >= CORRIENTEMINIMA) {
+                    estadofallacorriente = CORRIENTENORMAL;
+                    estadonivel = NIVELNORMAL;
 
-                }else{
-                    estadofallacorriente=FALLACORRIENTE;
-        estadonivel == NIVELBAJO;
+                } else {
+                    estadofallacorriente = FALLACORRIENTE;
+                    estadonivel = NIVELBAJO;
 
                 }
                 break;
