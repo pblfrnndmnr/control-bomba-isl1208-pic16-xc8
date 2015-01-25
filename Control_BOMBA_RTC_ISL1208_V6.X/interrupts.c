@@ -261,19 +261,26 @@ void interrupt isr(void) {
 
 
         bandera_startglobal = 0;
-        if (Pulsacion(3, BOTON_ONOFF, INMEDIATO, LOGICA_INVERSA)) {
+        if (Pulsacion(2, BOTON_ONOFF, INMEDIATO, LOGICA_INVERSA)) {
 
             bandera_startglobal = 1;
         }
         // </editor-fold>
-        // <editor-fold defaultstate="expanded" desc="boton menu">
-        if (Pulsacion(4, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
+         // <editor-fold defaultstate="collapsed" desc="boton menu">
+        if (Pulsacion(3, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
 
             buzzer_on();
             if (menuactual < ULTIMOMENU)
                 menuactual++;
             else
                 menuactual = 0;
+        }
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="boton manaut">
+        if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
+
+            buzzer_on();
+            
         }
         // </editor-fold>
         T0IF = 0;
