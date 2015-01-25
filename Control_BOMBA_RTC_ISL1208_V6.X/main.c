@@ -170,14 +170,14 @@ void main() {
     ADIF = 0;
     INTF = 0; // borro las banderas de interrupcion
     TMR0IF = 0;
-    PEIE=1;
+    PEIE = 1;
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
     //TODO   isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);
 
-    while (1) {//
-        // di(); //
-        //Inicia Procesa los menú
+    while (1) {
+        // <editor-fold defaultstate="collapsed" desc="Inicia Procesa los menú">
+
         ////////////////////////////////////////
         switch (menuactual) {
             case MENU_MUESTRAHORA:
@@ -443,24 +443,26 @@ void main() {
         };
         //////////////////////////////////////////////////////////
         //Finaliza Procesa los menú
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
 
         //Verifica estados de falla
         /////////////////////////////////////////////////////////
-        if(menuactual!=MENU_MUESTRAMEDICIONES && menuactual!= MENU_MUESTRAFECHA&& (menuactual<SUBMENU_CONFIGURADIA || menuactual>SUBMENU_CONFIGURAANIO))
-        switch (estadobomba) {
-            case BOMBAAPAGADA:
-            {
-                sprintf(cadenaamostrar2, "     off");
-                break;
+        if (menuactual != MENU_MUESTRAMEDICIONES && menuactual != MENU_MUESTRAFECHA && (menuactual < SUBMENU_CONFIGURADIA || menuactual > SUBMENU_CONFIGURAANIO))
+            switch (estadobomba) {
+                case BOMBAAPAGADA:
+                {
+                    sprintf(cadenaamostrar2, "     off");
+                    break;
+                }
+                case BOMBAENCENDIDA:
+                {
+                    sprintf(cadenaamostrar2, "      on");
+                    break;
+                }
+                default:
+                    break;
             }
-            case BOMBAENCENDIDA:
-            {
-                sprintf(cadenaamostrar2, "      on");
-                break;
-            }
-            default:
-                break;
-        }
 
         if (/*(estadonivel == NIVELNORMAL)&&*/(estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
             if (estadonivel == NIVELNORMAL)
@@ -513,6 +515,9 @@ void main() {
         }
         //////////////////////////////////////////////////////
         //Fin Verifica estados de falla
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Inicio de procesamiento de medicion de voltaje, corriente">
+
 
         //Inicio de procesamiento de medicion de voltaje, corriente
         /////////////////////////////////////////////////////////////
@@ -562,10 +567,10 @@ void main() {
                 break;
         }
 
-        // sprintf(cadenaamostrar, "%2u.%uA   ", (unsigned int) adcenteroI, (unsigned int) adcdecimalI);
-        // sprintf(cadenaamostrar2, "%3uV    ", (unsigned int) adcenteroV);
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Activa o desactiva la Bomba">
 
 
         //Activa o desactiva la Bomba
@@ -588,6 +593,8 @@ void main() {
         }
         //////////////////////////////////////////////////////
         //Fin Activa o desactiva la Bomba
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Actualiza Display">
 
         //Actualiza Display
         /////////////////////////////////////////////
@@ -605,6 +612,8 @@ void main() {
         }
         ////////////////////////////////////////////////
         //Fin Actualiza Display
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en el RTC">
 
         //Graba Nuevos datos en el RC
         /////////////////////////////////////////////////
@@ -626,9 +635,9 @@ void main() {
         }
         //////////////////////////////////////////////////////////////////
         //Finaliza Graba Nuevos datos en el RTC
+        // </editor-fold>
         NOP();
         NOP();
-
     }
 }
 
