@@ -120,9 +120,6 @@ void main() {
     __delay_ms(500);
 
 
-    ADIF = 0;
-    INTF = 0; // borro las banderas de interrupcion
-    TMR0IF = 0;
 
     if (ISL1208_ready()) {
         sprintf(cadenaamostrar, "RTC OK");
@@ -169,6 +166,11 @@ void main() {
 
         }
     }
+
+    ADIF = 0;
+    INTF = 0; // borro las banderas de interrupcion
+    TMR0IF = 0;
+    PEIE=1;
     ei(); //enable_interrupts(global);
     // Inicializa isl1208
     //TODO   isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);
@@ -444,6 +446,7 @@ void main() {
 
         //Verifica estados de falla
         /////////////////////////////////////////////////////////
+        if(menuactual!=MENU_MUESTRAMEDICIONES && menuactual!= MENU_MUESTRAFECHA&& (menuactual<SUBMENU_CONFIGURADIA || menuactual>SUBMENU_CONFIGURAANIO))
         switch (estadobomba) {
             case BOMBAAPAGADA:
             {
