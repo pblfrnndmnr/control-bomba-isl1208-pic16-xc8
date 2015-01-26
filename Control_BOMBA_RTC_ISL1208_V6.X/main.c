@@ -480,9 +480,8 @@ void main() {
                     break;
             }
         }
-        if (/*(estadonivel == NIVELNORMAL)&&*/(estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
-            if (estadonivel == NIVELNORMAL)
-                activabomba = ENCIENDEBOMBA;
+        if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
+            activabomba = ENCIENDEBOMBA;
             //TODO acá debo dar la orden para encender la bomba?
         } else {
             activabomba = APAGABOMBA;
