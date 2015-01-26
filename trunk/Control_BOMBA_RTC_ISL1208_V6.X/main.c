@@ -148,12 +148,15 @@ void main() {
     fecha.month = 1;
     fecha.yr = 15;
     fecha.dow = 4;
+
     isl1208SR.Valor = 0x00;
     isl1208SR.Valor = ISL1208_Read_status();
     if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
+        isl1208_init();
         menuactual = MENU_CONFIGURAHORARIO;
 
     } else {
+
         lee_y_transmite_date_and_time();
 
         /*TODO leer el valor de la alarma de encendido en algun lado cuando se cambia el
@@ -609,7 +612,8 @@ void main() {
         //////////////////////////////////////////////////////
         //Fin Activa o desactiva la Bomba
         // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="Procesa Alarma">
+
+        // <editor-fold defaultstate="collapsed" desc="Procesa Alarma">
         //Inicio Procesa Alarma
         ///////////////////////////////////////////////////////
         switch (alarma_encendido) {
@@ -619,8 +623,8 @@ void main() {
             }
             case SIALARMA:
             {
-                activabomba=ENCIENDEBOMBA;
-                alarma_encendido=NOALARMA;
+                activabomba = ENCIENDEBOMBA;
+                alarma_encendido = NOALARMA;
                 break;
             }
             default:
@@ -629,6 +633,7 @@ void main() {
         //////////////////////////////////////////////////////
         //Fin Procesa Alarma
         // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Actualiza Display">
         //Actualiza Display
         /////////////////////////////////////////////
