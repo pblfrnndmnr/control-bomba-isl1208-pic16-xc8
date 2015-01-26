@@ -243,7 +243,7 @@
 			#define LCD_DATA_PIN_4 	RD4
 		#endif
 		
-		#define LCD_READ_PIN_7	PORTDbits.RD7
+		#define LCD_READ_PIN_7	RD7
 		#define LCD_READ_PIN_6	RD6
 		#define LCD_READ_PIN_5	RD5
 		#define LCD_READ_PIN_4	RD4
@@ -355,4 +355,6 @@ void vGotoxyLCD(UINT8 x,UINT8 y);
 void vPuts_LCD(UINT8 *buffer);
 void vBlinkingLCD(void);
 void vnoBlinkingLCD(void);
+void vBackLightLCD_On(void);
+void vBackLightLCD_Off(void);
 #endif

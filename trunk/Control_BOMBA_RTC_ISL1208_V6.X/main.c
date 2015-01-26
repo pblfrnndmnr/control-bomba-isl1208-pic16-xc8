@@ -4,9 +4,7 @@
 // Real Time Clock & NVRAM
 // Hardware isl1208 of Dallas Maxim
 // With interface I2C
-#ifndef __PICCPRO__
-#define __PICCPRO__
-#endif
+
 #if defined(__XC)
 #include <xc.h>         /* XC8 General Include File */
 #elif defined(HI_TECH_C)
@@ -22,6 +20,7 @@
 #include "pwm.h"
 #include "adcPic16.h"
 #include <string.h>
+
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
@@ -624,6 +623,7 @@ void main() {
             case SIALARMA:
             {
                 activabomba = ENCIENDEBOMBA;
+                buzzer_on();
                 alarma_encendido = NOALARMA;
                 break;
             }
@@ -668,7 +668,7 @@ void main() {
             if (horario == &horarioenc) {
                 isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
                 //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-                isl1208_set_dow_enc(&fechaenc.dow);
+               //TODO isl1208_set_dow_enc(&fechaenc.dow);
             }
             bandera_grabafechay_hora = 0;
         }
