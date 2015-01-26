@@ -38,22 +38,7 @@ void interrupt isr(void) {
         // </editor-fold>
     } else if (INTF && INTE) { // INTERRUPCION por EXT2 Clock Out --------------------------------------------
         // <editor-fold defaultstate="collapsed" desc="interrupcion intf">
-
-
-        if (INTEDG == 1) {
-            //      ext_int_edge(2,H_TO_L);
-            INTEDG = 0;
-            flanco = 0;
-            //PORTEbits.RE0 = 1; //output_high(PIN_E0);
-        } else {
-            //   ext_int_edge(2,L_TO_H);
-            INTEDG = 1;
-            flanco = 1;
-            // PORTEbits.RE0 = 0; //output_low(PIN_E0);
-            //      flanco=1;
-
-        }
-        refrescadisplay = 1;
+        alarma_encendido=SIALARMA;
         INTF = 0;
         // </editor-fold>
     } else if (T0IF && T0IE) {
@@ -276,7 +261,7 @@ void interrupt isr(void) {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton manaut">
         if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
-            manual_automatico=!manual_automatico;
+            manual_automatico = !manual_automatico;
             buzzer_on();
 
         }

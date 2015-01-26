@@ -185,7 +185,9 @@ bool estadofallavoltaje= 0;
 #define AUTOMATICO 1
 bool manual_automatico=MANUAL;
 
-
+#define NOALARMA 0
+#define SIALARMA 1
+bool alarma_encendido = NOALARMA;
 
 unsigned int medidaI_adc = 0;
 #define OFFSET_I .3

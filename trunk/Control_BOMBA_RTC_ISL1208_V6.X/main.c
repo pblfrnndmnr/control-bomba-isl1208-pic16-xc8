@@ -609,7 +609,26 @@ void main() {
         //////////////////////////////////////////////////////
         //Fin Activa o desactiva la Bomba
         // </editor-fold>
-
+// <editor-fold defaultstate="collapsed" desc="Procesa Alarma">
+        //Inicio Procesa Alarma
+        ///////////////////////////////////////////////////////
+        switch (alarma_encendido) {
+            case NOALARMA:
+            {
+                break;
+            }
+            case SIALARMA:
+            {
+                activabomba=ENCIENDEBOMBA;
+                alarma_encendido=NOALARMA;
+                break;
+            }
+            default:
+                break;
+        }
+        //////////////////////////////////////////////////////
+        //Fin Procesa Alarma
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Actualiza Display">
         //Actualiza Display
         /////////////////////////////////////////////
