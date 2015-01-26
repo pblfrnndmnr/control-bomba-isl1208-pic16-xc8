@@ -278,3 +278,11 @@ void vBlinkingLCD(void){
 void vnoBlinkingLCD(void){
 	vWriteLCD(0b1100,LCD_COMMAND);
 }
+void vBackLightLCD_On(void){
+    TRISD3=0;
+    RD3=1;
+}
+void vBackLightLCD_Off(void){
+    TRISD3=0;
+    RD3=0;
+}
