@@ -107,7 +107,7 @@ bool ISL1208_ready(void);
 unsigned char isl1208_bin2bcd(unsigned char binary_value);
 unsigned char isl1208_bcd2bin(unsigned char bcd_value);
 
-void isl1208_init(unsigned char val);
+void isl1208_init();
 
 void isl1208_set_time(unsigned char hr, unsigned char min, unsigned char sec);
 void isl1208_set_date(unsigned char* day, unsigned char* mth, unsigned char* year, unsigned char* dow);
@@ -126,6 +126,8 @@ void isl1208_write_nvram_byte(char addr, char value);
 int aniobisiesto(unsigned char year);
 unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio);
 unsigned char ISL1208_Read_status(void);
+unsigned char ISL1208_Read_Int(void);
+void ISL1208_Set_Int(unsigned char *Int);
 ///////////////////////////////////////////////////////////////////////////////
 
 #endif

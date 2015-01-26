@@ -65,19 +65,38 @@ unsigned char ISL1208_Read_status(void) {
     return SR;
 }
 
-void isl1208_init(unsigned char val) {
+unsigned char ISL1208_Read_Int(void) {
+    char Int;
+    start_i2c(); // If the write command is acknowledged,
+    write_i2c(isl1208_Write); // then the device is ready.
+    write_i2c(0x08);
+    rstart_i2c();
+    write_i2c(isl1208_Read);
+    Int = read_i2c(NOACK);
+    stop_i2c();
+    return Int;
+}
 
-    unsigned char seconds = 0;
+void ISL1208_Set_Int(unsigned char *Int) {
 
-#ifndef USE_INTERRUPTS
-    //di();
-#endif
-    //TODO Verificar secuencia correcta para pode escribir en el ISL1208
-    
-#ifndef USE_INTERRUPTS
-    //ei();
-#endif
+    start_i2c(); // If the write command is acknowledged,
+    write_i2c(isl1208_Write); // then the device is ready.
+    write_i2c(0x08);
+    write_i2c(*Int);
+    stop_i2c();
+   
+}
 
+
+
+void isl1208_init() {
+
+isl1208INT.ALME=1;//habilita la alarma
+isl1208INT.FO=0;//deshabilita la salida de frecuencia
+isl1208INT.FOBATB=1;//deshabilita la salida de fout/irq en modo backup
+isl1208INT.IM=1;//alarma en modo irq
+isl1208INT.LPMODE=1;//deshabilita comunicacion en modo backup
+ISL1208_Set_Int(&isl1208INT.Valor);
 }
 
 void isl1208_set_time(unsigned char hr, unsigned char min, unsigned char sec) {
