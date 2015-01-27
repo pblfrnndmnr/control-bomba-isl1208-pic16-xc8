@@ -161,8 +161,9 @@ unsigned char tiempofalla = 0;
 unsigned char menuactual = MENU_MUESTRAHORA;
 
 
-bool bandera_grabafechay_hora = 0;
-bool bandera_startglobal = 0;
+bool bandera_graba_hora = 0; //bandera para grabar la hora
+bool bandera_graba_fecha = 0;//bandera para grabar la fecha
+bool bandera_graba_global = 0;//bandera que habilita el grabago de datos cuando se pulsa el boton BOTON_ONOFF
 
 //constantes y variables de indicacion del estado de la bomba
 #define APAGABOMBA 0

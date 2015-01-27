@@ -243,10 +243,9 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton onoff">
 
 
-        bandera_startglobal = 0;
-        if (Pulsacion(2, BOTON_ONOFF, INMEDIATO, LOGICA_INVERSA)) {
-
-            bandera_startglobal = 1;
+        //bandera_graba_global = 0;
+        if (Pulsacion(2, BOTON_ONOFF, SIN_REPETICION, LOGICA_INVERSA)) {
+            bandera_graba_global = 1;
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton menu">
