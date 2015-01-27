@@ -49,7 +49,7 @@ bool flanco = 0;
 #define NOHACENADA 0x0A
 //bandera para modificar minutos horas dia mes año
 unsigned char modificafecha = NOHACENADA;
-bool banderasino = 0;
+bool * banderasino;
 
 //definicion de los datos para la fecha y horario
 
@@ -152,11 +152,13 @@ float mediciondecorriente;
 #define ULTIMOMENU 17 //indica el valor del ultimo menu
 
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
-#define TIEMPOMAXIMOFALLA 30 //segundos 
+#define TIEMPOMAXIMOFALLA 10 //segundos
 #define TIEMPOMAXIMONIVEL 15 //es el tiempo que hay que esperar en caso de que se llegue al nivel minimo para apagar el motor
 #define TIEMPOMAXIMOPERIODO 7 //cada cuantos dias se riega.
 unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
+bool usa_falla_de_corriente=0;
+bool usa_nivel_bajo=0;
 unsigned char tiempofalla = 0;
 unsigned char menuactual = MENU_MUESTRAHORA;
 
@@ -165,6 +167,11 @@ bool bandera_graba_hora = 0; //bandera para grabar la hora
 bool bandera_graba_fecha = 0;//bandera para grabar la fecha
 bool bandera_graba_global = 0;//bandera que habilita el grabago de datos cuando se pulsa el boton BOTON_ONOFF
 
+bool bandera_graba_periodoencendido=0;
+bool bandera_graba_tiempoencendido=0;
+bool bandera_graba_usa_falla_de_corriente=0;
+bool bandera_graba_usa_nivel_bajo=0;
+bool bandera_graba_tiempofalla=0;
 //constantes y variables de indicacion del estado de la bomba
 #define APAGABOMBA 0
 #define ENCIENDEBOMBA 1

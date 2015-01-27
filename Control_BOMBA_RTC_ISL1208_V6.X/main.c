@@ -170,6 +170,14 @@ void main() {
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
+    periodoencendido = eeprom_read(0);
+    tiempoencendido = eeprom_read(1);
+    usa_falla_de_corriente = eeprom_read(2);
+    usa_nivel_bajo = eeprom_read(3);
+    tiempofalla = eeprom_read(4);
+    // </editor-fold>
+
     ADIF = 0;
     INTF = 0; // borro las banderas de interrupcion
     TMR0IF = 0;
@@ -358,6 +366,7 @@ void main() {
                     sprintf(cadenaamostrar, "c/  dias");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_periodoencendido = 1;
                 break;
             }
 
@@ -373,23 +382,25 @@ void main() {
                     sprintf(cadenaamostrar, "ENCEN:  ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_tiempoencendido = 1;
                 break;
             }
             case MENU_CONFIGURAFALLACORRIENTE:
             {
                 modificafecha = SINO;
-
+                banderasino=&usa_falla_de_corriente;
                 if (flanco)
-                    if (banderasino) {
-                        sprintf(cadenaamostrar, "NORMAL A ");
+                    if (usa_falla_de_corriente) {
+                        sprintf(cadenaamostrar, "FC:   SI");
                         sprintf(cadenaamostrar2, cadena_esp);
                     } else {
-                        sprintf(cadenaamostrar, "NORMAL C ");
+                        sprintf(cadenaamostrar, "FC:   NO");
                         sprintf(cadenaamostrar2, cadena_esp);
                     } else {
-                    sprintf(cadenaamostrar, "NORMAL   ");
+                    sprintf(cadenaamostrar, "FC:     ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_usa_falla_de_corriente = 1;
                 break;
             }
             case MENU_CONFIGURATIEMPOFALLACORRIENTE:
@@ -397,32 +408,32 @@ void main() {
                 modificafecha = TIEMPOFALLA;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "FALLA:%02d", tiempofalla);
+                    sprintf(cadenaamostrar, "TFC:  %02d", tiempofalla);
                     sprintf(cadenaamostrar2, cadena_esp);
                     haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "FALLA:  ");
+                    sprintf(cadenaamostrar, "TFC:    ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_tiempofalla = 1;
                 break;
             }
             case MENU_CONFIGURAINDICACIONDENIVEL:
             {
                 modificafecha = SINO;
-
-
+               banderasino=  &usa_nivel_bajo ;
                 if (flanco)
-                    if (banderasino) {
-                        sprintf(cadenaamostrar, "NORMAL A ");
+                    if (usa_nivel_bajo) {
+                        sprintf(cadenaamostrar, "NIVEL:SI");
                         sprintf(cadenaamostrar2, cadena_esp);
                     } else {
-                        sprintf(cadenaamostrar, "NORMAL C ");
+                        sprintf(cadenaamostrar, "NIVEL:NO");
                         sprintf(cadenaamostrar2, cadena_esp);
                     } else {
-                    sprintf(cadenaamostrar, "NORMAL   ");
+                    sprintf(cadenaamostrar, "NIVEL:  ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
-
+                bandera_graba_usa_nivel_bajo = 1;
                 break;
             }
             case MENU_MUESTRAMEDICIONES:
@@ -629,8 +640,8 @@ void main() {
                 activabomba = ENCIENDEBOMBA;
                 buzzer_on();
                 alarma_encendido = NOALARMA;
-                isl1208SR.Valor=ISL1208_Read_status();
-                isl1208SR.ALM=0;
+                isl1208SR.Valor = ISL1208_Read_status();
+                isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
                 ISL1208_Set_status(&isl1208SR.Valor);
                 break;
             }
@@ -663,10 +674,6 @@ void main() {
         // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en el RTC">
         //Graba Nuevos datos en el RC
         /////////////////////////////////////////////////
-        /* if (bandera_graba_global) {
-             bandera_graba_hora = 1;
-
-         }*/
         if (bandera_graba_global) {
             if (bandera_graba_hora) {
                 if (horario == &horarioactual) {
@@ -683,13 +690,48 @@ void main() {
                 isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
                 buzzer_on();
             }
-            bandera_graba_global = 0;
         }
         bandera_graba_hora = 0;
         bandera_graba_fecha = 0;
         //////////////////////////////////////////////////////////////////
         //Finaliza Graba Nuevos datos en el RTC
         // </editor-fold>
+
+        // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en la EEPROM DEL PIC">
+        //DIRECCION 0: periodoencendido(cada cuanto se enciende la bomba en automatico), de 0 a 6 dias,
+        //DIRECCION 1: tiempoencendido (cuanto tiempo permanece encendida la bomba en automatico) 0 a 60 minutos
+        //DIRECCION 2: usa_falla_de_corriente (dice si se usa falla de corriente o no)
+        //DIRECCION 3: usa_nivel_bajo (indica si se usa la deteccion de nivel bajo)
+        //DIRECCION 4: tiempofalla (cuanto tiempo puede estar en falla de corriente antes de apagar la bomba por seguridad) 0 a 10 segundos
+
+
+        if (bandera_graba_global) {
+            di();
+            if (bandera_graba_periodoencendido) {
+                eeprom_write(0, periodoencendido);
+            }
+            if (bandera_graba_tiempoencendido) {
+                eeprom_write(1, tiempoencendido);
+            }
+            if (bandera_graba_usa_falla_de_corriente) {
+                eeprom_write(2, usa_falla_de_corriente);
+            }
+            if (bandera_graba_usa_nivel_bajo) {
+                eeprom_write(3, usa_nivel_bajo);
+            }
+            if (bandera_graba_tiempofalla) {
+                eeprom_write(4, tiempofalla);
+            }
+            ei();
+        }
+        bandera_graba_global = 0;
+        bandera_graba_periodoencendido = 0;
+        bandera_graba_tiempoencendido = 0;
+        bandera_graba_usa_falla_de_corriente = 0;
+        bandera_graba_usa_nivel_bajo = 0;
+        bandera_graba_tiempofalla = 0;
+        // </editor-fold>
+
         NOP();
         NOP();
     }
