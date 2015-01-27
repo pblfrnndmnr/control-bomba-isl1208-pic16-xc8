@@ -629,6 +629,9 @@ void main() {
                 activabomba = ENCIENDEBOMBA;
                 buzzer_on();
                 alarma_encendido = NOALARMA;
+                isl1208SR.Valor=ISL1208_Read_status();
+                isl1208SR.ALM=0;
+                ISL1208_Set_status(&isl1208SR.Valor);
                 break;
             }
             default:

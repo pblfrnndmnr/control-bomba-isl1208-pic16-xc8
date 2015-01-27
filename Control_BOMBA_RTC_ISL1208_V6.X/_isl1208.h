@@ -126,6 +126,7 @@ void isl1208_write_nvram_byte(char addr, char value);
 int aniobisiesto(unsigned char year);
 unsigned char dia_de_la_semana(unsigned char *dia, unsigned char *mes, unsigned char *anio);
 unsigned char ISL1208_Read_status(void);
+void ISL1208_Set_status(unsigned char *SR);
 unsigned char ISL1208_Read_Int(void);
 void ISL1208_Set_Int(unsigned char *Int);
 ///////////////////////////////////////////////////////////////////////////////

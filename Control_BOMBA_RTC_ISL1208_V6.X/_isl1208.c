@@ -53,6 +53,17 @@ bool ISL1208_ready(void) {
     return !ack; // Invert ACK returned so TRUE = ACK OK
 }
 
+void ISL1208_Set_status(unsigned char *SR) {
+
+    start_i2c(); // If the write command is acknowledged,
+    write_i2c(isl1208_Write); // then the device is ready.
+    write_i2c(0x07);
+    write_i2c(*SR);
+    stop_i2c();
+
+}
+
+
 unsigned char ISL1208_Read_status(void) {
     char SR;
     start_i2c(); // If the write command is acknowledged,
