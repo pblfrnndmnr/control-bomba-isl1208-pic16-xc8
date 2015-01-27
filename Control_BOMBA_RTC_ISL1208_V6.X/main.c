@@ -175,8 +175,6 @@ void main() {
     TMR0IF = 0;
     PEIE = 1;
     ei(); //enable_interrupts(global);
-    // Inicializa isl1208
-    //TODO   isl1208_init(isl1208_OUT_ENABLED | isl1208_OUT_1_HZ);
 
     while (1) {
         // <editor-fold defaultstate="collapsed" desc="Inicia Procesa los menú">
@@ -205,7 +203,7 @@ void main() {
                     lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+                    strncpy(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)], 2);
                 }
 
 
@@ -233,6 +231,7 @@ void main() {
                     sprintf(cadenaamostrar, "  :%02d    ", horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_hora = 1;
                 break;
             }
             case SUBMENU_CONFIGURAMINUTOS:
@@ -247,6 +246,7 @@ void main() {
                     sprintf(cadenaamostrar, "%02d:      ", horarioactual.hrs);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_hora = 1;
                 break;
             }
             case MENU_CONFIGURAFECHA:
@@ -271,6 +271,7 @@ void main() {
                     sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_fecha = 1;
                 break;
             }
             case SUBMENU_CONFIGURAMES:
@@ -285,6 +286,7 @@ void main() {
                     sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_fecha = 1;
                 break;
             }
             case SUBMENU_CONFIGURAANIO:
@@ -299,6 +301,7 @@ void main() {
                     sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_fecha = 1;
                 break;
             }
             case MENU_CONFIGURAENCENDIDO:
@@ -323,7 +326,7 @@ void main() {
                     sprintf(cadenaamostrar, "  :%02d    ", horarioenc.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
-
+                bandera_graba_hora = 1;
                 break;
             }
             case SUBMENU_CONFIGURAMINUTOSENCENDIDO:
@@ -338,6 +341,7 @@ void main() {
                     sprintf(cadenaamostrar, "%02d:      ", horarioenc.hrs);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
+                bandera_graba_hora = 1;
                 break;
             }
 
@@ -656,22 +660,30 @@ void main() {
         // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en el RTC">
         //Graba Nuevos datos en el RC
         /////////////////////////////////////////////////
-        if (bandera_startglobal) {
-            bandera_grabafechay_hora = 1;
+        /* if (bandera_graba_global) {
+             bandera_graba_hora = 1;
 
-        }
-        if (!bandera_startglobal && bandera_grabafechay_hora) {
-            if (horario == &horarioactual) {
-                isl1208_set_time((*horario).hrs, (*horario).min, 00);
+         }*/
+        if (bandera_graba_global) {
+            if (bandera_graba_hora) {
+                if (horario == &horarioactual) {
+                    isl1208_set_time((*horario).hrs, (*horario).min, 00);
+                    buzzer_on();
+                }
+                if (horario == &horarioenc) {
+                    isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
+                    //TODO isl1208_set_dow_enc(&fechaenc.dow);
+                    buzzer_on();
+                }
+            }
+            if (bandera_graba_fecha) {
                 isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
+                buzzer_on();
             }
-            if (horario == &horarioenc) {
-                isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
-                //isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-               //TODO isl1208_set_dow_enc(&fechaenc.dow);
-            }
-            bandera_grabafechay_hora = 0;
+            bandera_graba_global = 0;
         }
+        bandera_graba_hora = 0;
+        bandera_graba_fecha = 0;
         //////////////////////////////////////////////////////////////////
         //Finaliza Graba Nuevos datos en el RTC
         // </editor-fold>
