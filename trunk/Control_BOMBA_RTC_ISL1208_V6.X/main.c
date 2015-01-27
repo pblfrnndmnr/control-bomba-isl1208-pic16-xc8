@@ -709,18 +709,23 @@ void main() {
             di();
             if (bandera_graba_periodoencendido) {
                 eeprom_write(0, periodoencendido);
+            buzzer_on();
             }
             if (bandera_graba_tiempoencendido) {
                 eeprom_write(1, tiempoencendido);
+            buzzer_on();
             }
             if (bandera_graba_usa_falla_de_corriente) {
                 eeprom_write(2, usa_falla_de_corriente);
+            buzzer_on();
             }
             if (bandera_graba_usa_nivel_bajo) {
                 eeprom_write(3, usa_nivel_bajo);
+            buzzer_on();
             }
             if (bandera_graba_tiempofalla) {
                 eeprom_write(4, tiempofalla);
+            buzzer_on();
             }
             ei();
         }
