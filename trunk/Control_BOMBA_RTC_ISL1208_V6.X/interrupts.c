@@ -130,7 +130,7 @@ void interrupt isr(void) {
                         if (fecha.yr == 99) fecha.yr = 0; //solamente contamos desde el año 99
                     break;
                 case SINO:
-                    banderasino = !banderasino;
+                    *banderasino = !*banderasino;
                     break;
                 case TIEMPOENCENDIDO:
                     haycambio = 1;
@@ -203,7 +203,7 @@ void interrupt isr(void) {
                         if (fecha.yr == 0) fecha.yr = 99; //solamente contamos desde el año 99
                     break;
                 case SINO:
-                    banderasino = !banderasino;
+                    *banderasino = !*banderasino;
                     break;
                 case TIEMPOENCENDIDO:
                     haycambio = 1;
