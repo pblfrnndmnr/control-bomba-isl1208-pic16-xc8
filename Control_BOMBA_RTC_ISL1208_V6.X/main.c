@@ -180,8 +180,8 @@ void main() {
     usa_nivel_bajo = eeprom_read(3);
     if (usa_nivel_bajo > 1)usa_nivel_bajo = 1;
     tiempofalla = eeprom_read(4);
-    if(tiempofalla>TIEMPOMAXIMOFALLA)tiempofalla=5;
-     //si se produjo un error en la EEPROM, asigno valores predefinidos
+    if (tiempofalla > TIEMPOMAXIMOFALLA)tiempofalla = 5;
+    //si se produjo un error en la EEPROM, asigno valores predefinidos
     // </editor-fold>
 
     ADIF = 0;
