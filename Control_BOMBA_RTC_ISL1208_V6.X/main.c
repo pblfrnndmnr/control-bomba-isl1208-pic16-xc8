@@ -4,13 +4,15 @@
 // Real Time Clock & NVRAM
 // Hardware isl1208 of Dallas Maxim
 // With interface I2C
+#ifndef __PICCPRO__
+#define __PICCPRO__
+#endif
 
 #if defined(__XC)
 #include <xc.h>         /* XC8 General Include File */
 #elif defined(HI_TECH_C)
 #include <htc.h>        /* HiTech General Include File */
 #endif
-
 #include <stdint.h>        /* For uint8_t definition */
 #include <stdbool.h>       /* For true/false definition */
 #include <stdio.h>
@@ -20,28 +22,12 @@
 #include "pwm.h"
 #include "adcPic16.h"
 #include <string.h>
-
-/******************************************************************************/
-/* User Global Variable Declaration                                           */
-/******************************************************************************/
-
-/* i.e. uint8_t <variable_name>; */
-
-/******************************************************************************/
-/* Main Program                                                               */
-/******************************************************************************/
-
-//#fuses HS,MCLR,NOWDT,NOPROTECT,NOPUT,NOBROWNOUT,NOPBADEN,NOLVP,NOCPD,NODEBUG,NOWRT,NOVREGEN
-//#use delay(clock=20000000)
-//#use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7)
-
-
-#define USE_INTERRUPTS 1
-
 #include "_isl1208.h"
 #include "HardI2C.h"
 #include "usart1.h"
 #include "LCDGeneric.h"
+#define USE_INTERRUPTS 1
+
 ///////////////////////////////////////////////////////////////////////////////
 
 void lee_y_transmite_date_and_time(void) {
