@@ -172,10 +172,16 @@ void main() {
 
     // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
     periodoencendido = eeprom_read(0);
+    if (periodoencendido > TIEMPOMAXIMOPERIODO) periodoencendido = 1;
     tiempoencendido = eeprom_read(1);
+    if (tiempoencendido > TIEMPOMAXIMOENCENDIDO) tiempoencendido = 15;
     usa_falla_de_corriente = eeprom_read(2);
+    if (usa_falla_de_corriente > 1) usa_falla_de_corriente = 1;
     usa_nivel_bajo = eeprom_read(3);
+    if (usa_nivel_bajo > 1)usa_nivel_bajo = 1;
     tiempofalla = eeprom_read(4);
+    if(tiempofalla>TIEMPOMAXIMOFALLA)tiempofalla=5;
+     //si se produjo un error en la EEPROM, asigno valores predefinidos
     // </editor-fold>
 
     ADIF = 0;
@@ -388,7 +394,7 @@ void main() {
             case MENU_CONFIGURAFALLACORRIENTE:
             {
                 modificafecha = SINO;
-                banderasino=&usa_falla_de_corriente;
+                banderasino = &usa_falla_de_corriente;
                 if (flanco)
                     if (usa_falla_de_corriente) {
                         sprintf(cadenaamostrar, "FC:   SI");
@@ -421,7 +427,7 @@ void main() {
             case MENU_CONFIGURAINDICACIONDENIVEL:
             {
                 modificafecha = SINO;
-               banderasino=  &usa_nivel_bajo ;
+                banderasino = &usa_nivel_bajo;
                 if (flanco)
                     if (usa_nivel_bajo) {
                         sprintf(cadenaamostrar, "NIVEL:SI");
@@ -709,23 +715,23 @@ void main() {
             di();
             if (bandera_graba_periodoencendido) {
                 eeprom_write(0, periodoencendido);
-            buzzer_on();
+                buzzer_on();
             }
             if (bandera_graba_tiempoencendido) {
                 eeprom_write(1, tiempoencendido);
-            buzzer_on();
+                buzzer_on();
             }
             if (bandera_graba_usa_falla_de_corriente) {
                 eeprom_write(2, usa_falla_de_corriente);
-            buzzer_on();
+                buzzer_on();
             }
             if (bandera_graba_usa_nivel_bajo) {
                 eeprom_write(3, usa_nivel_bajo);
-            buzzer_on();
+                buzzer_on();
             }
             if (bandera_graba_tiempofalla) {
                 eeprom_write(4, tiempofalla);
-            buzzer_on();
+                buzzer_on();
             }
             ei();
         }
