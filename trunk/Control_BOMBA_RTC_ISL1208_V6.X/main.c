@@ -7,6 +7,7 @@
 #ifndef __PICCPRO__
 #define __PICCPRO__
 #endif
+// <editor-fold defaultstate="collapsed" desc="Includes">
 
 #if defined(__XC)
 #include <xc.h>         /* XC8 General Include File */
@@ -26,6 +27,8 @@
 #include "HardI2C.h"
 #include "usart1.h"
 #include "LCDGeneric.h"
+// </editor-fold>
+
 #define USE_INTERRUPTS 1
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,8 +62,6 @@ void main() {
     PORTE = 0;
 
     vInitLCD();
-
-
     static char * cadena;
     /*sprintf(cadenaamostrar, cadena_esp);
     sprintf(cadenaamostrar2, cadena_esp);
@@ -94,17 +95,11 @@ void main() {
     buzzer_on();
     __delay_ms(200);
     buzzer_off();
-    //ext_int_edge(2,H_TO_L);
-    INTEDG = 0;
-    INTE = 1; // enable_interrupts(int_ext2);
-    TMR0IE = 1;
+
     setADCChannel(MIDECORRIENTE);
     __delay_us(20);
     openADC();
-    __delay_us(20);
-    interruptADC_on();
-    __delay_ms(500);
-
+   
     // <editor-fold defaultstate="collapsed" desc="Lectura del estado actual del RTC">
 
     if (ISL1208_ready()) {
@@ -164,11 +159,18 @@ void main() {
     //si se produjo un error en la EEPROM, asigno valores predefinidos
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Habilita Interrupciones">
+
+    interruptADC_on();
+    INTEDG = 0;
+    INTE = 1; // enable_interrupts(int_ext2);
+    TMR0IE = 1;
     ADIF = 0;
     INTF = 0; // borro las banderas de interrupcion
     TMR0IF = 0;
     PEIE = 1;
     ei(); //enable_interrupts(global);
+    // </editor-fold>
 
     while (1) {
         // <editor-fold defaultstate="collapsed" desc="Inicia Procesa los menú">
@@ -564,7 +566,7 @@ void main() {
         switch (activabomba) {
             case APAGABOMBA:
             {
-               //TODO Si la bomba está apagada no hago caso a la medición de corriente
+                //TODO Si la bomba está apagada no hago caso a la medición de corriente
                 estadofallacorriente = CORRIENTENORMAL;
                 estadonivel = NIVELNORMAL;
                 break;
