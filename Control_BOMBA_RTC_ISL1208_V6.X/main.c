@@ -61,8 +61,10 @@ void main() {
     PORTE = 0;
 
     vInitLCD();
+
+
     static char * cadena;
-    sprintf(cadenaamostrar, cadena_esp);
+    /*sprintf(cadenaamostrar, cadena_esp);
     sprintf(cadenaamostrar2, cadena_esp);
     vGotoxyLCD(1, 1);
     cadena = cadenaamostrar;
@@ -84,7 +86,7 @@ void main() {
     while (*cadena != '\0')
         vLCD_Putc(*cadena++);
     refrescadisplay = 0;
-
+     */
 
     set_periodo_buzzer(); //configuro el pwm para una frecuencia de 3khz
     buzzer_on();
@@ -105,30 +107,21 @@ void main() {
     interruptADC_on();
     __delay_ms(500);
 
-
-
     if (ISL1208_ready()) {
         sprintf(cadenaamostrar, "RTC OK");
-        vGotoxyLCD(1, 1);
-        cadena = cadenaamostrar;
-        while (*cadena != '\0')
-            vLCD_Putc(*cadena++);
 
-        __delay_ms(500);
-        __delay_ms(500);
-        __delay_ms(500);
     } else {
         sprintf(cadenaamostrar, "RTC ERRO");
-        vGotoxyLCD(1, 1);
-        cadena = cadenaamostrar;
-        while (*cadena != '\0')
-            vLCD_Putc(*cadena++);
-
-        __delay_ms(500);
-        __delay_ms(500);
-        __delay_ms(500);
-
     };
+    vGotoxyLCD(1, 1);
+    cadena = cadenaamostrar;
+    while (*cadena != '\0')
+        vLCD_Putc(*cadena++);
+
+    __delay_ms(500);
+    __delay_ms(500);
+    __delay_ms(500);
+    
     fecha.day = 1;
     fecha.month = 1;
     fecha.yr = 15;
