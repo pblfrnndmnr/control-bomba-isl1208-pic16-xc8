@@ -175,11 +175,11 @@ bool bandera_graba_tiempofalla=0;
 //constantes y variables de indicacion del estado de la bomba
 #define APAGABOMBA 0
 #define ENCIENDEBOMBA 1
-bool activabomba = 0;
+bool activabomba = APAGABOMBA;
 
 #define BOMBAAPAGADA 0
 #define BOMBAENCENDIDA 1
-bool estadobomba = 0;
+bool estadobomba = BOMBAAPAGADA;
 #define NIVELNORMAL 0
 #define NIVELBAJO 1
 bool estadonivel = 0;
@@ -191,7 +191,7 @@ bool estadofallacorriente = 0;
 bool estadofallavoltaje= 0;
 #define MANUAL 0
 #define AUTOMATICO 1
-bool manual_automatico=MANUAL;
+bool manual_automatico=AUTOMATICO;
 
 #define NOALARMA 0
 #define SIALARMA 1

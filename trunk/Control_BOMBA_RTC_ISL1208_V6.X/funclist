@@ -5,7 +5,7 @@ _stop_i2c: CODE, 2940 0 8
 _days_of_week: STRCODE, 6172 0 21
 _read_i2c: CODE, 2661 0 42
 _adcRead: CODE, 3993 0 7
-_interruptADC_on: CODE, 4247 0 4
+_interruptADC_on: CODE, 4244 0 4
 _vWriteLCD: CODE, 4526 0 113
 __stringtab: STRCODE, 6144 0 18
 _dia_de_la_semana: CODE, 2168 0 122
@@ -21,18 +21,18 @@ _isl1208_get_date: CODE, 2593 0 68
 _isl1208_set_date: CODE, 2804 0 75
 _isl1208_get_time: CODE, 2479 0 57
 _isl1208_set_time: CODE, 2744 0 60
-_main: CODE, 4689 0 4294964347
+_main: CODE, 4689 0 4294964349
 ___lwtoft: CODE, 5068 0 16
-_buzzer_on: CODE, 2039 0 9
+_buzzer_on: CODE, 4248 0 9
 _ISL1208_Set_Int: CODE, 2375 0 21
-_buzzer_off: CODE, 4251 0 6
+_buzzer_off: CODE, 2041 0 6
 ___ftadd: CODE, 5333 0 192
 i1_buzzer_on: CODE, 4033 0 9
 i1___lwmod: CODE, 3957 0 36
 i1_buzzer_off: CODE, 4080 0 4
-__initialization: CODE, 19 0 31
+__initialization: CODE, 19 0 33
 ___lwdiv: CODE, 6066 0 42
-i1___awmod: CODE, 1837 0 61
+i1___awmod: CODE, 1839 0 61
 _isr: CODE, 3087 0 708
 _ISL1208_Read_status: CODE, 2418 0 27
 _write_i2c: CODE, 2879 0 24
@@ -60,16 +60,16 @@ ___wmul: CODE, 6041 0 25
 _getADCChannel: CODE, 4070 0 7
 _ISL1208_ready: CODE, 2359 0 16
 _eeprom_read: CODE, 4307 0 27
-___fttol: CODE, 1740 0 97
+___fttol: CODE, 1742 0 97
 ___lbmod: CODE, 3059 0 28
 ___ftsub: CODE, 5084 0 22
 ___ftge: CODE, 2097 0 44
-_eeprom_write: CODE, 2008 0 31
-_strncpy: CODE, 1898 0 56
+_eeprom_write: CODE, 2010 0 31
+_strncpy: CODE, 1900 0 56
 _Pulsacion: CODE, 3795 0 162
 _rstart_i2c: CODE, 2948 0 8
 i1_setADCChannel: CODE, 4084 0 12
 _isl1208_get_dow_enc: CODE, 2445 0 34
 ___bmul: CODE, 2983 0 15
 ___ftdiv: CODE, 5106 0 104
-Total: 1269
+Total: 1273

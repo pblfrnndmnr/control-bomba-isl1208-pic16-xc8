@@ -41,7 +41,6 @@ void main() {
     RBIE = 0;
     INTE = 0; //disable_interrupts(int_ext);
     ADCON1 = 0x06; //todos puertos digitales
-    //setup_counters(RTCC_INTERNAL,RTCC_DIV_2);
     T0CS = 0; // TMR0 Clock Source Select bit: internal
     PSA = 0; //Prescaler is assigned to the Timer0 module
     OPTION_REGbits.PS = 0b101; //: Prescaler Rate Select bits 1/64
@@ -50,7 +49,6 @@ void main() {
     CCP1CONbits.CCP1M = 0;
     //configura_USART();
     setup_i2c(I2C_MASTER);
-
 
     TRISB = 0b00111111; //Configuro las entradas de las teclas y la entrada del reloj
     PORTB = 0;
@@ -107,6 +105,8 @@ void main() {
     interruptADC_on();
     __delay_ms(500);
 
+    // <editor-fold defaultstate="collapsed" desc="Lectura del estado actual del RTC">
+
     if (ISL1208_ready()) {
         sprintf(cadenaamostrar, "RTC OK");
 
@@ -121,7 +121,7 @@ void main() {
     __delay_ms(500);
     __delay_ms(500);
     __delay_ms(500);
-    
+
     fecha.day = 1;
     fecha.month = 1;
     fecha.yr = 15;
@@ -148,6 +148,7 @@ void main() {
 
         }
     }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
     periodoencendido = eeprom_read(0);
@@ -563,6 +564,9 @@ void main() {
         switch (activabomba) {
             case APAGABOMBA:
             {
+               //TODO Si la bomba está apagada no hago caso a la medición de corriente
+                estadofallacorriente = CORRIENTENORMAL;
+                estadonivel = NIVELNORMAL;
                 break;
             }
             case ENCIENDEBOMBA:
@@ -656,6 +660,7 @@ void main() {
         //Fin Actualiza Display
         // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="Graba datos">
         // <editor-fold defaultstate="collapsed" desc="Graba Nuevos datos en el RTC">
         //Graba Nuevos datos en el RC
         /////////////////////////////////////////////////
@@ -721,7 +726,7 @@ void main() {
         bandera_graba_usa_nivel_bajo = 0;
         bandera_graba_tiempofalla = 0;
         // </editor-fold>
-
+        // </editor-fold>
         NOP();
         NOP();
     }
