@@ -550,7 +550,8 @@ void main() {
             }
             case SIALARMA:
             {
-                activabomba = ENCIENDEBOMBA;
+                bandera_orden_Alarma_bomba = 1;
+                //activabomba = ENCIENDEBOMBA;
                 buzzer_on();
                 alarma_encendido = NOALARMA;
                 isl1208SR.Valor = ISL1208_Read_status();
@@ -631,7 +632,60 @@ void main() {
                     activabomba = APAGABOMBA;
                 }
             } else {
+                if (bandera_orden_Alarma_bomba) {
+                    if (indica_secuencia_arranque == 0) {
+                        if (tiempo_secuencia_arranque == 0) {
+                            activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
+                            estadofallacorriente = CORRIENTENORMAL;
+                            estadonivel = NIVELNORMAL;
+                            tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
+                        } else {
+                            //TODO Un a vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
+                            if (mediciondecorriente <= CORRIENTEMAXIMA) {
+                                estadofallacorriente = CORRIENTENORMAL;
+                            } else {
+                                estadofallacorriente = FALLACORRIENTE;
+                            }
 
+                        }
+                    } else {
+                        //TODO ya finalizo la secuencia de arranque, entonces veo si se estabilizó la corriente
+                        if (mediciondecorriente <= CORRIENTENORMALMAXIMA) {
+                            estadofallacorriente = CORRIENTENORMAL;
+                            cuenta_tiempofalla = 0;
+                        } else {
+                            //aca verifica si la falla está presente mucho tiempo con tiempofalla
+                            if (indica_tiempo_falla == 0) {
+                                if (cuenta_tiempofalla == 0) {
+                                    cuenta_tiempofalla = tiempofalla;
+                                }
+                            } else {
+                                //Expiro el tiempo de falla con una falla de sobrecorriente, debo apagar la bomba
+                                estadofallacorriente = FALLACORRIENTE;
+                                indica_tiempo_falla = 0;
+                                cuenta_tiempofalla = 0;
+                                indica_secuencia_arranque = 0;
+                                tiempo_secuencia_arranque = 0;
+                                bandera_orden_Alarma_bomba = 0; //cambia la bandera de orden de encendido de bomba
+                            }
+
+
+                        }
+                        if (mediciondecorriente >= CORRIENTENORMALMINIMA) {
+                            estadonivel = NIVELNORMAL;
+                            //TODO acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
+                        } else {
+                            indica_secuencia_arranque = 0;
+                            tiempo_secuencia_arranque = 0;
+                            bandera_orden_Alarma_bomba = 0;
+                            estadonivel = NIVELBAJO;
+                        }
+                    }
+                } else {
+                    indica_secuencia_arranque = 0;
+                    tiempo_secuencia_arranque = 0;
+                    activabomba = APAGABOMBA;
+                }
             }
 
 
