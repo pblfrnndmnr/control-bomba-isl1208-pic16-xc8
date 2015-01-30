@@ -171,6 +171,7 @@ unsigned char menuactual = MENU_MUESTRAHORA;
 bool indica_secuencia_arranque = 0;
 unsigned char tiempo_secuencia_arranque = 0;
 bool bandera_orden_on_off_bomba = 0;
+bool bandera_orden_Alarma_bomba=0;
 ///
 bool bandera_graba_hora = 0; //bandera para grabar la hora
 bool bandera_graba_fecha = 0; //bandera para grabar la fecha

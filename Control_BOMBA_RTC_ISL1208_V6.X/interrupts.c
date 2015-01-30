@@ -75,7 +75,7 @@ void interrupt isr(void) {
                         indica_tiempo_falla = 1;
                     }
                 }
-                if (bandera_orden_on_off_bomba) {
+                if (bandera_orden_on_off_bomba||bandera_orden_Alarma_bomba) {
                     if (tiempo_secuencia_arranque > 0) {
                         tiempo_secuencia_arranque--;
                     }
