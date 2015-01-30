@@ -67,16 +67,23 @@ void interrupt isr(void) {
 
             } else {
                 cuenta500ms = 0;
-                if (tiempo_secuencia_arranque > 0) {
-                    tiempo_secuencia_arranque--;
-                } else {
-                    indica_secuencia_arranque = 1;
+                if (indica_secuencia_arranque) {
+                    if (cuenta_tiempofalla > 0) {
+                        cuenta_tiempofalla--;
+                    }
+                    if (cuenta_tiempofalla == 0) {
+                        indica_tiempo_falla = 1;
+                    }
                 }
-                if (cuenta_tiempofalla > 0) {
-                    cuenta_tiempofalla--;
-                } else {
-                    indica_tiempo_falla = 1;
+                if (bandera_orden_on_off_bomba) {
+                    if (tiempo_secuencia_arranque > 0) {
+                        tiempo_secuencia_arranque--;
+                    }
+                    if (tiempo_secuencia_arranque == 0) {
+                        indica_secuencia_arranque = 1;
+                    }
                 }
+
                 flanco = !flanco;
                 refrescadisplay = 1;
                 if (cuentasegundos < 60) {
@@ -255,7 +262,7 @@ void interrupt isr(void) {
         //bandera_graba_global = 0;
         if (Pulsacion(2, BOTON_ONOFF, SIN_REPETICION, LOGICA_INVERSA)) {
             bandera_graba_global = 1;
-            bandera_orden_on_off_bomba != bandera_orden_on_off_bomba;
+            bandera_orden_on_off_bomba = !bandera_orden_on_off_bomba;
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton menu">

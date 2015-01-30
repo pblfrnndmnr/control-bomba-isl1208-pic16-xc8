@@ -485,7 +485,7 @@ void main() {
         }
         if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
 
-            activabomba = ENCIENDEBOMBA;
+            // activabomba = ENCIENDEBOMBA;
             //TODO acá debo dar la orden para encender la bomba?
         } else {
             activabomba = APAGABOMBA;
@@ -667,9 +667,9 @@ void main() {
                     if (indica_secuencia_arranque == 0) {
                         if (tiempo_secuencia_arranque == 0) {
                             activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
-                           estadofallacorriente = CORRIENTENORMAL;
-                           estadonivel = NIVELNORMAL;
-                           tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
+                            estadofallacorriente = CORRIENTENORMAL;
+                            estadonivel = NIVELNORMAL;
+                            tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
                         } else {
                             //TODO Un a vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
@@ -695,6 +695,8 @@ void main() {
                                 estadofallacorriente = FALLACORRIENTE;
                                 indica_tiempo_falla = 0;
                                 cuenta_tiempofalla = 0;
+                                indica_secuencia_arranque = 0;
+                                tiempo_secuencia_arranque = 0;
                                 bandera_orden_on_off_bomba = 0; //cambia la bandera de orden de encendido de bomba
                             }
 
@@ -702,7 +704,11 @@ void main() {
                         }
                         if (mediciondecorriente >= CORRIENTENORMALMINIMA) {
                             estadonivel = NIVELNORMAL;
+
                         } else {
+                            indica_secuencia_arranque = 0;
+                            tiempo_secuencia_arranque = 0;
+                            bandera_orden_on_off_bomba = 0;
                             estadonivel = NIVELBAJO;
                         }
                     }
