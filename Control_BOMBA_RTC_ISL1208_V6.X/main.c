@@ -97,7 +97,7 @@ void main() {
     setADCChannel(MIDECORRIENTE);
     __delay_us(20);
     openADC();
-   
+
     // <editor-fold defaultstate="collapsed" desc="Lectura del estado actual del RTC">
 
     if (ISL1208_ready()) {
