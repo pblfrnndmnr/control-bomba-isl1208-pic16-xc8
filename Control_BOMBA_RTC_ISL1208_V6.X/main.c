@@ -7,7 +7,6 @@
 #ifndef __PICCPRO__
 #define __PICCPRO__
 #endif
-// <editor-fold defaultstate="collapsed" desc="Includes">
 
 #if defined(__XC)
 #include <xc.h>         /* XC8 General Include File */
@@ -27,7 +26,6 @@
 #include "HardI2C.h"
 #include "usart1.h"
 #include "LCDGeneric.h"
-// </editor-fold>
 
 #define USE_INTERRUPTS 1
 
