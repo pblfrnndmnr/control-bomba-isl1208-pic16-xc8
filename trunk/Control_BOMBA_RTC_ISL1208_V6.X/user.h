@@ -121,7 +121,10 @@ char cadenaamostrar[9];
 char cadenaamostrar2[9];
 
 float mediciondecorriente;
-
+float mediciondevoltaje;
+unsigned int adcenteroV;
+unsigned int adcenteroI;
+unsigned int adcdecimalI;
 //Definicion de las entradas del menu
 #define MENU_MUESTRAHORA 0 //muestra la hora actual y el estado de la bomba, encendido apagado o falla de sobrecorriente, nivel bajo
 #define MENU_MUESTRAFECHA 1 //muestra la fecha actual
@@ -159,15 +162,15 @@ unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
 bool usa_falla_de_corriente = 0;
 bool usa_nivel_bajo = 0;
-bool indica_tiempo_falla=0;
+bool indica_tiempo_falla = 0;
 unsigned char tiempofalla = 0;
-unsigned char cuenta_tiempofalla=0;
+unsigned char cuenta_tiempofalla = 0;
 unsigned char menuactual = MENU_MUESTRAHORA;
 
 //Variables para procesar la secuencia de arranque
 bool indica_secuencia_arranque = 0;
 unsigned char tiempo_secuencia_arranque = 0;
-bool bandera_orden_on_off_bomba=0;
+bool bandera_orden_on_off_bomba = 0;
 ///
 bool bandera_graba_hora = 0; //bandera para grabar la hora
 bool bandera_graba_fecha = 0; //bandera para grabar la fecha

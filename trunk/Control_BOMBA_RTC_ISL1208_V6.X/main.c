@@ -424,10 +424,6 @@ void main() {
             }
             case MENU_MUESTRAMEDICIONES:
             {
-                unsigned int adcenteroI;
-                unsigned int adcdecimalI;
-                unsigned int adcenteroV;
-                mediciondecorriente = (float) medidaI_adc * 50 / 1024;
                 //convierto el valor decimal a float
                 //para una entrada de 3.3V la lectura es 1023
                 //para 0 V la lectura es 0
@@ -435,10 +431,9 @@ void main() {
                 //Deseo que tambien me muestre 1 decimal, separo la parte entera y la decimal
                 //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
                 //cada 20 muestras tengo aproximdamente 1A
-                float mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
+
                 adcenteroI = (unsigned int) mediciondecorriente;
                 adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
-                adcenteroV = (unsigned int) mediciondevoltaje;
                 sprintf(cadenaamostrar, "%2u.%uA   ", (unsigned int) adcenteroI, (unsigned int) adcdecimalI);
                 sprintf(cadenaamostrar2, "%3uV    ", (unsigned int) adcenteroV);
                 break;
@@ -537,14 +532,8 @@ void main() {
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Inicio de procesamiento de medicion de voltaje, corriente">
-
-
         //Inicio de procesamiento de medicion de voltaje, corriente
         /////////////////////////////////////////////////////////////
-        //  unsigned int adcenteroI;
-        //unsigned int adcdecimalI;
-        unsigned int adcenteroV;
-
         //convierto el valor decimal a float
         //para una entrada de 3.3V la lectura es 1023
         //para 0 V la lectura es 0
@@ -552,7 +541,7 @@ void main() {
         //Deseo que tambien me muestre 1 decimal, separo la parte entera y la decimal
         //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
         //cada 20 muestras tengo aproximdamente 1A
-        float mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
+        mediciondevoltaje = (float) medidaV_adc * 440 / 1024;
         adcenteroV = (unsigned int) mediciondevoltaje;
         //Se lee el voltaje de alimentación constantemente
         if (adcenteroV <= VOLTAJEMAXIMO && adcenteroV >= VOLTAJEMINIMO) {
@@ -561,46 +550,6 @@ void main() {
             estadofallavoltaje = FALLAVOLTAJE;
         }
         mediciondecorriente = (float) medidaI_adc * 50 / 1024;
-        //adcenteroI = (unsigned int) mediciondecorriente;
-        //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
-        /*   if (mediciondecorriente <= CORRIENTEMAXIMA && mediciondecorriente >= CORRIENTEMINIMA) {
-               estadofallacorriente = CORRIENTENORMAL;
-               estadonivel = NIVELNORMAL;
-
-           } else {
-               estadofallacorriente = FALLACORRIENTE;
-               estadonivel = NIVELBAJO;
-
-           }*/
-        //Se lee la corriente consumida solamente cuando la bomba está activada
-        /*  switch (activabomba) {
-              case APAGABOMBA:
-              {
-                  //TODO Si la bomba está apagada no hago caso a la medición de corriente
-                  estadofallacorriente = CORRIENTENORMAL;
-                  estadonivel = NIVELNORMAL;
-                  break;
-              }
-              case ENCIENDEBOMBA:
-              {
-                  mediciondecorriente = (float) medidaI_adc * 50 / 1024;
-                  //adcenteroI = (unsigned int) mediciondecorriente;
-                  //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
-                  if (mediciondecorriente <= CORRIENTEMAXIMA && mediciondecorriente >= CORRIENTEMINIMA) {
-                      estadofallacorriente = CORRIENTENORMAL;
-                      estadonivel = NIVELNORMAL;
-
-                  } else {
-                      estadofallacorriente = FALLACORRIENTE;
-                      estadonivel = NIVELBAJO;
-
-                  }
-                  break;
-              }
-              default:
-                  break;
-          }*/
-
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
         // </editor-fold>
