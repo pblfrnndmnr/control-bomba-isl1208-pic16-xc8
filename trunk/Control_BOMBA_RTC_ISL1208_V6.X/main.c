@@ -484,53 +484,54 @@ void main() {
             }
         }
         if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
+
             activabomba = ENCIENDEBOMBA;
             //TODO acá debo dar la orden para encender la bomba?
         } else {
             activabomba = APAGABOMBA;
         }
+        /*
+                switch (estadonivel) {
+                    case NIVELNORMAL:
+                    {
 
-        switch (estadonivel) {
-            case NIVELNORMAL:
-            {
+                        break;
+                    }
+                    case NIVELBAJO:
+                    {
+                        activabomba = 0;
+                        break;
+                    }
+                    default:
+                        break;
+                }
 
-                break;
-            }
-            case NIVELBAJO:
-            {
-                activabomba = 0;
-                break;
-            }
-            default:
-                break;
-        }
-
-        switch (estadofallacorriente) {
-            case CORRIENTENORMAL:
-            {
-                break;
-            }
-            case FALLACORRIENTE:
-            {
-                activabomba = 0;
-                break;
-            }
-            default:
-                break;
-        }
-        switch (estadofallavoltaje) {
-            case VOLTAJENORMAL:
-            {
-                break;
-            }
-            case FALLAVOLTAJE:
-            {
-                activabomba = 0;
-                break;
-            }
-            default:
-                break;
-        }
+                switch (estadofallacorriente) {
+                    case CORRIENTENORMAL:
+                    {
+                        break;
+                    }
+                    case FALLACORRIENTE:
+                    {
+                        activabomba = 0;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                switch (estadofallavoltaje) {
+                    case VOLTAJENORMAL:
+                    {
+                        break;
+                    }
+                    case FALLAVOLTAJE:
+                    {
+                        activabomba = 0;
+                        break;
+                    }
+                    default:
+                        break;
+                }*/
         //////////////////////////////////////////////////////
         //Fin Verifica estados de falla
         // </editor-fold>
@@ -559,35 +560,46 @@ void main() {
         } else {
             estadofallavoltaje = FALLAVOLTAJE;
         }
+        mediciondecorriente = (float) medidaI_adc * 50 / 1024;
+        //adcenteroI = (unsigned int) mediciondecorriente;
+        //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
+        /*   if (mediciondecorriente <= CORRIENTEMAXIMA && mediciondecorriente >= CORRIENTEMINIMA) {
+               estadofallacorriente = CORRIENTENORMAL;
+               estadonivel = NIVELNORMAL;
 
+           } else {
+               estadofallacorriente = FALLACORRIENTE;
+               estadonivel = NIVELBAJO;
+
+           }*/
         //Se lee la corriente consumida solamente cuando la bomba está activada
-        switch (activabomba) {
-            case APAGABOMBA:
-            {
-                //TODO Si la bomba está apagada no hago caso a la medición de corriente
-                estadofallacorriente = CORRIENTENORMAL;
-                estadonivel = NIVELNORMAL;
-                break;
-            }
-            case ENCIENDEBOMBA:
-            {
-                mediciondecorriente = (float) medidaI_adc * 50 / 1024;
-                //adcenteroI = (unsigned int) mediciondecorriente;
-                //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
-                if (mediciondecorriente <= CORRIENTEMAXIMA && mediciondecorriente >= CORRIENTEMINIMA) {
-                    estadofallacorriente = CORRIENTENORMAL;
-                    estadonivel = NIVELNORMAL;
+        /*  switch (activabomba) {
+              case APAGABOMBA:
+              {
+                  //TODO Si la bomba está apagada no hago caso a la medición de corriente
+                  estadofallacorriente = CORRIENTENORMAL;
+                  estadonivel = NIVELNORMAL;
+                  break;
+              }
+              case ENCIENDEBOMBA:
+              {
+                  mediciondecorriente = (float) medidaI_adc * 50 / 1024;
+                  //adcenteroI = (unsigned int) mediciondecorriente;
+                  //adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
+                  if (mediciondecorriente <= CORRIENTEMAXIMA && mediciondecorriente >= CORRIENTEMINIMA) {
+                      estadofallacorriente = CORRIENTENORMAL;
+                      estadonivel = NIVELNORMAL;
 
-                } else {
-                    estadofallacorriente = FALLACORRIENTE;
-                    estadonivel = NIVELBAJO;
+                  } else {
+                      estadofallacorriente = FALLACORRIENTE;
+                      estadonivel = NIVELBAJO;
 
-                }
-                break;
-            }
-            default:
-                break;
-        }
+                  }
+                  break;
+              }
+              default:
+                  break;
+          }*/
 
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
@@ -655,7 +667,9 @@ void main() {
                     if (indica_secuencia_arranque == 0) {
                         if (tiempo_secuencia_arranque == 0) {
                             activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
-                            tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
+                           estadofallacorriente = CORRIENTENORMAL;
+                           estadonivel = NIVELNORMAL;
+                           tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
                         } else {
                             //TODO Un a vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
@@ -705,7 +719,7 @@ void main() {
 
         }
 
-        
+
 
         // </editor-fold>
 
