@@ -186,15 +186,15 @@ bool activabomba = APAGABOMBA;
 #define BOMBAAPAGADA 0
 #define BOMBAENCENDIDA 1
 bool estadobomba = BOMBAAPAGADA;
-#define NIVELNORMAL 0
-#define NIVELBAJO 1
-bool estadonivel = 0;
-#define CORRIENTENORMAL 0
-#define FALLACORRIENTE 1
-bool estadofallacorriente = 0;
-#define VOLTAJENORMAL 0
-#define FALLAVOLTAJE 1
-bool estadofallavoltaje = 0;
+#define NIVELNORMAL 1
+#define NIVELBAJO 0
+bool estadonivel = NIVELBAJO;
+#define CORRIENTENORMAL 1
+#define FALLACORRIENTE 0
+bool estadofallacorriente = FALLACORRIENTE;
+#define VOLTAJENORMAL 1
+#define FALLAVOLTAJE 0
+bool estadofallavoltaje = FALLAVOLTAJE;
 #define MANUAL 0
 #define AUTOMATICO 1
 bool manual_automatico = AUTOMATICO;
