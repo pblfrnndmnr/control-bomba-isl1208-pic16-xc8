@@ -445,7 +445,7 @@ void main() {
         //Finaliza Procesa los menú
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
+        // <editor-fold defaultstate="collapsed" desc="Muestra estado de la bomba">
         //Verifica estados de falla
         /////////////////////////////////////////////////////////
         if (menuactual != MENU_MUESTRAMEDICIONES && menuactual != MENU_MUESTRAFECHA && (menuactual < SUBMENU_CONFIGURADIA || menuactual > SUBMENU_CONFIGURAANIO)) {
@@ -478,6 +478,11 @@ void main() {
                     break;
             }
         }
+        // </editor-fold>
+
+        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
+
+
         if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
 
             // activabomba = ENCIENDEBOMBA;
@@ -485,48 +490,6 @@ void main() {
         } else {
             activabomba = APAGABOMBA;
         }
-        /*
-                switch (estadonivel) {
-                    case NIVELNORMAL:
-                    {
-
-                        break;
-                    }
-                    case NIVELBAJO:
-                    {
-                        activabomba = 0;
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-                switch (estadofallacorriente) {
-                    case CORRIENTENORMAL:
-                    {
-                        break;
-                    }
-                    case FALLACORRIENTE:
-                    {
-                        activabomba = 0;
-                        break;
-                    }
-                    default:
-                        break;
-                }
-                switch (estadofallavoltaje) {
-                    case VOLTAJENORMAL:
-                    {
-                        break;
-                    }
-                    case FALLAVOLTAJE:
-                    {
-                        activabomba = 0;
-                        break;
-                    }
-                    default:
-                        break;
-                }*/
         //////////////////////////////////////////////////////
         //Fin Verifica estados de falla
         // </editor-fold>
