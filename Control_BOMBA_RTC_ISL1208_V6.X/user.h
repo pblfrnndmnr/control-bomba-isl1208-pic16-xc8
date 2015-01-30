@@ -81,14 +81,14 @@ typedef union {//8bits
     unsigned char Valor;
 
     struct {
-       unsigned RTCF:1; //REAL TIME CLOCK FAIL BIT (RTCF)
-        unsigned BAT:1; //BATTERY BIT (BAT)
-        unsigned ALM:1; //ALARM BIT (ALM)
+        unsigned RTCF : 1; //REAL TIME CLOCK FAIL BIT (RTCF)
+        unsigned BAT : 1; //BATTERY BIT (BAT)
+        unsigned ALM : 1; //ALARM BIT (ALM)
         unsigned : 1;
-        unsigned WRTC:1; //WRITE RTC ENABLE BIT (WRTC)
+        unsigned WRTC : 1; //WRITE RTC ENABLE BIT (WRTC)
         unsigned : 1;
-        unsigned XTOSCB:1; //CRYSTAL OSCILLATOR ENABLE BIT (XTOSCB)
-       unsigned ARST:1; //AUTO RESET ENABLE BIT (ARST)
+        unsigned XTOSCB : 1; //CRYSTAL OSCILLATOR ENABLE BIT (XTOSCB)
+        unsigned ARST : 1; //AUTO RESET ENABLE BIT (ARST)
 
     };
 } isl1208_SR_t;
@@ -100,10 +100,10 @@ typedef union {//8bits
 
     struct {
         unsigned FO : 4; //FREQUENCY OUT CONTROL BITS (FO <3:0>)
-        unsigned FOBATB:1; //FREQUENCY OUTPUT AND INTERRUPT BIT (FOBATB)
-        unsigned LPMODE:1; //LOW POWER MODE BIT (LPMODE)
-        unsigned ALME:1; //ALARM ENABLE BIT (ALME)
-        unsigned IM:1; //INTERRUPT/ALARM MODE BIT (IM)
+        unsigned FOBATB : 1; //FREQUENCY OUTPUT AND INTERRUPT BIT (FOBATB)
+        unsigned LPMODE : 1; //LOW POWER MODE BIT (LPMODE)
+        unsigned ALME : 1; //ALARM ENABLE BIT (ALME)
+        unsigned IM : 1; //INTERRUPT/ALARM MODE BIT (IM)
     };
 } isl1208_INT_t;
 
@@ -157,21 +157,27 @@ float mediciondecorriente;
 #define TIEMPOMAXIMOPERIODO 7 //cada cuantos dias se riega.
 unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
-bool usa_falla_de_corriente=0;
-bool usa_nivel_bajo=0;
+bool usa_falla_de_corriente = 0;
+bool usa_nivel_bajo = 0;
+bool indica_tiempo_falla=0;
 unsigned char tiempofalla = 0;
+unsigned char cuenta_tiempofalla=0;
 unsigned char menuactual = MENU_MUESTRAHORA;
 
-
+//Variables para procesar la secuencia de arranque
+bool indica_secuencia_arranque = 0;
+unsigned char tiempo_secuencia_arranque = 0;
+bool bandera_orden_on_off_bomba=0;
+///
 bool bandera_graba_hora = 0; //bandera para grabar la hora
-bool bandera_graba_fecha = 0;//bandera para grabar la fecha
-bool bandera_graba_global = 0;//bandera que habilita el grabago de datos cuando se pulsa el boton BOTON_ONOFF
+bool bandera_graba_fecha = 0; //bandera para grabar la fecha
+bool bandera_graba_global = 0; //bandera que habilita el grabago de datos cuando se pulsa el boton BOTON_ONOFF
 
-bool bandera_graba_periodoencendido=0;
-bool bandera_graba_tiempoencendido=0;
-bool bandera_graba_usa_falla_de_corriente=0;
-bool bandera_graba_usa_nivel_bajo=0;
-bool bandera_graba_tiempofalla=0;
+bool bandera_graba_periodoencendido = 0;
+bool bandera_graba_tiempoencendido = 0;
+bool bandera_graba_usa_falla_de_corriente = 0;
+bool bandera_graba_usa_nivel_bajo = 0;
+bool bandera_graba_tiempofalla = 0;
 //constantes y variables de indicacion del estado de la bomba
 #define APAGABOMBA 0
 #define ENCIENDEBOMBA 1
@@ -188,10 +194,10 @@ bool estadonivel = 0;
 bool estadofallacorriente = 0;
 #define VOLTAJENORMAL 0
 #define FALLAVOLTAJE 1
-bool estadofallavoltaje= 0;
+bool estadofallavoltaje = 0;
 #define MANUAL 0
 #define AUTOMATICO 1
-bool manual_automatico=AUTOMATICO;
+bool manual_automatico = AUTOMATICO;
 
 #define NOALARMA 0
 #define SIALARMA 1
@@ -205,8 +211,10 @@ int promedio_adc[4] = {0, 0, 0, 0};
 
 #define VOLTAJEMAXIMO 240
 #define VOLTAJEMINIMO 190
-#define CORRIENTEMAXIMA 50.0 //AMPERES
-#define CORRIENTEMINIMA 2.0 //AMPERES
+#define CORRIENTEMAXIMA 45.0 //AMPERES
+#define CORRIENTEMINIMA 1.0 //AMPERES
+#define CORRIENTENORMALMAXIMA 10.0 //AMPERES //TODO DEPENDE DE LA CORRIENTE CONSUMIDA POR EL MOTOR
+#define CORRIENTENORMALMINIMA 1.0 //AMPERES //TODO DEPENDE DE LA CORRIENTE CONSUMIDA POR EL MOTOR
 /******************************************************************************/
 /* User Function Prototypes                                                   */
 /******************************************************************************/

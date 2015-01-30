@@ -641,6 +641,74 @@ void main() {
         //Fin Procesa Alarma
         // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="Verifica secuencia de arranque">
+        /*para que el motor arranque se debe cumplir que:
+         * el voltaje sea normal,
+         * si está en manual, se haya pulsado el boton on_off
+         * si está en automatico se haya activado la alarma por interrupcion
+         * el nivel no sea bajo,
+         * la corriente sea normal, por lo menos despues de un tiempo despues del arranque
+         */
+        if (estadofallavoltaje == VOLTAJENORMAL) {
+            if (manual_automatico == MANUAL) {
+                if (bandera_orden_on_off_bomba) {
+                    if (indica_secuencia_arranque == 0) {
+                        if (tiempo_secuencia_arranque == 0) {
+                            activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
+                            tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
+                        } else {
+                            //TODO Un a vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
+                            if (mediciondecorriente <= CORRIENTEMAXIMA) {
+                                estadofallacorriente = CORRIENTENORMAL;
+                            } else {
+                                estadofallacorriente = FALLACORRIENTE;
+                            }
+
+                        }
+                    } else {
+                        //TODO ya finalizo la secuencia de arranque, entonces veo si se estabilizó la corriente
+                        if (mediciondecorriente <= CORRIENTENORMALMAXIMA) {
+                            estadofallacorriente = CORRIENTENORMAL;
+                            cuenta_tiempofalla = 0;
+                        } else {
+                            //aca verifica si la falla está presente mucho tiempo con tiempofalla
+                            if (indica_tiempo_falla == 0) {
+                                if (cuenta_tiempofalla == 0) {
+                                    cuenta_tiempofalla = tiempofalla;
+                                }
+                            } else {
+                                //Expiro el tiempo de falla con una falla de sobrecorriente, debo apagar la bomba
+                                estadofallacorriente = FALLACORRIENTE;
+                                indica_tiempo_falla = 0;
+                                cuenta_tiempofalla = 0;
+                                bandera_orden_on_off_bomba = 0; //cambia la bandera de orden de encendido de bomba
+                            }
+
+
+                        }
+                        if (mediciondecorriente >= CORRIENTENORMALMINIMA) {
+                            estadonivel = NIVELNORMAL;
+                        } else {
+                            estadonivel = NIVELBAJO;
+                        }
+                    }
+                } else {
+                    //TODO En caso de haber falla tambien debo resetear estos valores?
+                    indica_secuencia_arranque = 0;
+                    tiempo_secuencia_arranque = 0;
+                    activabomba = APAGABOMBA;
+                }
+            } else {
+
+            }
+
+
+        }
+
+        
+
+        // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Actualiza Display">
         //Actualiza Display
         /////////////////////////////////////////////
