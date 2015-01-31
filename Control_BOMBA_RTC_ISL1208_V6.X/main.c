@@ -150,8 +150,7 @@ void main() {
     if (tiempoencendido > TIEMPOMAXIMOENCENDIDO) tiempoencendido = 15;
     usa_falla_de_corriente = eeprom_read(2);
     if (usa_falla_de_corriente > 1) usa_falla_de_corriente = 1;
-    usa_nivel_bajo = eeprom_read(3);
-    if (usa_nivel_bajo > 1)usa_nivel_bajo = 1;
+
     tiempofalla = eeprom_read(4);
     if (tiempofalla > TIEMPOMAXIMOFALLA)tiempofalla = 5;
     //si se produjo un error en la EEPROM, asigno valores predefinidos
@@ -387,24 +386,7 @@ void main() {
                 bandera_graba_tiempofalla = 1;
                 break;
             }
-            case MENU_CONFIGURAINDICACIONDENIVEL:
-            {
-                modificafecha = SINO;
-                banderasino = &usa_nivel_bajo;
-                if (flanco)
-                    if (usa_nivel_bajo) {
-                        sprintf(cadenaamostrar, "NIVEL:SI");
-                        sprintf(cadenaamostrar2, cadena_esp);
-                    } else {
-                        sprintf(cadenaamostrar, "NIVEL:NO");
-                        sprintf(cadenaamostrar2, cadena_esp);
-                    } else {
-                    sprintf(cadenaamostrar, "NIVEL:  ");
-                    sprintf(cadenaamostrar2, cadena_esp);
-                }
-                bandera_graba_usa_nivel_bajo = 1;
-                break;
-            }
+
             case MENU_MUESTRAMEDICIONES:
             {
                 //convierto el valor decimal a float
@@ -728,7 +710,7 @@ void main() {
         //DIRECCION 0: periodoencendido(cada cuanto se enciende la bomba en automatico), de 0 a 6 dias,
         //DIRECCION 1: tiempoencendido (cuanto tiempo permanece encendida la bomba en automatico) 0 a 60 minutos
         //DIRECCION 2: usa_falla_de_corriente (dice si se usa falla de corriente o no)
-        //DIRECCION 3: usa_nivel_bajo (indica si se usa la deteccion de nivel bajo)
+
         //DIRECCION 4: tiempofalla (cuanto tiempo puede estar en falla de corriente antes de apagar la bomba por seguridad) 0 a 10 segundos
 
 
@@ -746,10 +728,6 @@ void main() {
                 eeprom_write(2, usa_falla_de_corriente);
                 buzzer_on();
             }
-            if (bandera_graba_usa_nivel_bajo) {
-                eeprom_write(3, usa_nivel_bajo);
-                buzzer_on();
-            }
             if (bandera_graba_tiempofalla) {
                 eeprom_write(4, tiempofalla);
                 buzzer_on();
@@ -760,7 +738,6 @@ void main() {
         bandera_graba_periodoencendido = 0;
         bandera_graba_tiempoencendido = 0;
         bandera_graba_usa_falla_de_corriente = 0;
-        bandera_graba_usa_nivel_bajo = 0;
         bandera_graba_tiempofalla = 0;
         // </editor-fold>
         // </editor-fold>
