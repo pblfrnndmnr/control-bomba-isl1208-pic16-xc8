@@ -150,9 +150,9 @@ unsigned int adcdecimalI;
 
 #define MENU_CONFIGURAFALLACORRIENTE 14//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
 #define MENU_CONFIGURATIEMPOFALLACORRIENTE 15 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos
-#define MENU_CONFIGURAINDICACIONDENIVEL 16  //se indica si la entrada de deteccion de nivel es por contacto NC=1 o NA=0
 
-#define ULTIMOMENU 16 //indica el valor del ultimo menu
+
+#define ULTIMOMENU 15 //indica el valor del ultimo menu
 
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
 #define TIEMPOMAXIMOFALLA 10 //segundos
@@ -161,7 +161,6 @@ unsigned int adcdecimalI;
 unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
 bool usa_falla_de_corriente = 0;
-bool usa_nivel_bajo = 0;
 bool indica_tiempo_falla = 0;
 unsigned char tiempofalla = 0;
 unsigned char cuenta_tiempofalla = 0;
@@ -180,7 +179,6 @@ bool bandera_graba_global = 0; //bandera que habilita el grabago de datos cuando
 bool bandera_graba_periodoencendido = 0;
 bool bandera_graba_tiempoencendido = 0;
 bool bandera_graba_usa_falla_de_corriente = 0;
-bool bandera_graba_usa_nivel_bajo = 0;
 bool bandera_graba_tiempofalla = 0;
 //constantes y variables de indicacion del estado de la bomba
 #define APAGABOMBA 0
