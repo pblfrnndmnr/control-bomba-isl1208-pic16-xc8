@@ -156,7 +156,7 @@ unsigned int adcdecimalI;
 
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
 #define TIEMPOMAXIMOFALLA 10 //segundos
-#define TIEMPOMAXIMONIVEL 15 //es el tiempo que hay que esperar en caso de que se llegue al nivel minimo para apagar el motor
+#define TIEMPOMAXIMONIVEL 15 //es el tiempo en segundos que hay que esperar en caso de que se llegue al nivel minimo para apagar el motor
 #define TIEMPOMAXIMOPERIODO 7 //cada cuantos dias se riega.
 unsigned char periodoencendido = 1;
 unsigned char tiempoencendido = 0;
@@ -168,6 +168,7 @@ unsigned char menuactual = MENU_MUESTRAHORA;
 
 //Variables para procesar la secuencia de arranque
 bool indica_secuencia_arranque = 0;
+#define TIEMPOSECUENCIAARRANQUE 15
 unsigned char tiempo_secuencia_arranque = 0;
 bool bandera_orden_on_off_bomba = 0;
 bool bandera_orden_Alarma_bomba=0;
