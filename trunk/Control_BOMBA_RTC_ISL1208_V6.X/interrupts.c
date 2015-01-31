@@ -115,35 +115,35 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton subir">
         static char maximodia;
         if (Pulsacion(0, BOTON_Subir, CON_REPETICION, LOGICA_INVERSA)) {
-
+            haycambio = 1;
             refrescadisplay = 1;
             switch (modificafecha) {
                 case MINUTOS:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if ((*horario).min < 59) (*horario).min++;
                     else
                         if ((*horario).min == 59) (*horario).min = 0;
                     break;
                 case HORA:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if ((*horario).hrs < 23) (*horario).hrs++;
                     else
                         if ((*horario).hrs == 23) (*horario).hrs = 0;
                     break;
                 case DIA:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (fecha.day < maximodia) fecha.day++;
                     else
                         if (fecha.day == maximodia) fecha.day = 1;
                     break;
                 case MES:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (fecha.month < 12) fecha.month++;
                     else
                         if (fecha.month == 12) fecha.month = 1;
                     break;
                 case ANIO:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (fecha.yr < 99) fecha.yr++; //solamente vamos hasta el año 00
                     else
                         if (fecha.yr == 99) fecha.yr = 0; //solamente contamos desde el año 99
@@ -152,19 +152,19 @@ void interrupt isr(void) {
                     *banderasino = !*banderasino;
                     break;
                 case TIEMPOENCENDIDO:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (tiempoencendido < TIEMPOMAXIMOENCENDIDO) tiempoencendido++; //
                     else
                         if (tiempoencendido == TIEMPOMAXIMOENCENDIDO) tiempoencendido = 0;
                     break;
                 case TIEMPOFALLA:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (tiempofalla < TIEMPOMAXIMOFALLA) tiempofalla++; //
                     else
                         if (tiempofalla == TIEMPOMAXIMOFALLA) tiempofalla = 0;
                     break;
                 case PERIODOENCENDIDO:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (periodoencendido < TIEMPOMAXIMOPERIODO) periodoencendido++; //
                     else
                         if (periodoencendido == TIEMPOMAXIMOPERIODO) periodoencendido = 1;
@@ -188,35 +188,35 @@ void interrupt isr(void) {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton bajar">
         if (Pulsacion(1, BOTON_Bajar, CON_REPETICION, LOGICA_INVERSA)) {
-
+            haycambio = 1;
             refrescadisplay = 1;
             switch (modificafecha) {
                 case MINUTOS:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if ((*horario).min > 0) (*horario).min--;
                     else
                         if ((*horario).min == 0) (*horario).min = 59;
                     break;
                 case HORA:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if ((*horario).hrs > 0) (*horario).hrs--;
                     else
                         if ((*horario).hrs == 0) (*horario).hrs = 23;
                     break;
                 case DIA:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (fecha.day > 1) fecha.day--;
                     else
                         if (fecha.day == 1) fecha.day = maximodia;
                     break;
                 case MES:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (fecha.month > 1) fecha.month--;
                     else
                         if (fecha.month == 1) fecha.month = 12;
                     break;
                 case ANIO:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (fecha.yr > 0) fecha.yr--; //solamente vamos hasta el año 00
                     else
                         if (fecha.yr == 0) fecha.yr = 99; //solamente contamos desde el año 99
@@ -225,19 +225,19 @@ void interrupt isr(void) {
                     *banderasino = !*banderasino;
                     break;
                 case TIEMPOENCENDIDO:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (tiempoencendido > 0) tiempoencendido--; //
                     else
                         if (tiempoencendido == 0) tiempoencendido = TIEMPOMAXIMOENCENDIDO;
                     break;
                 case TIEMPOFALLA:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (tiempofalla > 0) tiempofalla--; //
                     else
                         if (tiempofalla == 0) tiempofalla = TIEMPOMAXIMOFALLA;
                     break;
                 case PERIODOENCENDIDO:
-                    haycambio = 1;
+                    //haycambio = 1;
                     if (periodoencendido > 1) periodoencendido--; //
                     else
                         if (periodoencendido == 1) periodoencendido = TIEMPOMAXIMOPERIODO;

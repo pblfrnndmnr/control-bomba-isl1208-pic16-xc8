@@ -194,7 +194,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  :%02d    ", horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -209,7 +209,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d:      ", horarioactual.hrs);
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -234,7 +234,7 @@ void main() {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //sprintf(cadenaamostrar2, "             ");
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -249,7 +249,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -264,7 +264,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -289,7 +289,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "  :%02d    ", horarioenc.min);
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -304,7 +304,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "c/%u dias", periodoencendido);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "c/  dias");
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -320,7 +320,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "ENCEN:  ");
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -353,7 +353,7 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "TFC:  %02d", tiempofalla);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
+                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "TFC:    ");
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -651,7 +651,7 @@ void main() {
             cadena = cadenaamostrar2;
             while (*cadena != '\0')
                 vLCD_Putc(*cadena++);
-
+            haycambio = 0;
             refrescadisplay = 0;
         }
         ////////////////////////////////////////////////
