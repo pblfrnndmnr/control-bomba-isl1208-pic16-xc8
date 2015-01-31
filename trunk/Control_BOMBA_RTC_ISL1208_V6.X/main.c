@@ -386,7 +386,6 @@ void main() {
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Muestra estado de la bomba">
-        //Verifica estados de falla
         /////////////////////////////////////////////////////////
         if (menuactual != MENU_MUESTRAMEDICIONES && menuactual != MENU_MUESTRAFECHA && (menuactual < SUBMENU_CONFIGURADIA || menuactual > SUBMENU_CONFIGURAANIO)) {
             switch (estadobomba) {
@@ -465,12 +464,14 @@ void main() {
             {
                 salidabomba = 1;
                 estadobomba = 1;
+                vBackLightLCD_On();
                 break;
             }
             case APAGABOMBA:
             {
                 salidabomba = 0;
                 estadobomba = 0;
+                vBackLightLCD_Off();
                 break;
             }
             default:
@@ -490,9 +491,12 @@ void main() {
             }
             case SIALARMA:
             {
-                bandera_orden_Alarma_bomba = 1;
-                //activabomba = ENCIENDEBOMBA;
-                buzzer_on();
+                if (manual_automatico == AUTOMATICO) {
+                    bandera_orden_Alarma_bomba = 1;
+                    buzzer_on();
+                } else {
+                    bandera_orden_Alarma_bomba = 0;
+                }
                 alarma_encendido = NOALARMA;
                 isl1208SR.Valor = ISL1208_Read_status();
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC

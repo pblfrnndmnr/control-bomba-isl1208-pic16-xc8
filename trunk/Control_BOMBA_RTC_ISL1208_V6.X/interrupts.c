@@ -75,7 +75,7 @@ void interrupt isr(void) {
                         indica_tiempo_falla = 1;
                     }
                 }
-                if (bandera_orden_on_off_bomba||bandera_orden_Alarma_bomba) {
+                if (bandera_orden_on_off_bomba || bandera_orden_Alarma_bomba) {
                     if (tiempo_secuencia_arranque > 0) {
                         tiempo_secuencia_arranque--;
                     }
@@ -277,6 +277,8 @@ void interrupt isr(void) {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton manaut">
         if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
+            bandera_orden_on_off_bomba = 0;
+            bandera_orden_Alarma_bomba = 0;
             manual_automatico = !manual_automatico;
             buzzer_on();
 
