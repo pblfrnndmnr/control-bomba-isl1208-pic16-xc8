@@ -67,24 +67,27 @@ void interrupt isr(void) {
 
             } else {
                 cuenta500ms = 0;
-                if (indica_secuencia_arranque) {
-                    if (cuenta_tiempofalla > 0) {
-                        cuenta_tiempofalla--;
+                flanco = !flanco;
+                //para que entre a lo que sigue cada 1 segundo aprovecho a leer el valor de flanco
+                if (flanco) {
+                    if (indica_secuencia_arranque) {
+                        if (cuenta_tiempofalla > 0) {
+                            cuenta_tiempofalla--;
+                        }
+                        if (cuenta_tiempofalla == 0) {
+                            indica_tiempo_falla = 1;
+                        }
                     }
-                    if (cuenta_tiempofalla == 0) {
-                        indica_tiempo_falla = 1;
-                    }
-                }
-                if (bandera_orden_on_off_bomba || bandera_orden_Alarma_bomba) {
-                    if (tiempo_secuencia_arranque > 0) {
-                        tiempo_secuencia_arranque--;
-                    }
-                    if (tiempo_secuencia_arranque == 0) {
-                        indica_secuencia_arranque = 1;
+                    if (bandera_orden_on_off_bomba || bandera_orden_Alarma_bomba) {
+                        if (tiempo_secuencia_arranque > 0) {
+                            tiempo_secuencia_arranque--;
+                        }
+                        if (tiempo_secuencia_arranque == 0) {
+                            indica_secuencia_arranque = 1;
+                        }
                     }
                 }
 
-                flanco = !flanco;
                 refrescadisplay = 1;
                 if (cuentasegundos < 60) {
 

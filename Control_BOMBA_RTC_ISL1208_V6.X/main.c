@@ -424,8 +424,7 @@ void main() {
 
         if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
 
-            // activabomba = ENCIENDEBOMBA;
-            //TODO acá debo dar la orden para encender la bomba?
+
         } else {
             activabomba = APAGABOMBA;
         }
@@ -501,6 +500,8 @@ void main() {
                 isl1208SR.Valor = ISL1208_Read_status();
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
                 ISL1208_Set_status(&isl1208SR.Valor);
+                //TODO debo leer el valor de la alarma
+
                 break;
             }
             default:
@@ -526,7 +527,7 @@ void main() {
                             activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
                             estadofallacorriente = CORRIENTENORMAL;
                             estadonivel = NIVELNORMAL;
-                            tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
+                            tiempo_secuencia_arranque = TIEMPOSECUENCIAARRANQUE; //TODO ajustar el tiempo de secuencia de arranque
                         } else {
                             // Una vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
@@ -581,7 +582,7 @@ void main() {
                             activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
                             estadofallacorriente = CORRIENTENORMAL;
                             estadonivel = NIVELNORMAL;
-                            tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
+                            tiempo_secuencia_arranque = TIEMPOSECUENCIAARRANQUE; //TODO ajustar el tiempo de secuencia de arranque
                         } else {
                             //Una vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
