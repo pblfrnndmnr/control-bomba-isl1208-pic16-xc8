@@ -524,7 +524,7 @@ void main() {
                             estadonivel = NIVELNORMAL;
                             tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
                         } else {
-                            //TODO Un a vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
+                            // Una vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
                                 estadofallacorriente = CORRIENTENORMAL;
                             } else {
@@ -533,7 +533,7 @@ void main() {
 
                         }
                     } else {
-                        //TODO ya finalizo la secuencia de arranque, entonces veo si se estabilizó la corriente
+                        //ya finalizo la secuencia de arranque, entonces veo si se estabilizó la corriente
                         if (mediciondecorriente <= CORRIENTENORMALMAXIMA) {
                             estadofallacorriente = CORRIENTENORMAL;
                             cuenta_tiempofalla = 0;
@@ -566,7 +566,6 @@ void main() {
                         }
                     }
                 } else {
-                    //TODO En caso de haber falla tambien debo resetear estos valores?
                     indica_secuencia_arranque = 0;
                     tiempo_secuencia_arranque = 0;
                     activabomba = APAGABOMBA;
@@ -580,7 +579,7 @@ void main() {
                             estadonivel = NIVELNORMAL;
                             tiempo_secuencia_arranque = 15; //TODO ajustar el tiempo de secuencia de arranque
                         } else {
-                            //TODO Un a vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
+                            //Una vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
                                 estadofallacorriente = CORRIENTENORMAL;
                             } else {
@@ -589,7 +588,7 @@ void main() {
 
                         }
                     } else {
-                        //TODO ya finalizo la secuencia de arranque, entonces veo si se estabilizó la corriente
+                        // ya finalizo la secuencia de arranque, entonces veo si se estabilizó la corriente
                         if (mediciondecorriente <= CORRIENTENORMALMAXIMA) {
                             estadofallacorriente = CORRIENTENORMAL;
                             cuenta_tiempofalla = 0;
@@ -613,7 +612,7 @@ void main() {
                         }
                         if (mediciondecorriente >= CORRIENTENORMALMINIMA) {
                             estadonivel = NIVELNORMAL;
-                            //TODO acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
+                            // acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
                         } else {
                             indica_secuencia_arranque = 0;
                             tiempo_secuencia_arranque = 0;
