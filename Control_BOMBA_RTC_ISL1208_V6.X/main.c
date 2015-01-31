@@ -61,30 +61,6 @@ void main() {
 
     vInitLCD();
     static char * cadena;
-    /*sprintf(cadenaamostrar, cadena_esp);
-    sprintf(cadenaamostrar2, cadena_esp);
-    vGotoxyLCD(1, 1);
-    cadena = cadenaamostrar;
-    while (*cadena != '\0')
-        vLCD_Putc(*cadena++);
-    vGotoxyLCD(1, 2);
-    cadena = cadenaamostrar2;
-    while (*cadena != '\0')
-        vLCD_Putc(*cadena++);
-    refrescadisplay = 0;
-    __delay_ms(500);
-    sprintf(cadenaamostrar, "Ini...");
-    vGotoxyLCD(1, 1);
-    cadena = cadenaamostrar;
-    while (*cadena != '\0')
-        vLCD_Putc(*cadena++);
-    vGotoxyLCD(1, 2);
-    cadena = cadenaamostrar2;
-    while (*cadena != '\0')
-        vLCD_Putc(*cadena++);
-    refrescadisplay = 0;
-     */
-
     set_periodo_buzzer(); //configuro el pwm para una frecuencia de 3khz
     buzzer_on();
     __delay_ms(200);
@@ -150,8 +126,7 @@ void main() {
     if (tiempoencendido > TIEMPOMAXIMOENCENDIDO) tiempoencendido = 15;
     usa_falla_de_corriente = eeprom_read(2);
     if (usa_falla_de_corriente > 1) usa_falla_de_corriente = 1;
-
-    tiempofalla = eeprom_read(4);
+    tiempofalla = eeprom_read(3);
     if (tiempofalla > TIEMPOMAXIMOFALLA)tiempofalla = 5;
     //si se produjo un error en la EEPROM, asigno valores predefinidos
     // </editor-fold>
@@ -710,9 +685,7 @@ void main() {
         //DIRECCION 0: periodoencendido(cada cuanto se enciende la bomba en automatico), de 0 a 6 dias,
         //DIRECCION 1: tiempoencendido (cuanto tiempo permanece encendida la bomba en automatico) 0 a 60 minutos
         //DIRECCION 2: usa_falla_de_corriente (dice si se usa falla de corriente o no)
-
-        //DIRECCION 4: tiempofalla (cuanto tiempo puede estar en falla de corriente antes de apagar la bomba por seguridad) 0 a 10 segundos
-
+        //DIRECCION 3: tiempofalla (cuanto tiempo puede estar en falla de corriente antes de apagar la bomba por seguridad) 0 a 10 segundos
 
         if (bandera_graba_global) {
             di();
@@ -729,7 +702,7 @@ void main() {
                 buzzer_on();
             }
             if (bandera_graba_tiempofalla) {
-                eeprom_write(4, tiempofalla);
+                eeprom_write(3, tiempofalla);
                 buzzer_on();
             }
             ei();
