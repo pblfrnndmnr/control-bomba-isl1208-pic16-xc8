@@ -323,23 +323,6 @@ void main() {
                 bandera_graba_hora = 1;
                 break;
             }
-            case SUBMENU_CONFIGURAMINUTOSENCENDIDO:
-            {
-                modificafecha = MINUTOS;
-                horario = &horarioenc;
-                if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
-                    haycambio = 0;
-                } else {
-                    sprintf(cadenaamostrar, "%02d:      ", horarioenc.hrs);
-                    sprintf(cadenaamostrar2, cadena_esp);
-                }
-                bandera_graba_hora = 1;
-                break;
-            }
-
-
             case SUBMENU_CONFIGURAPERIODOENCENDIDO:
             {
                 modificafecha = PERIODOENCENDIDO;
@@ -725,7 +708,7 @@ void main() {
                     buzzer_on();
                 }
                 if (horario == &horarioenc) {
-                    isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
+                    isl1208_set_time_enc((*horario).hrs, 00, 00);
                     //TODO isl1208_set_dow_enc(&fechaenc.dow);
                     buzzer_on();
                 }
