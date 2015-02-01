@@ -1,3 +1,5 @@
+//Código original bajado de: http://picmania.garcia-cuervo.net/proyectos_aux_rtc.php
+//Gracias RedRaven
 #ifndef	_isl1208_H_
 #define	_isl1208_H_
 ///////////////////////////////////////////////////////////////////////////////////////
