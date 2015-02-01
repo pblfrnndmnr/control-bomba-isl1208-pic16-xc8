@@ -1,3 +1,5 @@
+//Código original bajado de: http://www.todopic.com.ar/foros/index.php?topic=38654.0
+//Gracias AngelGris
 #ifndef	_HARDI2C_H_
 #define	_HARDI2C_H_
 /**************************************************************************

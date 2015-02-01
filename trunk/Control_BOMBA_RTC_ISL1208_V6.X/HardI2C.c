@@ -1,3 +1,5 @@
+//Código original bajado de: http://www.todopic.com.ar/foros/index.php?topic=38654.0
+//Gracias AngelGris
 /**************************************************************************
 *      Libreria para protocolo I2C Master por HardWare para HiTech        *
 ***************************************************************************

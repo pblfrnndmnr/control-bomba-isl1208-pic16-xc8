@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=configuration_bits.c interrupts.c main.c system.c user.c HardI2C.c usart1.c LCDGeneric.c Pulsadores.c pic16f877a.c pwm.c adcPic16.c _isl1208.c
+SOURCEFILES_QUOTED_IF_SPACED=configuration_bits.c interrupts.c main.c system.c user.c HardI2C.c usart1.c LCDGeneric.c Pulsadores.c pwm.c adcPic16.c _isl1208.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/configuration_bits.p1 ${OBJECTDIR}/interrupts.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/system.p1 ${OBJECTDIR}/user.p1 ${OBJECTDIR}/HardI2C.p1 ${OBJECTDIR}/usart1.p1 ${OBJECTDIR}/LCDGeneric.p1 ${OBJECTDIR}/Pulsadores.p1 ${OBJECTDIR}/pic16f877a.p1 ${OBJECTDIR}/pwm.p1 ${OBJECTDIR}/adcPic16.p1 ${OBJECTDIR}/_isl1208.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/configuration_bits.p1.d ${OBJECTDIR}/interrupts.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/system.p1.d ${OBJECTDIR}/user.p1.d ${OBJECTDIR}/HardI2C.p1.d ${OBJECTDIR}/usart1.p1.d ${OBJECTDIR}/LCDGeneric.p1.d ${OBJECTDIR}/Pulsadores.p1.d ${OBJECTDIR}/pic16f877a.p1.d ${OBJECTDIR}/pwm.p1.d ${OBJECTDIR}/adcPic16.p1.d ${OBJECTDIR}/_isl1208.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/configuration_bits.p1 ${OBJECTDIR}/interrupts.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/system.p1 ${OBJECTDIR}/user.p1 ${OBJECTDIR}/HardI2C.p1 ${OBJECTDIR}/usart1.p1 ${OBJECTDIR}/LCDGeneric.p1 ${OBJECTDIR}/Pulsadores.p1 ${OBJECTDIR}/pwm.p1 ${OBJECTDIR}/adcPic16.p1 ${OBJECTDIR}/_isl1208.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/configuration_bits.p1.d ${OBJECTDIR}/interrupts.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/system.p1.d ${OBJECTDIR}/user.p1.d ${OBJECTDIR}/HardI2C.p1.d ${OBJECTDIR}/usart1.p1.d ${OBJECTDIR}/LCDGeneric.p1.d ${OBJECTDIR}/Pulsadores.p1.d ${OBJECTDIR}/pwm.p1.d ${OBJECTDIR}/adcPic16.p1.d ${OBJECTDIR}/_isl1208.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/configuration_bits.p1 ${OBJECTDIR}/interrupts.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/system.p1 ${OBJECTDIR}/user.p1 ${OBJECTDIR}/HardI2C.p1 ${OBJECTDIR}/usart1.p1 ${OBJECTDIR}/LCDGeneric.p1 ${OBJECTDIR}/Pulsadores.p1 ${OBJECTDIR}/pic16f877a.p1 ${OBJECTDIR}/pwm.p1 ${OBJECTDIR}/adcPic16.p1 ${OBJECTDIR}/_isl1208.p1
+OBJECTFILES=${OBJECTDIR}/configuration_bits.p1 ${OBJECTDIR}/interrupts.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/system.p1 ${OBJECTDIR}/user.p1 ${OBJECTDIR}/HardI2C.p1 ${OBJECTDIR}/usart1.p1 ${OBJECTDIR}/LCDGeneric.p1 ${OBJECTDIR}/Pulsadores.p1 ${OBJECTDIR}/pwm.p1 ${OBJECTDIR}/adcPic16.p1 ${OBJECTDIR}/_isl1208.p1
 
 # Source Files
-SOURCEFILES=configuration_bits.c interrupts.c main.c system.c user.c HardI2C.c usart1.c LCDGeneric.c Pulsadores.c pic16f877a.c pwm.c adcPic16.c _isl1208.c
+SOURCEFILES=configuration_bits.c interrupts.c main.c system.c user.c HardI2C.c usart1.c LCDGeneric.c Pulsadores.c pwm.c adcPic16.c _isl1208.c
 
 
 CFLAGS=
@@ -153,14 +153,6 @@ ${OBJECTDIR}/Pulsadores.p1: Pulsadores.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/Pulsadores.d ${OBJECTDIR}/Pulsadores.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/Pulsadores.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/pic16f877a.p1: pic16f877a.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/pic16f877a.p1.d 
-	@${RM} ${OBJECTDIR}/pic16f877a.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=32 --float=32 --opt=default,+asm,+asmfile,+speed,-space,-debug --addrqual=require --mode=pro -P -N255 --warn=-2 --asmlist --summary=default,+psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,+osccal,-resetbits,-download,-stackcall,+clib --output=+mcof,-elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/pic16f877a.p1  pic16f877a.c 
-	@-${MV} ${OBJECTDIR}/pic16f877a.d ${OBJECTDIR}/pic16f877a.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/pic16f877a.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/pwm.p1: pwm.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
 	@${RM} ${OBJECTDIR}/pwm.p1.d 
@@ -257,14 +249,6 @@ ${OBJECTDIR}/Pulsadores.p1: Pulsadores.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=32 --float=32 --opt=default,+asm,+asmfile,+speed,-space,-debug --addrqual=require --mode=pro -P -N255 --warn=-2 --asmlist --summary=default,+psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,+osccal,-resetbits,-download,-stackcall,+clib --output=+mcof,-elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/Pulsadores.p1  Pulsadores.c 
 	@-${MV} ${OBJECTDIR}/Pulsadores.d ${OBJECTDIR}/Pulsadores.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/Pulsadores.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/pic16f877a.p1: pic16f877a.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/pic16f877a.p1.d 
-	@${RM} ${OBJECTDIR}/pic16f877a.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=32 --float=32 --opt=default,+asm,+asmfile,+speed,-space,-debug --addrqual=require --mode=pro -P -N255 --warn=-2 --asmlist --summary=default,+psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,+osccal,-resetbits,-download,-stackcall,+clib --output=+mcof,-elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/pic16f877a.p1  pic16f877a.c 
-	@-${MV} ${OBJECTDIR}/pic16f877a.d ${OBJECTDIR}/pic16f877a.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/pic16f877a.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/pwm.p1: pwm.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 

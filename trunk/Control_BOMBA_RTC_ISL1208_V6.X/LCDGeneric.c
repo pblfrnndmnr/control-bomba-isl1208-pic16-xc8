@@ -1,3 +1,5 @@
+//Código original bajado de: https://github.com/AleSuky/SkP32v1.1/blob/master/SW/Ejemplos/Micros-Designs/Source/LCDGeneric.c
+//Gracias Suky
 /**
    \version: 1.0
 
