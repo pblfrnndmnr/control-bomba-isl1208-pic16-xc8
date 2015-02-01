@@ -1,13 +1,16 @@
+//Programa de gestión de pulsadores por Nocturno adaptado a xc8 por Pablo F. Manieri
+//Código original bajado de: http://www.micropic.es/mpblog/2014/05/gestion-de-pulsadores/
+// Gracias Nocturno
 #ifndef PULSADORES_H
 #define PULSADORES_H
 /****** HARDWARE ********
 
  Teclas usadas
-SUBIR-      RB1
-BAJAR-      RB2
+SUBIR-      RB2
+BAJAR-      RB1
 MENU-       RB3
-MANAUT-    RB4
-ONOFF-     RB5
+MANAUT-     RB4
+ONOFF-      RB5
 
  **************************/
 
@@ -34,20 +37,10 @@ ONOFF-     RB5
 #define BOTON_MANAUT     RB4 //PORTBbits.RB4
 #define BOTON_ONOFF      RB5 //PORTBbits.RB5
 
-
-
-
 bool Pulsacion(unsigned char Indice, unsigned char Pin, unsigned char TipoPin, bool Logica);
-//void RefrescaDisplay();
-//void Digitos(unsigned int Valor);
-//void interrupcion_pulsadores(void);
-
 
 #define testbit(var, bit) ((var) && (1 <<(bit)))  //retorna 1 si es verdadero, 0 si es falso
 #define setbit(var, bit) ((var) |= (1 << (bit)))  //pone en 1 el bit correspondiente a bit de la variable var
 #define clrbit(var, bit) ((var) &= ~(1 << (bit))) //pone en 0 el bit correspondiente a bit de la variable var
-
-
-
 
 #endif

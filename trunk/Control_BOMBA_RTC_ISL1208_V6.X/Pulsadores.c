@@ -1,5 +1,6 @@
 //Programa de gestión de pulsadores por Nocturno adaptado a xc8 por Pablo F. Manieri
-
+//Código original bajado de: http://www.micropic.es/mpblog/2014/05/gestion-de-pulsadores/
+// Gracias Nocturno
 #include <xc.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -8,8 +9,8 @@
 #include "Pulsadores.h"
 
 /****** HARDWARE ********
-BOTON_Subir       	RB1
-BOTON_Bajar       	RB2
+BOTON_Subir       	RB2
+BOTON_Bajar       	RB1
 BOTON_MENU       	RB3
 BOTON_MANAUT     	RB4
 BOTON_ONOFF		RB5
