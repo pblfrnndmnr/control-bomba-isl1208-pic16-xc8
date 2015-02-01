@@ -1,3 +1,5 @@
+//Código original bajado de: http://picmania.garcia-cuervo.net/proyectos_aux_rtc.php
+//Gracias RedRaven
 ////////////////////////////////////////////////////////////////////////////////////////
 ///                               isl1208.C                                          ///
 ///                     Driver for Real Time Clock                                   ///
