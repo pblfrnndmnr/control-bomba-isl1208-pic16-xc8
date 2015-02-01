@@ -68,7 +68,7 @@ void interrupt isr(void) {
             } else {
                 cuenta500ms = 0;
                 flanco = !flanco;
-                actualizo_datos_rtc=1;
+
                 //para que entre a lo que sigue cada 1 segundo aprovecho a leer el valor de flanco
                 if (flanco) {
                     if (indica_secuencia_arranque) {
@@ -87,6 +87,8 @@ void interrupt isr(void) {
                             indica_secuencia_arranque = 1;
                         }
                     }
+                } else {
+                    actualizo_datos_rtc = 1;
                 }
 
                 refrescadisplay = 1;
