@@ -500,9 +500,9 @@ void main() {
                 isl1208SR.Valor = ISL1208_Read_status();
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
                 ISL1208_Set_status(&isl1208SR.Valor);
-                //Leo el valor de la alarma
-                isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
-                isl1208_get_dow_enc(&fechaenc.dow);
+                //TODO Leo el valor de la alarma?
+                //isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
+              //  isl1208_get_dow_enc(&fechaenc.dow);
                 break;
             }
             default:
