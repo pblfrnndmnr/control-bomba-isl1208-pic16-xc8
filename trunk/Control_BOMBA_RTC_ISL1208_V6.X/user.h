@@ -8,14 +8,14 @@
 
 
 //contadores para minutos segundos y horas
-unsigned char cuentasegundos = 0, cuentaminutos = 0, cuentahoras = 0, cuentadias = 0, cuentameses = 0;
+unsigned char cuentasegundos = 0, cuentaminutos = 0, cuentahoras = 0, cuentadias = 0;
 unsigned char cuenta40ms;
 unsigned char cuenta500ms;
 
 #define TIEMPODEESPERA=10 //segundos
-unsigned char tiempoanterior = 0, tiempoactual = 0;
+//unsigned char tiempoanterior = 0, tiempoactual = 0;
 unsigned char activapwmpor;
-bool expirotiempo = 0;
+//bool expirotiempo = 0;
 /*  Application specific user parameters used in user.c may go here */
 
 
@@ -211,7 +211,7 @@ unsigned int medidaI_adc = 0;
 #define OFFSET_I .3
 unsigned int medidaV_adc = 0;
 bool cambio_de_canal = 0;
-int promedio_adc[4] = {0, 0, 0, 0};
+//int promedio_adc[4] = {0, 0, 0, 0};
 
 #define VOLTAJEMAXIMO 240
 #define VOLTAJEMINIMO 190
