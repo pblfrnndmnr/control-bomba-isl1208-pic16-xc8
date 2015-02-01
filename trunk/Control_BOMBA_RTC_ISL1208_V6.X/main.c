@@ -156,10 +156,10 @@ void main() {
 
                 if (flanco) {
                    // lee_y_transmite_date_and_time();
-                    sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 } else {
-                    sprintf(cadenaamostrar, "%02d %02d    ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
@@ -169,7 +169,7 @@ void main() {
 
                 if (flanco) {
                     //lee_y_transmite_date_and_time();
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
                     strncpy(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)], 2);
                 }
@@ -181,7 +181,7 @@ void main() {
             {
 
                 if (flanco) {
-                    sprintf(cadenaamostrar, "SET HORA ");
+                    sprintf(cadenaamostrar, "SET HORA");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
 
@@ -192,11 +192,11 @@ void main() {
                 modificafecha = HORA;
                 horario = &horarioactual;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "  :%02d    ", horarioactual.min);
+                    sprintf(cadenaamostrar, "  :%02d   ", horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
@@ -207,11 +207,11 @@ void main() {
                 modificafecha = MINUTOS;
                 horario = &horarioactual;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d:      ", horarioactual.hrs);
+                    sprintf(cadenaamostrar, "%02d:     ", horarioactual.hrs);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
@@ -221,7 +221,7 @@ void main() {
             {
 
                 if (flanco) {
-                    sprintf(cadenaamostrar, "SET FECHA");
+                    sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
@@ -231,12 +231,12 @@ void main() {
                 modificafecha = DIA;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //sprintf(cadenaamostrar2, "             ");
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "  /%02d/%02d ", fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar, "  /%02d/%02d", fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
@@ -247,11 +247,11 @@ void main() {
                 modificafecha = MES;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d/  /%02d ", fecha.day, fecha.yr);
+                    sprintf(cadenaamostrar, "%02d/  /%02d", fecha.day, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
@@ -262,11 +262,11 @@ void main() {
                 modificafecha = ANIO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d/%02d/   ", fecha.day, fecha.month);
+                    sprintf(cadenaamostrar, "%02d/%02d/  ", fecha.day, fecha.month);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
@@ -276,7 +276,7 @@ void main() {
             {
 
                 if (flanco) {
-                    sprintf(cadenaamostrar, "SET ENC  ");
+                    sprintf(cadenaamostrar, "SET ENC ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
 
@@ -287,11 +287,11 @@ void main() {
                 modificafecha = HORA;
                 horario = &horarioenc;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d    ", horarioenc.hrs, horarioenc.min);
+                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "  :%02d    ", horarioenc.min);
+                    sprintf(cadenaamostrar, "  :%02d   ", horarioenc.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
