@@ -26,7 +26,6 @@
       <itemPath>usart1.c</itemPath>
       <itemPath>LCDGeneric.c</itemPath>
       <itemPath>Pulsadores.c</itemPath>
-      <itemPath>pic16f877a.c</itemPath>
       <itemPath>pwm.c</itemPath>
       <itemPath>adcPic16.c</itemPath>
       <itemPath>_isl1208.c</itemPath>
