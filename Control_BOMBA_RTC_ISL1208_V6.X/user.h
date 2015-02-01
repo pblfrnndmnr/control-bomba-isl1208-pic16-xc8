@@ -26,7 +26,7 @@ bool envia_por = LCD;
 bool refrescadisplay = 0;
 bool haycambio = 0;
 bool flanco = 0;
-
+bool actualizo_datos_rtc=0;
 //Definiciones para indicar el inicio de la posicion de los datos del LCD
 #define INICIOHORAS 1
 #define INICIOMINUTOS INICIOHORAS+3
