@@ -155,7 +155,7 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
 
                 if (flanco) {
-                   // lee_y_transmite_date_and_time();
+                    // lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 } else {
@@ -516,8 +516,19 @@ void main() {
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
                 ISL1208_Set_status(&isl1208SR.Valor);
                 //TODO Leo el valor de la alarma?
-                //isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
-              //  isl1208_get_dow_enc(&fechaenc.dow);
+                isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
+                isl1208_get_dow_enc(&fechaenc.dow);
+                horarioapagado.Valor = horarioenc.Valor;
+                if (horarioapagado.min + tiempoencendido >= 60) {
+                    horarioapagado.min = horarioapagado.min + tiempoencendido - 60;
+                    if (horarioapagado.hrs == 23) {
+                        horarioapagado.hrs = 0;
+                    } else {
+                        horarioapagado.hrs++;
+                    }
+                } else {
+                    horarioapagado.min = horarioapagado.min + tiempoencendido;
+                }
                 break;
             }
             default:
@@ -633,7 +644,15 @@ void main() {
                         }
                         if (mediciondecorriente >= CORRIENTENORMALMINIMA) {
                             estadonivel = NIVELNORMAL;
-                            // acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
+                            //TODO acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
+                            if (horarioapagado.hrs == horarioactual.hrs && horarioapagado.min == horarioactual.min) {
+                                indica_secuencia_arranque = 0;
+                                tiempo_secuencia_arranque = 0;
+                                bandera_orden_Alarma_bomba = 0;
+                                activabomba = APAGABOMBA;
+                            }
+
+
                         } else {
                             indica_secuencia_arranque = 0;
                             tiempo_secuencia_arranque = 0;
@@ -685,7 +704,7 @@ void main() {
                     buzzer_on();
                 }
                 if (horario == &horarioenc) {
-                    isl1208_set_time_enc((*horario).hrs,(*horario).min, 00);
+                    isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
                     //TODO isl1208_set_dow_enc(&fechaenc.dow);
                     buzzer_on();
                 }

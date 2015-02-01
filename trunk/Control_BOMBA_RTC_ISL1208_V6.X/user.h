@@ -114,6 +114,7 @@ Fecha_t fechaenc;
 Horario_t * horario;
 Horario_t horarioenc;
 Horario_t horarioactual;
+Horario_t horarioapagado;
 isl1208_SR_t isl1208SR;
 isl1208_INT_t isl1208INT;
 
