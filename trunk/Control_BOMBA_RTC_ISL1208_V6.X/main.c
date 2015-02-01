@@ -155,7 +155,7 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
 
                 if (flanco) {
-                    lee_y_transmite_date_and_time();
+                   // lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d:%02d    ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, cadena_esp);
                 } else {
@@ -168,7 +168,7 @@ void main() {
             {
 
                 if (flanco) {
-                    lee_y_transmite_date_and_time();
+                    //lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d/%02d/%02d ", fecha.day, fecha.month, fecha.yr);
                     sprintf(cadenaamostrar2, cadena_esp);
                     strncpy(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)], 2);
@@ -463,14 +463,14 @@ void main() {
             {
                 salidabomba = 1;
                 estadobomba = 1;
-                vBackLightLCD_On();
+                // vBackLightLCD_On();
                 break;
             }
             case APAGABOMBA:
             {
                 salidabomba = 0;
                 estadobomba = 0;
-                vBackLightLCD_Off();
+                // vBackLightLCD_Off();
                 break;
             }
             default:
@@ -500,8 +500,9 @@ void main() {
                 isl1208SR.Valor = ISL1208_Read_status();
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
                 ISL1208_Set_status(&isl1208SR.Valor);
-                //TODO debo leer el valor de la alarma
-
+                //Leo el valor de la alarma
+                isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
+                isl1208_get_dow_enc(&fechaenc.dow);
                 break;
             }
             default:
@@ -678,6 +679,13 @@ void main() {
                 isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
                 buzzer_on();
             }
+        }
+        //Si no hay datos para grabar en hora y fecha actualizo la hora y la fecha del RTC
+        if (actualizo_datos_rtc && bandera_graba_hora == 0 && bandera_graba_fecha == 0) {
+            lee_y_transmite_date_and_time();
+            isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
+            isl1208_get_dow_enc(&fechaenc.dow);
+            actualizo_datos_rtc = 0;
         }
         bandera_graba_hora = 0;
         bandera_graba_fecha = 0;
