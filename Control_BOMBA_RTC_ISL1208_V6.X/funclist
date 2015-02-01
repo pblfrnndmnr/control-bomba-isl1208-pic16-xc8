@@ -6,7 +6,7 @@ _days_of_week: STRCODE, 6172 0 21
 _read_i2c: CODE, 1585 0 42
 ___flmul: CODE, 5698 0 150
 _adcRead: CODE, 972 0 7
-_interruptADC_on: CODE, 2079 0 2
+_interruptADC_on: CODE, 2096 0 2
 _vWriteLCD: CODE, 4810 0 113
 __stringtab: STRCODE, 6144 0 18
 _dia_de_la_semana: CODE, 1091 0 122
@@ -24,7 +24,7 @@ _isl1208_get_date: CODE, 1517 0 68
 _isl1208_set_date: CODE, 1728 0 75
 _isl1208_get_time: CODE, 1403 0 57
 _isl1208_set_time: CODE, 1668 0 60
-_main: CODE, 2081 0 2015
+_main: CODE, 2098 0 1998
 ___fldiv: CODE, 5577 0 121
 ___lwtofl: CODE, 5530 0 19
 _buzzer_on: CODE, 4198 0 10
@@ -72,4 +72,4 @@ _rstart_i2c: CODE, 1871 0 8
 i1_setADCChannel: CODE, 4219 0 13
 _isl1208_get_dow_enc: CODE, 1369 0 34
 ___bmul: CODE, 1906 0 15
-Total: 6324
+Total: 6307
