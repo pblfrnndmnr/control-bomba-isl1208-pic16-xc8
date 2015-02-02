@@ -105,10 +105,6 @@ void main() {
     } else {
 
         lee_y_transmite_date_and_time();
-
-        /*TODO leer el valor de la alarma de encendido en algun lado cuando se cambia el
-         valor de horarioenc pero no se guarda
-         */
         isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
         isl1208_get_dow_enc(&fechaenc.dow);
 
@@ -515,7 +511,7 @@ void main() {
                 isl1208SR.Valor = ISL1208_Read_status();
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
                 ISL1208_Set_status(&isl1208SR.Valor);
-                //TODO Leo el valor de la alarma?
+                //Leo el valor de la alarma
                 isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
                 isl1208_get_dow_enc(&fechaenc.dow);
                 horarioapagado.Valor = horarioenc.Valor;
