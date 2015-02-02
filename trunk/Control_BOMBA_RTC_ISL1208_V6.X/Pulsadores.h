@@ -8,9 +8,9 @@
  Teclas usadas
 SUBIR-      RB2
 BAJAR-      RB1
-MENU-       RB3
-MANAUT-     RB4
-ONOFF-      RB5
+MENU-       RB3  //si se pulsa y se suelta menu usuario,TODO (ver como implementarlo) si se pulsa y se mantiene pulsada menu service
+MANAUT-     RB4  //cambia entre manual y automatico, si está en los menues de muestra, TODO sino es escape (se sale del menu), ver como implementarlo
+ONOFF-      RB5  //apaga o enciende la bomba en manual, TODO es boton grabar si está en los menu de seteo de datos ,(ver como implementar)
 
  **************************/
 
