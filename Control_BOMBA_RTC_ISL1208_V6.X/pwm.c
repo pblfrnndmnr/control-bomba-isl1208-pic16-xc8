@@ -54,7 +54,7 @@ void buzzer_off(void) {
 
 }
 
-void buzzer_on(void) {
-    activapwmpor = 3;
+void buzzer_on(unsigned char tiempo) {//tiempo especifica en multiplos de 40ms cuanto tiempo está encendido el buzzer
+    activapwmpor = tiempo;
     CCP1CONbits.CCP1M = 0b1100; //activa pwm
 }
