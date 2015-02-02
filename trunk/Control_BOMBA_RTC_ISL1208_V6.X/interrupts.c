@@ -274,7 +274,7 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton menu">
         if (Pulsacion(3, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
 
-            buzzer_on();
+            buzzer_on(3);
             if (menuactual < ULTIMOMENU)
                 menuactual++;
             else
@@ -286,7 +286,7 @@ void interrupt isr(void) {
             bandera_orden_on_off_bomba = 0;
             bandera_orden_Alarma_bomba = 0;
             manual_automatico = !manual_automatico;
-            buzzer_on();
+            buzzer_on(3);
 
         }
         // </editor-fold>

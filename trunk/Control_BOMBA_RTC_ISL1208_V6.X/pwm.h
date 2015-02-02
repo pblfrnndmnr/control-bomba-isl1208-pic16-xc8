@@ -8,7 +8,7 @@
  */
 void set_periodo_buzzer(void);
 void set_duty(unsigned int duty);
-void buzzer_on(void);
+void buzzer_on(unsigned char tiempo);
 void buzzer_off(void);
 
 #endif

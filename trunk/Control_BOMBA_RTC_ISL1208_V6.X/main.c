@@ -62,11 +62,11 @@ void main() {
     vInitLCD();
     static char * cadena;
     set_periodo_buzzer(); //configuro el pwm para una frecuencia de 3khz
-    buzzer_on();
+    buzzer_on(3);
     __delay_ms(200);
     buzzer_off();
     __delay_ms(200);
-    buzzer_on();
+    buzzer_on(3);
     __delay_ms(200);
     buzzer_off();
 
@@ -503,7 +503,7 @@ void main() {
             {
                 if (manual_automatico == AUTOMATICO) {
                     bandera_orden_Alarma_bomba = 1;
-                    buzzer_on();
+                    buzzer_on(3);
                 } else {
                     bandera_orden_Alarma_bomba = 0;
                 }
@@ -697,17 +697,17 @@ void main() {
             if (bandera_graba_hora) {
                 if (horario == &horarioactual) {
                     isl1208_set_time((*horario).hrs, (*horario).min, 00);
-                    buzzer_on();
+                    buzzer_on(3);
                 }
                 if (horario == &horarioenc) {
                     isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
                     //TODO isl1208_set_dow_enc(&fechaenc.dow);
-                    buzzer_on();
+                    buzzer_on(3);
                 }
             }
             if (bandera_graba_fecha) {
                 isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-                buzzer_on();
+                buzzer_on(3);
             }
         }
         //Si no hay datos para grabar en hora y fecha actualizo la hora y la fecha del RTC
@@ -733,19 +733,19 @@ void main() {
             di();
             if (bandera_graba_periodoencendido) {
                 eeprom_write(0, periodoencendido);
-                buzzer_on();
+                buzzer_on(3);
             }
             if (bandera_graba_tiempoencendido) {
                 eeprom_write(1, tiempoencendido);
-                buzzer_on();
+                buzzer_on(3);
             }
             if (bandera_graba_usa_falla_de_corriente) {
                 eeprom_write(2, usa_falla_de_corriente);
-                buzzer_on();
+                buzzer_on(3);
             }
             if (bandera_graba_tiempofalla) {
                 eeprom_write(3, tiempofalla);
-                buzzer_on();
+                buzzer_on(3);
             }
             ei();
         }
