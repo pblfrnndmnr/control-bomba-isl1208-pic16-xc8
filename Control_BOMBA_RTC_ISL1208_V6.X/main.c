@@ -642,30 +642,23 @@ void main() {
 
 
                         }
-                        /* TODO descomentar esto cuando se realicen las
-                         * mediciones de corriente, ahora se colocó
-                         * solamente para probar sin medir corriente
-                         * if (mediciondecorriente >= CORRIENTENORMALMINIMA) {*/
-                        estadonivel = NIVELNORMAL;
-                        //Acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
-                        if (horarioapagado.hrs == horarioactual.hrs && horarioapagado.min == horarioactual.min) {
+                        if (mediciondecorriente >= CORRIENTENORMALMINIMA) {
+                            estadonivel = NIVELNORMAL;
+                            //Acá debo apagar la bomba cuando pase el tiempo de encendido de la bomba
+                            if (horarioapagado.hrs == horarioactual.hrs && horarioapagado.min == horarioactual.min) {
+                                indica_secuencia_arranque = 0;
+                                tiempo_secuencia_arranque = 0;
+                                bandera_orden_Alarma_bomba = 0;
+                                activabomba = APAGABOMBA;
+                            }
+                        } else {
+
                             indica_secuencia_arranque = 0;
                             tiempo_secuencia_arranque = 0;
                             bandera_orden_Alarma_bomba = 0;
-                            activabomba = APAGABOMBA;
-                        }
+                            estadonivel = NIVELBAJO;
 
-                        /*TODO descomentar esto cuando se realicen las
-                         * mediciones de corriente, ahora se colocó
-                         * solamente para probar sin medir corriente
-                                               } else {
-                          
-                                                   indica_secuencia_arranque = 0;
-                                                   tiempo_secuencia_arranque = 0;
-                                                   bandera_orden_Alarma_bomba = 0;
-                                                   estadonivel = NIVELBAJO;
-                            
-                                                   }*/
+                        }
                     }
                 } else {
                     indica_secuencia_arranque = 0;
