@@ -17,6 +17,7 @@
 #include "pwm.h"
 #include "adcPic16.h"
 #include "_isl1208.h"
+#include "LCDGeneric.h"
 /* Interrupt Routines                                                         */
 
 /******************************************************************************/
@@ -71,6 +72,14 @@ void interrupt isr(void) {
 
                 //para que entre a lo que sigue cada 1 segundo aprovecho a leer el valor de flanco
                 if (flanco) {
+
+                    if (tiempoapagadolcd != 0) {
+                        vBackLightLCD_On();
+                        tiempoapagadolcd--;
+                    } else {
+                        vBackLightLCD_Off();
+                    }
+
                     if (indica_secuencia_arranque) {
                         if (cuenta_tiempofalla > 0) {
                             cuenta_tiempofalla--;
@@ -119,6 +128,7 @@ void interrupt isr(void) {
         static char maximodia;
         if (Pulsacion(0, BOTON_Subir, CON_REPETICION, LOGICA_INVERSA)) {
             haycambio = 1;
+            tiempoapagadolcd = 15;
             refrescadisplay = 1;
             switch (modificafecha) {
                 case MINUTOS:
@@ -192,6 +202,7 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton bajar">
         if (Pulsacion(1, BOTON_Bajar, CON_REPETICION, LOGICA_INVERSA)) {
             haycambio = 1;
+            tiempoapagadolcd = 15;
             refrescadisplay = 1;
             switch (modificafecha) {
                 case MINUTOS:
@@ -267,13 +278,14 @@ void interrupt isr(void) {
 
         //bandera_graba_global = 0;
         if (Pulsacion(2, BOTON_ONOFF, SIN_REPETICION, LOGICA_INVERSA)) {
+            tiempoapagadolcd = 15;
             bandera_graba_global = 1;
             bandera_orden_on_off_bomba = !bandera_orden_on_off_bomba;
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton menu">
         if (Pulsacion(3, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
-
+            tiempoapagadolcd = 15;
             buzzer_on(3);
             if (menuactual < ULTIMOMENU)
                 menuactual++;
@@ -283,6 +295,7 @@ void interrupt isr(void) {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton manaut">
         if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
+            tiempoapagadolcd = 15;
             bandera_orden_on_off_bomba = 0;
             bandera_orden_Alarma_bomba = 0;
             manual_automatico = !manual_automatico;

@@ -82,6 +82,9 @@ void main() {
     } else {
         sprintf(cadenaamostrar, "RTC ERRO");
     };
+    tiempoapagadolcd = 15; //enciende el backlight del lcd por 15 segundos
+    vBackLightLCD_On();
+
     vGotoxyLCD(1, 1);
     cadena = cadenaamostrar;
     while (*cadena != '\0')
