@@ -554,7 +554,7 @@ void main() {
                             activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
                             estadofallacorriente = CORRIENTENORMAL;
                             estadonivel = NIVELNORMAL;
-                            tiempo_secuencia_arranque = TIEMPOSECUENCIAARRANQUE; 
+                            tiempo_secuencia_arranque = TIEMPOSECUENCIAARRANQUE;
                         } else {
                             // Una vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
@@ -609,7 +609,7 @@ void main() {
                             activabomba = ENCIENDEBOMBA; //Enciendo la bomba para empezar a medir la corriente
                             estadofallacorriente = CORRIENTENORMAL;
                             estadonivel = NIVELNORMAL;
-                            tiempo_secuencia_arranque = TIEMPOSECUENCIAARRANQUE; 
+                            tiempo_secuencia_arranque = TIEMPOSECUENCIAARRANQUE;
                         } else {
                             //Una vez que se activo la bomba debo ver el estado de la corriente  para ver si no se pasa de los valores normales
                             if (mediciondecorriente <= CORRIENTEMAXIMA) {
