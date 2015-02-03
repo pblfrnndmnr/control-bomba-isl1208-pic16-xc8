@@ -171,7 +171,7 @@ unsigned char menuactual = MENU_MUESTRAHORA;
 
 //Variables para procesar la secuencia de arranque
 bool indica_secuencia_arranque = 0;
-#define TIEMPOSECUENCIAARRANQUE 15
+#define TIEMPOSECUENCIAARRANQUE 15 //TODO ajustar el tiempo de secuencia de arranque
 unsigned char tiempo_secuencia_arranque = 0;
 bool bandera_orden_on_off_bomba = 0;
 bool bandera_orden_Alarma_bomba=0;
