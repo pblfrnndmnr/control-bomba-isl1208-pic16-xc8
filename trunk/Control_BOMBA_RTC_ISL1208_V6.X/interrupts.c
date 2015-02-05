@@ -180,7 +180,7 @@ void interrupt isr(void) {
                     //haycambio = 1;
                     if (periodoencendido < TIEMPOMAXIMOPERIODO) periodoencendido++; //
                     else
-                        if (periodoencendido == TIEMPOMAXIMOPERIODO) periodoencendido = 1;
+                        if (periodoencendido == TIEMPOMAXIMOPERIODO) periodoencendido = 0;
                     break;
                 default:
                     break;
@@ -252,9 +252,9 @@ void interrupt isr(void) {
                     break;
                 case PERIODOENCENDIDO:
                     //haycambio = 1;
-                    if (periodoencendido > 1) periodoencendido--; //
+                    if (periodoencendido >0) periodoencendido--; //
                     else
-                        if (periodoencendido == 1) periodoencendido = TIEMPOMAXIMOPERIODO;
+                        if (periodoencendido == 0) periodoencendido = TIEMPOMAXIMOPERIODO;
                     break;
                 default:
                     break;

@@ -109,7 +109,7 @@ void main() {
         isl1208_get_dow_enc(&fechaenc.dow);
 
         if (isl1208SR.ALM) {
-            // Si se activo la alarma cuando estaba apagado el sistema se borra esa bandera
+            //TODO Si se activo la alarma cuando estaba apagado el sistema se borra esa bandera además hay que ver cunato tiempo transcurrio?
             isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
             ISL1208_Set_status(&isl1208SR.Valor);
         }
@@ -118,7 +118,7 @@ void main() {
 
     // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
     periodoencendido = eeprom_read(0);
-    if (periodoencendido > TIEMPOMAXIMOPERIODO) periodoencendido = 1;
+    if (periodoencendido > TIEMPOMAXIMOPERIODO) periodoencendido = 0;
     tiempoencendido = eeprom_read(1);
     if (tiempoencendido > TIEMPOMAXIMOENCENDIDO) tiempoencendido = 15;
     usa_falla_de_corriente = eeprom_read(2);
@@ -314,7 +314,7 @@ void main() {
                 modificafecha = PERIODOENCENDIDO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "c/%u dias", periodoencendido);
+                    sprintf(cadenaamostrar, "c/%u dias", periodoencendido+1);
                     sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
@@ -511,10 +511,16 @@ void main() {
                 alarma_encendido = NOALARMA;
                 isl1208SR.Valor = ISL1208_Read_status();
                 isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
+
                 ISL1208_Set_status(&isl1208SR.Valor);
                 //Leo el valor de la alarma
                 isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
                 isl1208_get_dow_enc(&fechaenc.dow);
+                /*TODO aca debo sumarle a fechaenc.dow el valor de periodoencendido 
+                 * para que respete cada cuantos dias se enciende la bomba
+                */
+                //fechaenc.dow=(fechaenc.dow+periodoencendido)%7;
+
                 horarioapagado.Valor = horarioenc.Valor;
                 if (horarioapagado.min + tiempoencendido >= 60) {
                     horarioapagado.min = horarioapagado.min + tiempoencendido - 60;
