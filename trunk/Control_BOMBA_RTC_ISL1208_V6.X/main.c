@@ -57,7 +57,7 @@ void main() {
 
     vInitLCD();
     static char * cadena;
-    set_periodo_buzzer(); //configuro el pwm para una frecuencia de 3khz
+    set_periodo_buzzer(); //configuro el pwm para una frecuencia de 2.44khz
     buzzer_on(3);
     __delay_ms(200);
     buzzer_off();
