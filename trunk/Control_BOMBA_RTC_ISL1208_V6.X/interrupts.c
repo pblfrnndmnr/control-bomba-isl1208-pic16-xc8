@@ -46,8 +46,7 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="interrupcion timer0">
         //Interrupcion por desborde del timer0. Tal como esta configurado, se el timer desborda cada
         //0.0032768seg o sea 3.2768 ms, por lo tanto para que pase alrededor de 0.5segundo, se debe entrar 150 veces
-        //como con un unsigned int no funciona uso unsigned char y solo hasta 150
-        //cada 3ms realizamos una conversion analogica para obtener la medida de corriente
+        //cada 3.2768ms realizamos una conversion analogica para obtener la medida de corriente
         if (cambio_de_canal)
             cambio_de_canal = 0;
         else
