@@ -38,13 +38,12 @@ void main() {
     RCIE = 0; //    disable_interrupts(int_rda);
     RBIE = 0;
     INTE = 0; //disable_interrupts(int_ext);
-    ADCON1 = 0x06; //todos puertos digitales
+    //ADCON1 = 0x06; //todos puertos digitales
     T0CS = 0; // TMR0 Clock Source Select bit: internal
     PSA = 0; //Prescaler is assigned to the Timer0 module
     OPTION_REGbits.PS = 0b101; //: Prescaler Rate Select bits 1/64
     //setup_timer_1(T1_INTERNAL | T1_DIV_BY_1);
-    T1CON = 1;
-    CCP1CONbits.CCP1M = 0;
+    T1CON = 0; //deshabilito el Timer1
     //configura_USART();
     setup_i2c(I2C_MASTER);
 
