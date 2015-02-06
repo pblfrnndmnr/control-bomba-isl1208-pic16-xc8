@@ -18,7 +18,8 @@ by writing to T2CON.
 #define PeriodoPWM 1/FrecuenciaPWM
 #define PRESCALERTIMER2 16
 #define asignaPR2 _XTAL_FREQ/PRESCALERTIMER2/4*PeriodoPWM-1
-
+#define DUTY 256
+#define DutyCicle DUTY*PRESCALERTIMER2/_XTAL_FREQ
 void set_periodo_buzzer(void) {
     //PWM Period = [(PR2) + 1] * 4 * TOSC *(TMR2 Prescale Value)
     //PR2=PWM PERIOD/(4*TOSC*TMR2 Prescale Value)-1
@@ -29,8 +30,8 @@ void set_periodo_buzzer(void) {
     // CCP1CONbits.CCP1M=0b1100; //Configuro el CCp1 como PWM
     RB2 = 0;
     TRISC2 = 0; //pongo el pin RC2/PWM1 como salida
-#warning No olvidar que si el PWM_duty > PWM_period no queda bien definida la frecuencia
-    set_duty(256);
+    #warning No olvidar que si el PWM_duty > PWM_period no queda bien definida la frecuencia
+    set_duty(DUTY);
 }
 
 /*/PWM Duty Cycle =(CCPR1L:CCP1CON<5:4>)*TOSC*(TMR2 Prescale Value)*/
