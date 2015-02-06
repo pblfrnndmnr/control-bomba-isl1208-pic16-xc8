@@ -14,9 +14,9 @@ TRISC<2> bit.
 4. Set the TMR2 prescale value and enable Timer2
 by writing to T2CON.
 5. Configure the CCP1 module for PWM operation.*/
-#define FrecuenciaPWM 4880UL
+#define FrecuenciaPWM 2440UL
 #define PeriodoPWM 1/FrecuenciaPWM
-#define PRESCALERTIMER2 4
+#define PRESCALERTIMER2 16
 #define asignaPR2 _XTAL_FREQ/PRESCALERTIMER2/4*PeriodoPWM-1
 
 void set_periodo_buzzer(void) {
@@ -25,12 +25,12 @@ void set_periodo_buzzer(void) {
     //para una frecuencia de __XTAL_FREQ/4=5Mhz
     PR2 = asignaPR2; //periodo;;//periodo; //asigno el periodo
     T2CONbits.TMR2ON = 1; //Habilito el timer2
-    T2CONbits.T2CKPS = 1; //prescaler en 4
+    T2CONbits.T2CKPS = 2; //prescaler en 16
     // CCP1CONbits.CCP1M=0b1100; //Configuro el CCp1 como PWM
     RB2 = 0;
     TRISC2 = 0; //pongo el pin RC2/PWM1 como salida
 #warning No olvidar que si el PWM_duty > PWM_period no queda bien definida la frecuencia
-    set_duty(512);
+    set_duty(256);
 }
 
 /*/PWM Duty Cycle =(CCPR1L:CCP1CON<5:4>)*TOSC*(TMR2 Prescale Value)*/
