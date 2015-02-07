@@ -109,7 +109,7 @@ void main() {
     isl1208SR.Valor = ISL1208_Read_status();
     if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
         isl1208_init();
-        menuactual = MENU_CONFIGURAHORARIO;
+        menuactual = SUBMENU_CONFIGURAHORA;
 
     } else {
 
@@ -150,10 +150,10 @@ void main() {
         switch (menuactual) {
             case MENU_INICIAL:
             {
-                 sprintf(cadenaamostrar, cadena_esp);
+                sprintf(cadenaamostrar, cadena_esp);
                 break;
             }
-            case MENU_MUESTRAHORA:
+            case MENU_MUESTRAHORA_FECHA:
             {
                 horario = &horarioactual;
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
@@ -161,47 +161,29 @@ void main() {
                 if (flanco) {
                     // lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 } else {
                     sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
-            case MENU_MUESTRAFECHA:
-            {
 
-                if (flanco) {
-                    //lee_y_transmite_date_and_time();
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, cadena_esp);
-                    strncpy(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)], 2);
-                }
-
-
-                break;
-            }
-            case MENU_CONFIGURAHORARIO:
-            {
-
-                if (flanco) {
-                    sprintf(cadenaamostrar, "SET HORA");
-                    sprintf(cadenaamostrar2, cadena_esp);
-                }
-
-                break;
-            }
             case SUBMENU_CONFIGURAHORA:
             {
                 modificafecha = HORA;
                 horario = &horarioactual;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET HORA");
+                    sprintf(cadenaamostrar2, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "  :%02d   ", horarioactual.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET HORA");
+                    sprintf(cadenaamostrar2, "  :%02d   ", horarioactual.min);
+                    // sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
@@ -211,37 +193,42 @@ void main() {
                 modificafecha = MINUTOS;
                 horario = &horarioactual;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET HORA");
+                    sprintf(cadenaamostrar2, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
+                    // sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d:     ", horarioactual.hrs);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET HORA");
+                    sprintf(cadenaamostrar2, "%02d:     ", horarioactual.hrs);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
             }
-            case MENU_CONFIGURAFECHA:
-            {
+                /*   case MENU_CONFIGURAFECHA:
+                   {
 
-                if (flanco) {
-                    sprintf(cadenaamostrar, "SET FECH");
-                    sprintf(cadenaamostrar2, cadena_esp);
-                }
-                break;
-            }
+                       if (flanco) {
+                           sprintf(cadenaamostrar, "SET FECH");
+                           sprintf(cadenaamostrar2, cadena_esp);
+                       }
+                       break;
+                   }*/
             case SUBMENU_CONFIGURADIA:
             {
                 modificafecha = DIA;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+                    sprintf(cadenaamostrar, "SET FECH");
+                    sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    //sprintf(cadenaamostrar2, cadena_esp);
+                    //sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //sprintf(cadenaamostrar2, "             ");
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "  /%02d/%02d", fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET FECH");
+                    sprintf(cadenaamostrar2, "  /%02d/%02d", fecha.month, fecha.yr);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
                 break;
@@ -251,12 +238,15 @@ void main() {
                 modificafecha = MES;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+                    sprintf(cadenaamostrar, "SET FECH");
+                    sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    //  sprintf(cadenaamostrar2, cadena_esp);
+                    // sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d/  /%02d", fecha.day, fecha.yr);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET FECH");
+                    sprintf(cadenaamostrar2, "%02d/  /%02d", fecha.day, fecha.yr);
+                    // sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
                 break;
@@ -266,37 +256,42 @@ void main() {
                 modificafecha = ANIO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
+                    sprintf(cadenaamostrar, "SET FECH");
+                    sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    // sprintf(cadenaamostrar2, cadena_esp);
+                    //sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d/%02d/  ", fecha.day, fecha.month);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET FECH");
+                    sprintf(cadenaamostrar2, "%02d/%02d/  ", fecha.day, fecha.month);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
                 break;
             }
-            case MENU_CONFIGURAENCENDIDO:
-            {
+                /* case MENU_CONFIGURAENCENDIDO:
+                 {
 
-                if (flanco) {
-                    sprintf(cadenaamostrar, "SET ENC ");
-                    sprintf(cadenaamostrar2, cadena_esp);
-                }
+                     if (flanco) {
+                         sprintf(cadenaamostrar, "SET ENC ");
+                         sprintf(cadenaamostrar2, cadena_esp);
+                     }
 
-                break;
-            }
+                     break;
+                 }*/
             case SUBMENU_CONFIGURAHORAENCENDIDO:
             {
                 modificafecha = HORA;
                 horario = &horarioenc;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET ENC ");
+                    sprintf(cadenaamostrar2, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "  :%02d   ", horarioenc.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET ENC ");
+                    sprintf(cadenaamostrar2, "  :%02d   ", horarioenc.min);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
@@ -306,12 +301,14 @@ void main() {
                 modificafecha = MINUTOS;
                 horario = &horarioenc;
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET ENC ");
+                    sprintf(cadenaamostrar2, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "%02d:     ", horarioenc.hrs);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "SET ENC ");
+                    sprintf(cadenaamostrar2, "%02d:     ", horarioenc.hrs);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
@@ -321,14 +318,16 @@ void main() {
                 modificafecha = PERIODOENCENDIDO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "c/%u dias", periodoencendido + 1);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "ENC: %02d'", tiempoencendido);
+                    sprintf(cadenaamostrar2, "c/%u dias", periodoencendido + 1);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "c/  dias");
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "ENC: %02d'", tiempoencendido);
+                    sprintf(cadenaamostrar2, "c/  dias");
+                    // sprintf(cadenaamostrar2, cadena_esp);
                 }
-                bandera_graba_periodoencendido = 1;
+                bandera_graba_periodoytiempoencendido = 1;
                 break;
             }
 
@@ -337,14 +336,16 @@ void main() {
                 modificafecha = TIEMPOENCENDIDO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "ENCEN:%02d", tiempoencendido);
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "ENC: %02d'", tiempoencendido);
+                    sprintf(cadenaamostrar2, "c/%u dias", periodoencendido + 1);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "ENCEN:  ");
-                    sprintf(cadenaamostrar2, cadena_esp);
+                    sprintf(cadenaamostrar, "ENC:   '");
+                    sprintf(cadenaamostrar2, "c/%u dias", periodoencendido + 1);
+                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
-                bandera_graba_tiempoencendido = 1;
+                bandera_graba_periodoytiempoencendido = 1;
                 break;
             }
             case MENU_CONFIGURAFALLACORRIENTE:
@@ -757,11 +758,8 @@ void main() {
 
         if (bandera_graba_global) {
             di();
-            if (bandera_graba_periodoencendido) {
+            if (bandera_graba_periodoytiempoencendido) {
                 eeprom_write(0, periodoencendido);
-                buzzer_on(10);
-            }
-            if (bandera_graba_tiempoencendido) {
                 eeprom_write(1, tiempoencendido);
                 buzzer_on(10);
             }
@@ -776,8 +774,7 @@ void main() {
             ei();
         }
         bandera_graba_global = 0;
-        bandera_graba_periodoencendido = 0;
-        bandera_graba_tiempoencendido = 0;
+        bandera_graba_periodoytiempoencendido = 0;
         bandera_graba_usa_falla_de_corriente = 0;
         bandera_graba_tiempofalla = 0;
         // </editor-fold>
