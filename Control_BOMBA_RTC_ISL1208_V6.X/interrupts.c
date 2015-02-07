@@ -251,7 +251,7 @@ void interrupt isr(void) {
                     break;
                 case PERIODOENCENDIDO:
                     //haycambio = 1;
-                    if (periodoencendido >0) periodoencendido--; //
+                    if (periodoencendido > 0) periodoencendido--; //
                     else
                         if (periodoencendido == 0) periodoencendido = TIEMPOMAXIMOPERIODO;
                     break;

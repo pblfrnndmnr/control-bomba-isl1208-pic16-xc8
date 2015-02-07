@@ -231,7 +231,7 @@ void isl1208_set_time_enc(unsigned char hr, unsigned char min, unsigned char sec
 #endif
 
 }
-void isl1208_set_dow_enc(unsigned char *dow) {
+void isl1208_set_dow_enc(unsigned char *dow,unsigned char periodoencendido) {
 //TODO terminar de implementar la funcion de escritura de dow.
 #ifndef USE_INTERRUPTS
     //di();
@@ -240,7 +240,7 @@ void isl1208_set_dow_enc(unsigned char *dow) {
     start_i2c();
     write_i2c(isl1208_Write);
     write_i2c(0x11);
-    if (*dow!=0){
+    if (periodoencendido!=0){
     write_i2c(isl1208_bin2bcd(*dow)| 0b10000000); //habilita la alarma de dow
     }else{
     write_i2c(isl1208_bin2bcd(0b00000000)); //deshabilita la alarma de dow cuando se debe repetir la alarma todos los dias
