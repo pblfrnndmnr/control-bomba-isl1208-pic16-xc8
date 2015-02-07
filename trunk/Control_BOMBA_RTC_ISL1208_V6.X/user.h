@@ -129,33 +129,34 @@ unsigned int adcenteroV;
 unsigned int adcenteroI;
 unsigned int adcdecimalI;
 //Definicion de las entradas del menu
-#define MENU_MUESTRAHORA 0 //muestra la hora actual y el estado de la bomba, encendido apagado o falla de sobrecorriente, nivel bajo
-#define MENU_MUESTRAFECHA 1 //muestra la fecha actual
-#define MENU_MUESTRAMEDICIONES 2 //menu que muestra la medicion de corriente de motor y tension
-#define MENU_CONFIGURAHORARIO 3 //menu para configurar el horario
+#define MENU_INICIAL 0 //el menu donde se puede cambiar de manual a automatico y donde se puede encender la bomba en manual
+#define MENU_MUESTRAHORA 1 //muestra la hora actual y el estado de la bomba, encendido apagado o falla de sobrecorriente, nivel bajo
+#define MENU_MUESTRAFECHA 2 //muestra la fecha actual
+#define MENU_MUESTRAMEDICIONES 3 //menu que muestra la medicion de corriente de motor y tension
+#define MENU_CONFIGURAHORARIO 4 //menu para configurar el horario
 //#este menu tiene submenu
-#define SUBMENU_CONFIGURAHORA 4 //submenu para configurar la hora
-#define SUBMENU_CONFIGURAMINUTOS 5 //submenu para configurar los minutos
+#define SUBMENU_CONFIGURAHORA 5 //submenu para configurar la hora
+#define SUBMENU_CONFIGURAMINUTOS 6 //submenu para configurar los minutos
 
-#define MENU_CONFIGURAFECHA 6 //menu para configurar la fecha
+#define MENU_CONFIGURAFECHA 7 //menu para configurar la fecha
 //#este menu tiene submenu
-#define SUBMENU_CONFIGURADIA 7 //submenu para configurar el dia
-#define SUBMENU_CONFIGURAMES 8 //submenu para configurar el mes
-#define SUBMENU_CONFIGURAANIO 9 //submenu para configurar el año
+#define SUBMENU_CONFIGURADIA 8 //submenu para configurar el dia
+#define SUBMENU_CONFIGURAMES 9 //submenu para configurar el mes
+#define SUBMENU_CONFIGURAANIO 10 //submenu para configurar el año
 
 
-#define MENU_CONFIGURAENCENDIDO 10 //menu para configurar la hora de encendido de la bomba
+#define MENU_CONFIGURAENCENDIDO 11 //menu para configurar la hora de encendido de la bomba
 //#este menu tiene submenu
-#define SUBMENU_CONFIGURAHORAENCENDIDO 11 //submenu para configurar la hora de encendido
-#define SUBMENU_CONFIGURAMINUTOSENCENDIDO 12 //submenu para configurar la hora de encendido
-#define SUBMENU_CONFIGURAPERIODOENCENDIDO 13 //submenu para indicar cada cuantos dias se prende la bomba
-#define SUBMENU_CONFIGURATIEMPOENCENDIDO 14 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
+#define SUBMENU_CONFIGURAHORAENCENDIDO 12 //submenu para configurar la hora de encendido
+#define SUBMENU_CONFIGURAMINUTOSENCENDIDO 13 //submenu para configurar la hora de encendido
+#define SUBMENU_CONFIGURAPERIODOENCENDIDO 14 //submenu para indicar cada cuantos dias se prende la bomba
+#define SUBMENU_CONFIGURATIEMPOENCENDIDO 15 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
 
-#define MENU_CONFIGURAFALLACORRIENTE 15//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
-#define MENU_CONFIGURATIEMPOFALLACORRIENTE 16 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos
+#define MENU_CONFIGURAFALLACORRIENTE 16//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
+#define MENU_CONFIGURATIEMPOFALLACORRIENTE 17 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos
 
 
-#define ULTIMOMENU 16 //indica el valor del ultimo menu
+#define ULTIMOMENU 17 //indica el valor del ultimo menu
 
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
 #define TIEMPOMAXIMOFALLA 10 //segundos
