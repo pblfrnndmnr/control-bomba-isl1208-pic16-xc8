@@ -313,7 +313,7 @@ void main() {
                 modificafecha = PERIODOENCENDIDO;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "c/%u dias", periodoencendido+1);
+                    sprintf(cadenaamostrar, "c/%u dias", periodoencendido + 1);
                     sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
@@ -517,9 +517,18 @@ void main() {
                 isl1208_get_dow_enc(&fechaenc.dow);
                 /*TODO aca debo sumarle a fechaenc.dow el valor de periodoencendido 
                  * para que respete cada cuantos dias se enciende la bomba
-                */
-                //fechaenc.dow=(fechaenc.dow+periodoencendido)%7;
-
+                 por ejemplo si la alarma se activo el lunes (1) y periodoencendido+1=3+1 es cada cuatro dias 4
+                 debo hacer 1+4=5, 5%7=5 se deberia encender el viernes (5)
+                 otro ejemplo si se encendio el jueves (4) y es cada 4 dias, 4+4=8, entonces 8%7=1 (lunes)
+                 periodoencendido va de 0 a 6
+                 0 corresponde a dia por dia (se debe desactivar la alarma por dow)
+                 1 corresponde a cada dos dias
+                 2 cada 3 dias
+                 ...
+                 6 cada 7 dias
+                 */
+                fechaenc.dow = (fechaenc.dow + periodoencendido + 1) % 7;
+                isl1208_set_dow_enc(&fechaenc.dow, periodoencendido);
                 horarioapagado.Valor = horarioenc.Valor;
                 if (horarioapagado.min + tiempoencendido >= 60) {
                     horarioapagado.min = horarioapagado.min + tiempoencendido - 60;
@@ -703,17 +712,18 @@ void main() {
             if (bandera_graba_hora) {
                 if (horario == &horarioactual) {
                     isl1208_set_time((*horario).hrs, (*horario).min, 00);
-                    buzzer_on(3);
+                    buzzer_on(10);
                 }
                 if (horario == &horarioenc) {
                     isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
-                    //TODO isl1208_set_dow_enc(&fechaenc.dow);
-                    buzzer_on(3);
+                    fechaenc.dow = (fecha.dow + periodoencendido + 1) % 7;
+                    isl1208_set_dow_enc(&fechaenc.dow, periodoencendido);
+                    buzzer_on(10);
                 }
             }
             if (bandera_graba_fecha) {
                 isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
-                buzzer_on(3);
+                buzzer_on(10);
             }
         }
         //Si no hay datos para grabar en hora y fecha actualizo la hora y la fecha del RTC
@@ -739,19 +749,19 @@ void main() {
             di();
             if (bandera_graba_periodoencendido) {
                 eeprom_write(0, periodoencendido);
-                buzzer_on(3);
+                buzzer_on(10);
             }
             if (bandera_graba_tiempoencendido) {
                 eeprom_write(1, tiempoencendido);
-                buzzer_on(3);
+                buzzer_on(10);
             }
             if (bandera_graba_usa_falla_de_corriente) {
                 eeprom_write(2, usa_falla_de_corriente);
-                buzzer_on(3);
+                buzzer_on(10);
             }
             if (bandera_graba_tiempofalla) {
                 eeprom_write(3, tiempofalla);
-                buzzer_on(3);
+                buzzer_on(10);
             }
             ei();
         }

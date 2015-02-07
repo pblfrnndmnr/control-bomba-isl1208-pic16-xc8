@@ -160,7 +160,7 @@ unsigned int adcdecimalI;
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
 #define TIEMPOMAXIMOFALLA 10 //segundos
 #define TIEMPOMAXIMONIVEL 15 //es el tiempo en segundos que hay que esperar en caso de que se llegue al nivel minimo para apagar el motor
-#define TIEMPOMAXIMOPERIODO 7 //cada cuantos dias se riega.
+#define TIEMPOMAXIMOPERIODO 6 //cada cuantos dias se riega.
 unsigned char periodoencendido = 0;
 unsigned char tiempoencendido = 0;
 bool usa_falla_de_corriente = 0;
