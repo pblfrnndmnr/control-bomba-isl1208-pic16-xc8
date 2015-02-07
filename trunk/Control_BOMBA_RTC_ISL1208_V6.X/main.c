@@ -70,6 +70,18 @@ void main() {
     __delay_us(20);
     openADC();
 
+    // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
+    periodoencendido = eeprom_read(0);
+    if (periodoencendido > TIEMPOMAXIMOPERIODO) periodoencendido = 0;
+    tiempoencendido = eeprom_read(1);
+    if (tiempoencendido > TIEMPOMAXIMOENCENDIDO) tiempoencendido = 15;
+    usa_falla_de_corriente = eeprom_read(2);
+    if (usa_falla_de_corriente > 1) usa_falla_de_corriente = 1;
+    tiempofalla = eeprom_read(3);
+    if (tiempofalla > TIEMPOMAXIMOFALLA)tiempofalla = 5;
+    //si se produjo un error en la EEPROM, asigno valores predefinidos
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Lectura del estado actual del RTC">
 
     if (ISL1208_ready()) {
@@ -90,6 +102,9 @@ void main() {
     __delay_ms(500);
     __delay_ms(500);
 
+
+
+
     fecha.day = 1;
     fecha.month = 1;
     fecha.yr = 15;
@@ -108,23 +123,16 @@ void main() {
         isl1208_get_dow_enc(&fechaenc.dow);
 
         if (isl1208SR.ALM) {
-            //TODO Si se activo la alarma cuando estaba apagado el sistema se borra esa bandera además hay que ver cunato tiempo transcurrio?
+            //Si se activo la alarma cuando estaba apagado el sistema se borra esa bandera
             isl1208SR.ALM = 0; //reseteo la indicacion de alarma del RTC
             ISL1208_Set_status(&isl1208SR.Valor);
+            //TODO (implementado no probado )ver si transcurrió el periodoencendido, para activar la bomba cuando corresponda
+            //Si se activo la alarma, lo que hago es encender la bomba a la hora grabada,en el mismo dia si la hora actual es menor o al día siguiente si la hora actual es mayor, por única vez
+            //desactivando la alarma por dow
+            isl1208_set_dow_enc(0x00, 0);
+            //
         }
     }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
-    periodoencendido = eeprom_read(0);
-    if (periodoencendido > TIEMPOMAXIMOPERIODO) periodoencendido = 0;
-    tiempoencendido = eeprom_read(1);
-    if (tiempoencendido > TIEMPOMAXIMOENCENDIDO) tiempoencendido = 15;
-    usa_falla_de_corriente = eeprom_read(2);
-    if (usa_falla_de_corriente > 1) usa_falla_de_corriente = 1;
-    tiempofalla = eeprom_read(3);
-    if (tiempofalla > TIEMPOMAXIMOFALLA)tiempofalla = 5;
-    //si se produjo un error en la EEPROM, asigno valores predefinidos
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Habilita Interrupciones">
@@ -515,7 +523,7 @@ void main() {
                 //Leo el valor de la alarma
                 isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
                 isl1208_get_dow_enc(&fechaenc.dow);
-                /*TODO aca debo sumarle a fechaenc.dow el valor de periodoencendido 
+                /*TODO (implementado no probado )aca debo sumarle a fecha.dow el valor de periodoencendido
                  * para que respete cada cuantos dias se enciende la bomba
                  por ejemplo si la alarma se activo el lunes (1) y periodoencendido+1=3+1 es cada cuatro dias 4
                  debo hacer 1+4=5, 5%7=5 se deberia encender el viernes (5)
@@ -527,7 +535,7 @@ void main() {
                  ...
                  6 cada 7 dias
                  */
-                fechaenc.dow = (fechaenc.dow + periodoencendido + 1) % 7;
+                fechaenc.dow = (fecha.dow + periodoencendido + 1) % 7;
                 isl1208_set_dow_enc(&fechaenc.dow, periodoencendido);
                 horarioapagado.Valor = horarioenc.Valor;
                 if (horarioapagado.min + tiempoencendido >= 60) {
@@ -716,8 +724,10 @@ void main() {
                 }
                 if (horario == &horarioenc) {
                     isl1208_set_time_enc((*horario).hrs, (*horario).min, 00);
-                    fechaenc.dow = (fecha.dow + periodoencendido + 1) % 7;
-                    isl1208_set_dow_enc(&fechaenc.dow, periodoencendido);
+                    //cuando grabo los datos quiero que toque el dia siguiente o en el mismo dia a la hora especificada
+                    //por lo tanto desactivo la alarma por dow
+                    //fechaenc.dow = (fecha.dow + periodoencendido + 1) % 7;
+                    isl1208_set_dow_enc(0x00, 0);
                     buzzer_on(10);
                 }
             }
