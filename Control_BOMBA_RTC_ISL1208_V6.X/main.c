@@ -99,7 +99,7 @@ void main() {
         vLCD_Putc(*cadena++);
 
     __delay_ms(500);
-    
+
     fecha.day = 1;
     fecha.month = 1;
     fecha.yr = 15;
@@ -148,6 +148,11 @@ void main() {
 
         ////////////////////////////////////////
         switch (menuactual) {
+            case MENU_INICIAL:
+            {
+                 sprintf(cadenaamostrar, cadena_esp);
+                break;
+            }
             case MENU_MUESTRAHORA:
             {
                 horario = &horarioactual;
@@ -401,7 +406,7 @@ void main() {
 
         // <editor-fold defaultstate="collapsed" desc="Muestra estado de la bomba">
         /////////////////////////////////////////////////////////
-        if (menuactual != MENU_MUESTRAMEDICIONES && menuactual != MENU_MUESTRAFECHA && (menuactual < SUBMENU_CONFIGURADIA || menuactual > SUBMENU_CONFIGURAANIO)) {
+        if (menuactual == MENU_INICIAL) {
             switch (estadobomba) {
                 case BOMBAAPAGADA:
                 {

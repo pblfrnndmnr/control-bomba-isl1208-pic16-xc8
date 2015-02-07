@@ -279,7 +279,9 @@ void interrupt isr(void) {
         if (Pulsacion(2, BOTON_ONOFF, SIN_REPETICION, LOGICA_INVERSA)) {
             tiempoapagadolcd = 15;
             bandera_graba_global = 1;
-            bandera_orden_on_off_bomba = !bandera_orden_on_off_bomba;
+            if (menuactual == MENU_INICIAL) {
+                bandera_orden_on_off_bomba = !bandera_orden_on_off_bomba;
+            }
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton menu">
@@ -295,9 +297,11 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton manaut">
         if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
             tiempoapagadolcd = 15;
-            bandera_orden_on_off_bomba = 0;
-            bandera_orden_Alarma_bomba = 0;
-            manual_automatico = !manual_automatico;
+            if (menuactual == MENU_INICIAL) {
+                bandera_orden_on_off_bomba = 0;
+                bandera_orden_Alarma_bomba = 0;
+                manual_automatico = !manual_automatico;
+            }
             buzzer_on(3);
 
         }
