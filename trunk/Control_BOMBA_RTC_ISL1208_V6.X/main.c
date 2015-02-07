@@ -99,8 +99,8 @@ void main() {
         vLCD_Putc(*cadena++);
 
     __delay_ms(500);
-    __delay_ms(500);
-    __delay_ms(500);
+    // __delay_ms(500);
+    // __delay_ms(500);
 
 
 
@@ -438,19 +438,6 @@ void main() {
         }
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
-
-
-        if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
-
-
-        } else {
-            activabomba = APAGABOMBA;
-        }
-        //////////////////////////////////////////////////////
-        //Fin Verifica estados de falla
-        // </editor-fold>
-
         // <editor-fold defaultstate="collapsed" desc="Inicio de procesamiento de medicion de voltaje, corriente">
         //Inicio de procesamiento de medicion de voltaje, corriente
         /////////////////////////////////////////////////////////////
@@ -472,6 +459,19 @@ void main() {
         mediciondecorriente = (float) medidaI_adc * 50 / 1024;
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
+        // </editor-fold>
+
+        // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
+
+
+        if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
+
+
+        } else {
+            activabomba = APAGABOMBA;
+        }
+        //////////////////////////////////////////////////////
+        //Fin Verifica estados de falla
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Activa o desactiva la Bomba">
