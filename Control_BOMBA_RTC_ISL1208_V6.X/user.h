@@ -130,33 +130,34 @@ unsigned int adcenteroI;
 unsigned int adcdecimalI;
 //Definicion de las entradas del menu
 #define MENU_INICIAL 0 //el menu donde se puede cambiar de manual a automatico y donde se puede encender la bomba en manual
-#define MENU_MUESTRAHORA 1 //muestra la hora actual y el estado de la bomba, encendido apagado o falla de sobrecorriente, nivel bajo
-#define MENU_MUESTRAFECHA 2 //muestra la fecha actual
-#define MENU_MUESTRAMEDICIONES 3 //menu que muestra la medicion de corriente de motor y tension
-#define MENU_CONFIGURAHORARIO 4 //menu para configurar el horario
+#define MENU_MUESTRAHORA_FECHA 1 //muestra la hora actual y el estado de la bomba, encendido apagado o falla de sobrecorriente, nivel bajo
+//#define MENU_MUESTRAFECHA  //muestra la fecha actual
+#define MENU_MUESTRAMEDICIONES 2 //menu que muestra la medicion de corriente de motor y tension
+//#define MENU_CONFIGURAHORARIO 3 //menu para configurar el horario
 //#este menu tiene submenu
-#define SUBMENU_CONFIGURAHORA 5 //submenu para configurar la hora
-#define SUBMENU_CONFIGURAMINUTOS 6 //submenu para configurar los minutos
+#define SUBMENU_CONFIGURAHORA 3 //submenu para configurar la hora
+#define SUBMENU_CONFIGURAMINUTOS 4 //submenu para configurar los minutos
 
-#define MENU_CONFIGURAFECHA 7 //menu para configurar la fecha
+//#define MENU_CONFIGURAFECHA 5 //menu para configurar la fecha
 //#este menu tiene submenu
-#define SUBMENU_CONFIGURADIA 8 //submenu para configurar el dia
-#define SUBMENU_CONFIGURAMES 9 //submenu para configurar el mes
-#define SUBMENU_CONFIGURAANIO 10 //submenu para configurar el año
+#define SUBMENU_CONFIGURADIA 5 //submenu para configurar el dia
+#define SUBMENU_CONFIGURAMES 6 //submenu para configurar el mes
+#define SUBMENU_CONFIGURAANIO 7 //submenu para configurar el año
 
 
-#define MENU_CONFIGURAENCENDIDO 11 //menu para configurar la hora de encendido de la bomba
+//#define MENU_CONFIGURAENCENDIDO 8 //menu para configurar la hora de encendido de la bomba
 //#este menu tiene submenu
-#define SUBMENU_CONFIGURAHORAENCENDIDO 12 //submenu para configurar la hora de encendido
-#define SUBMENU_CONFIGURAMINUTOSENCENDIDO 13 //submenu para configurar la hora de encendido
-#define SUBMENU_CONFIGURAPERIODOENCENDIDO 14 //submenu para indicar cada cuantos dias se prende la bomba
-#define SUBMENU_CONFIGURATIEMPOENCENDIDO 15 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
-
-#define MENU_CONFIGURAFALLACORRIENTE 16//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
-#define MENU_CONFIGURATIEMPOFALLACORRIENTE 17 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos
+#define SUBMENU_CONFIGURAHORAENCENDIDO 8 //submenu para configurar la hora de encendido
+#define SUBMENU_CONFIGURAMINUTOSENCENDIDO 9 //submenu para configurar la hora de encendido
+#define SUBMENU_CONFIGURATIEMPOENCENDIDO 10 //submenu para configurar el tiempo en que la bomba está encendida, con un maximo de 1hora
+#define SUBMENU_CONFIGURAPERIODOENCENDIDO 11 //submenu para indicar cada cuantos dias se prende la bomba
 
 
-#define ULTIMOMENU 17 //indica el valor del ultimo menu
+#define MENU_CONFIGURAFALLACORRIENTE 12//se indica si la entrada de falla de corriente es por contacto NC=1 o NA=0
+#define MENU_CONFIGURATIEMPOFALLACORRIENTE 13 //se configura el tiempo en que la falla esta activa para parar el motor, maximo 30segundos
+
+
+#define ULTIMOMENU 13 //indica el valor del ultimo menu
 
 #define TIEMPOMAXIMOENCENDIDO 60 //minutos
 #define TIEMPOMAXIMOFALLA 10 //segundos
@@ -168,7 +169,7 @@ bool usa_falla_de_corriente = 0;
 bool indica_tiempo_falla = 0;
 unsigned char tiempofalla = 0;
 unsigned char cuenta_tiempofalla = 0;
-unsigned char menuactual = MENU_MUESTRAHORA;
+unsigned char menuactual = MENU_INICIAL;
 
 //Variables para procesar la secuencia de arranque
 bool indica_secuencia_arranque = 0;
@@ -181,8 +182,8 @@ bool bandera_graba_hora = 0; //bandera para grabar la hora
 bool bandera_graba_fecha = 0; //bandera para grabar la fecha
 bool bandera_graba_global = 0; //bandera que habilita el grabago de datos cuando se pulsa el boton BOTON_ONOFF
 
-bool bandera_graba_periodoencendido = 0;
-bool bandera_graba_tiempoencendido = 0;
+bool bandera_graba_periodoytiempoencendido = 0;
+//bool bandera_graba_tiempoencendido = 0;
 bool bandera_graba_usa_falla_de_corriente = 0;
 bool bandera_graba_tiempofalla = 0;
 //constantes y variables de indicacion del estado de la bomba
