@@ -99,12 +99,7 @@ void main() {
         vLCD_Putc(*cadena++);
 
     __delay_ms(500);
-    __delay_ms(500);
-    __delay_ms(500);
-
-
-
-
+    
     fecha.day = 1;
     fecha.month = 1;
     fecha.yr = 15;
