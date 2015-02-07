@@ -232,7 +232,7 @@ void isl1208_set_time_enc(unsigned char hr, unsigned char min, unsigned char sec
 
 }
 void isl1208_set_dow_enc(unsigned char *dow,unsigned char periodoencendido) {
-//TODO terminar de implementar la funcion de escritura de dow.
+
 #ifndef USE_INTERRUPTS
     //di();
 #endif
@@ -254,7 +254,7 @@ void isl1208_set_dow_enc(unsigned char *dow,unsigned char periodoencendido) {
 }
 
 void isl1208_get_dow_enc(unsigned char *dow) {
-//TODO terminar de implementar la funcion de escritura de dow.
+
 #ifndef USE_INTERRUPTS
     //di();
 #endif
