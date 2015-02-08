@@ -33,6 +33,35 @@ void lee_y_transmite_date_and_time(void) {
     isl1208_get_time(&horarioactual.hrs, &horarioactual.min, &horarioactual.sec);
 }
 
+void Obtiene_tiempo_restante_de_encendido(void) {
+    tiemporestantedias = fechaenc.dow - (fecha.dow + periodoencendido + 1) % 7;
+    if (horarioactual.hrs <= horarioenc.hrs) {
+        //si la hora de apagado es mayor que el horario actual significa que estamos en el mismo día
+        //solo tengo que restar las horas
+        tiemporestantehora.hrs = horarioenc.hrs - horarioactual.hrs;
+    } else {
+        //sino lo que hago es calcular el tiempo desde el horario actual hasta las 20hs de la noche y a eso le sumoola hora de apagado
+        tiemporestantehora.hrs = horarioenc.hrs + (24 - horarioactual.hrs);
+    }
+    if (horarioactual.min <= horarioenc.min) {
+        //si los minutos de apagado ee mayor que el minuto actual significa que estamos en la misma hora
+        //solo tengo que restar las horas
+        tiemporestantehora.min = horarioenc.min - horarioactual.min;
+    } else {
+        //sino lo que hago es calcular el tiempo desde el horario actual hasta los60 minutos y a eso le sumo los minutosde apagado
+        tiemporestantehora.min = horarioenc.min + (60 - horarioactual.min);
+        //le resto 1 a las horas
+        if (tiemporestantehora.hrs > 0) {
+            tiemporestantehora.hrs = tiemporestantehora.hrs - 1;
+        } else {
+            tiemporestantehora.hrs = 23;
+        }
+    }
+
+
+
+}
+
 void main() {
     TMR1IE = 0; //   disable_interrupts(int_timer1);
     RCIE = 0; //    disable_interrupts(int_rda);
@@ -151,7 +180,8 @@ void main() {
             {
                 if (reseteafallas == FALLARESETEADA) {
                     ultimafalla = NOHUBOFALLA;
-                    sprintf(cadenaamostrar, cadena_esp);
+                    sprintf(cadenaamostrar, "%1dD%02dH%02dM", tiemporestantedias, tiemporestantehora.hrs, tiemporestantehora.min);
+                    // sprintf(cadenaamostrar, cadena_esp);
                 } else {
                     if (ultimafalla == HUBOFALLAVOLTAJE) {
                         sprintf(cadenaamostrar, "Falla: V");
@@ -449,7 +479,7 @@ void main() {
         } else {
             estadofallavoltaje = FALLAVOLTAJE;
         }
-        mediciondecorriente = (float) medidaI_adc * 50 / 1024- OFFSET_I;
+        mediciondecorriente = (float) medidaI_adc * 50 / 1024 - OFFSET_I;
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
         // </editor-fold>
@@ -721,6 +751,7 @@ void main() {
             lee_y_transmite_date_and_time();
             isl1208_get_time_enc(&horarioenc.hrs, &horarioenc.min, &horarioenc.sec);
             isl1208_get_dow_enc(&fechaenc.dow);
+            Obtiene_tiempo_restante_de_encendido();
             actualizo_datos_rtc = 0;
         }
         bandera_graba_hora = 0;
