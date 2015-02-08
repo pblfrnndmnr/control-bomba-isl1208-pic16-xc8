@@ -131,6 +131,9 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton subir">
         static char maximodia;
         if (Pulsacion(0, BOTON_Subir, CON_REPETICION, LOGICA_INVERSA)) {
+            if (menuactual == MENU_INICIAL) {
+                reseteafallas = FALLARESETEADA;
+            }
             haycambio = 1;
             tiempoapagadolcd = 15;
             tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
@@ -206,6 +209,9 @@ void interrupt isr(void) {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton bajar">
         if (Pulsacion(1, BOTON_Bajar, CON_REPETICION, LOGICA_INVERSA)) {
+            if (menuactual == MENU_INICIAL) {
+                reseteafallas = FALLARESETEADA;
+            }
             haycambio = 1;
             tiempoapagadolcd = 15;
             tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
