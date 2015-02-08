@@ -278,9 +278,11 @@ void interrupt isr(void) {
         //bandera_graba_global = 0;
         if (Pulsacion(2, BOTON_ONOFF, SIN_REPETICION, LOGICA_INVERSA)) {
             tiempoapagadolcd = 15;
-            bandera_graba_global = 1;
+           
             if (menuactual == MENU_INICIAL) {
                 bandera_orden_on_off_bomba = !bandera_orden_on_off_bomba;
+            }else {
+             bandera_graba_global = 1;
             }
         }
         // </editor-fold>
@@ -301,6 +303,9 @@ void interrupt isr(void) {
                 bandera_orden_on_off_bomba = 0;
                 bandera_orden_Alarma_bomba = 0;
                 manual_automatico = !manual_automatico;
+            } else {
+                //Si no está en el menú inicial, la pulsación hace que se vuelva al menú inicial(tecla ESC)
+            menuactual = MENU_INICIAL;
             }
             buzzer_on(3);
 
