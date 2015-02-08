@@ -169,6 +169,14 @@ bool usa_falla_de_corriente = 0;
 bool indica_tiempo_falla = 0;
 unsigned char tiempofalla = 0;
 unsigned char cuenta_tiempofalla = 0;
+#define NOHUBOFALLA 0
+#define HUBOFALLACORRIENTE 1
+#define HUBOFALLAVOLTAJE 2
+#define HUBOFALLANIVEL 3
+unsigned char ultimafalla= NOHUBOFALLA;
+#define FALLAPRESENTE 0
+#define FALLARESETEADA 1
+bool reseteafallas=FALLARESETEADA;
 unsigned char menuactual = MENU_INICIAL;
 
 //Variables para procesar la secuencia de arranque
@@ -196,10 +204,10 @@ bool activabomba = APAGABOMBA;
 bool estadobomba = BOMBAAPAGADA;
 #define NIVELNORMAL 1
 #define NIVELBAJO 0
-bool estadonivel = NIVELBAJO;
+bool estadonivel = NIVELNORMAL;
 #define CORRIENTENORMAL 1
 #define FALLACORRIENTE 0
-bool estadofallacorriente = FALLACORRIENTE;
+bool estadofallacorriente = CORRIENTENORMAL;
 #define VOLTAJENORMAL 1
 #define FALLAVOLTAJE 0
 bool estadofallavoltaje = FALLAVOLTAJE;

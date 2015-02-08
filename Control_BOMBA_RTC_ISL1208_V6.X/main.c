@@ -38,7 +38,6 @@ void main() {
     RCIE = 0; //    disable_interrupts(int_rda);
     RBIE = 0;
     INTE = 0; //disable_interrupts(int_ext);
-    //ADCON1 = 0x06; //todos puertos digitales
     T0CS = 0; // TMR0 Clock Source Select bit: internal
     PSA = 0; //Prescaler is assigned to the Timer0 module
     OPTION_REGbits.PS = 0b101; //: Prescaler Rate Select bits 1/64
@@ -150,7 +149,19 @@ void main() {
         switch (menuactual) {
             case MENU_INICIAL:
             {
-                sprintf(cadenaamostrar, cadena_esp);
+                if (reseteafallas == FALLARESETEADA) {
+                    ultimafalla = NOHUBOFALLA;
+                    sprintf(cadenaamostrar, cadena_esp);
+                } else {
+                    if (ultimafalla == HUBOFALLAVOLTAJE) {
+                        sprintf(cadenaamostrar, "Falla: V");
+                    } else if (ultimafalla == HUBOFALLACORRIENTE) {
+                        sprintf(cadenaamostrar, "Falla: C");
+                    } else if (ultimafalla == HUBOFALLANIVEL) {
+                        sprintf(cadenaamostrar, "Falla: N");
+                    }
+                }
+
                 break;
             }
             case MENU_MUESTRAHORA_FECHA:
@@ -159,14 +170,11 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
 
                 if (flanco) {
-                    // lee_y_transmite_date_and_time();
                     sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 } else {
                     sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 break;
             }
@@ -178,12 +186,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET HORA");
                     sprintf(cadenaamostrar2, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    //sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET HORA");
                     sprintf(cadenaamostrar2, "  :%02d   ", horarioactual.min);
-                    // sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
@@ -195,25 +200,13 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET HORA");
                     sprintf(cadenaamostrar2, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    // sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET HORA");
                     sprintf(cadenaamostrar2, "%02d:     ", horarioactual.hrs);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
             }
-                /*   case MENU_CONFIGURAFECHA:
-                   {
-
-                       if (flanco) {
-                           sprintf(cadenaamostrar, "SET FECH");
-                           sprintf(cadenaamostrar2, cadena_esp);
-                       }
-                       break;
-                   }*/
             case SUBMENU_CONFIGURADIA:
             {
                 modificafecha = DIA;
@@ -221,14 +214,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    //sprintf(cadenaamostrar2, cadena_esp);
-                    //sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-                    //sprintf(cadenaamostrar2, "             ");
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, "  /%02d/%02d", fecha.month, fecha.yr);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
                 break;
@@ -240,13 +228,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    //  sprintf(cadenaamostrar2, cadena_esp);
-                    // sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, "%02d/  /%02d", fecha.day, fecha.yr);
-                    // sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
                 break;
@@ -258,27 +242,13 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
-                    // sprintf(cadenaamostrar2, cadena_esp);
-                    //sprintf(cadenaamostrar2, days_of_week[dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr)]);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET FECH");
                     sprintf(cadenaamostrar2, "%02d/%02d/  ", fecha.day, fecha.month);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_fecha = 1;
                 break;
             }
-                /* case MENU_CONFIGURAENCENDIDO:
-                 {
-
-                     if (flanco) {
-                         sprintf(cadenaamostrar, "SET ENC ");
-                         sprintf(cadenaamostrar2, cadena_esp);
-                     }
-
-                     break;
-                 }*/
             case SUBMENU_CONFIGURAHORAENCENDIDO:
             {
                 modificafecha = HORA;
@@ -286,12 +256,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET ENC ");
                     sprintf(cadenaamostrar2, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
-                    //sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET ENC ");
                     sprintf(cadenaamostrar2, "  :%02d   ", horarioenc.min);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
@@ -303,12 +270,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "SET ENC ");
                     sprintf(cadenaamostrar2, "%02d:%02d   ", horarioenc.hrs, horarioenc.min);
-                    //sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "SET ENC ");
                     sprintf(cadenaamostrar2, "%02d:     ", horarioenc.hrs);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_hora = 1;
                 break;
@@ -320,12 +284,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "ENC: %02d'", tiempoencendido);
                     sprintf(cadenaamostrar2, "c/%u dias", periodoencendido + 1);
-                    //sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "ENC: %02d'", tiempoencendido);
                     sprintf(cadenaamostrar2, "c/  dias");
-                    // sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_periodoytiempoencendido = 1;
                 break;
@@ -338,12 +299,9 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "ENC: %02d'", tiempoencendido);
                     sprintf(cadenaamostrar2, "c/%u dias", periodoencendido + 1);
-                    //sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "ENC:   '");
                     sprintf(cadenaamostrar2, "c/%u dias", periodoencendido + 1);
-                    //sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_periodoytiempoencendido = 1;
                 break;
@@ -374,7 +332,6 @@ void main() {
                 if (flanco || haycambio) {
                     sprintf(cadenaamostrar, "TFC: %02d'", tiempofalla);
                     sprintf(cadenaamostrar2, cadena_esp);
-                    //haycambio = 0;
                 } else {
                     sprintf(cadenaamostrar, "TFC:   '");
                     sprintf(cadenaamostrar2, cadena_esp);
@@ -382,7 +339,6 @@ void main() {
                 bandera_graba_tiempofalla = 1;
                 break;
             }
-
             case MENU_MUESTRAMEDICIONES:
             {
                 //convierto el valor decimal a float
@@ -445,8 +401,26 @@ void main() {
         if (!usa_falla_de_corriente) {
             estadofallacorriente = CORRIENTENORMAL;
             //TODO Agregado el uso o no de falla de corriente (probar si funciona)
+        } else {
+            if (estadofallacorriente == FALLACORRIENTE) {
+                reseteafallas = FALLAPRESENTE;
+                ultimafalla = HUBOFALLACORRIENTE;
+                if (estadobomba == BOMBAAPAGADA) {
+                    estadofallacorriente = CORRIENTENORMAL;
+                }
+            }
         }
-
+        if (estadonivel == NIVELBAJO) {
+            reseteafallas = FALLAPRESENTE;
+            ultimafalla = HUBOFALLANIVEL;
+            if (estadobomba == BOMBAAPAGADA) {
+                estadonivel = NIVELNORMAL;
+            }
+        }
+        if (estadofallavoltaje == FALLAVOLTAJE) {
+            reseteafallas = FALLAPRESENTE;
+            ultimafalla = HUBOFALLAVOLTAJE;
+        }
         if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
 
 
