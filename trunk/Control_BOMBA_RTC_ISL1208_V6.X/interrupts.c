@@ -72,6 +72,11 @@ void interrupt isr(void) {
                 //para que entre a lo que sigue cada 1 segundo aprovecho a leer el valor de flanco
                 if (flanco) {
 
+                    if (tiemporegresaamenuinicial != 0) {
+                        tiemporegresaamenuinicial--;
+                    } else {
+                        if (menuactual != MENU_INICIAL) menuactual = MENU_INICIAL;
+                    }
                     if (tiempoapagadolcd != 0) {
                         vBackLightLCD_On();
                         tiempoapagadolcd--;
@@ -128,6 +133,7 @@ void interrupt isr(void) {
         if (Pulsacion(0, BOTON_Subir, CON_REPETICION, LOGICA_INVERSA)) {
             haycambio = 1;
             tiempoapagadolcd = 15;
+            tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
             refrescadisplay = 1;
             switch (modificafecha) {
                 case MINUTOS:
@@ -202,6 +208,7 @@ void interrupt isr(void) {
         if (Pulsacion(1, BOTON_Bajar, CON_REPETICION, LOGICA_INVERSA)) {
             haycambio = 1;
             tiempoapagadolcd = 15;
+            tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
             refrescadisplay = 1;
             switch (modificafecha) {
                 case MINUTOS:
@@ -278,17 +285,18 @@ void interrupt isr(void) {
         //bandera_graba_global = 0;
         if (Pulsacion(2, BOTON_ONOFF, SIN_REPETICION, LOGICA_INVERSA)) {
             tiempoapagadolcd = 15;
-           
+            tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
             if (menuactual == MENU_INICIAL) {
                 bandera_orden_on_off_bomba = !bandera_orden_on_off_bomba;
-            }else {
-             bandera_graba_global = 1;
+            } else {
+                bandera_graba_global = 1;
             }
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="boton menu">
         if (Pulsacion(3, BOTON_MENU, SIN_REPETICION, LOGICA_INVERSA)) {
             tiempoapagadolcd = 15;
+            tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
             buzzer_on(3);
             if (menuactual < ULTIMOMENU)
                 menuactual++;
@@ -299,13 +307,14 @@ void interrupt isr(void) {
         // <editor-fold defaultstate="collapsed" desc="boton manaut">
         if (Pulsacion(4, BOTON_MANAUT, SIN_REPETICION, LOGICA_INVERSA)) {
             tiempoapagadolcd = 15;
+            tiemporegresaamenuinicial = 30; //espero 30 segundos antes de volver al menuinicial
             if (menuactual == MENU_INICIAL) {
                 bandera_orden_on_off_bomba = 0;
                 bandera_orden_Alarma_bomba = 0;
                 manual_automatico = !manual_automatico;
             } else {
                 //Si no está en el menú inicial, la pulsación hace que se vuelva al menú inicial(tecla ESC)
-            menuactual = MENU_INICIAL;
+                menuactual = MENU_INICIAL;
             }
             buzzer_on(3);
 
