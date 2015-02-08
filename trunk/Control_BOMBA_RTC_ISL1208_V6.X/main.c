@@ -349,9 +349,9 @@ void main() {
                 //como la resolucion es 1024, cada bit corresponde a 50A/1024=0.048828125A
                 //cada 20 muestras tengo aproximdamente 1A
 
-                adcenteroI = (unsigned int) mediciondecorriente;
-                adcdecimalI = (unsigned int) ((mediciondecorriente - (unsigned int) mediciondecorriente)*10);
-                sprintf(cadenaamostrar, "%2u.%uA   ", (unsigned int) adcenteroI, (unsigned int) adcdecimalI);
+                adcenteroI = (signed int) mediciondecorriente;
+                adcdecimalI = (signed int) ((mediciondecorriente - (signed int) mediciondecorriente)*10);
+                sprintf(cadenaamostrar, "%2i.%iA   ", (signed int) adcenteroI, (signed int) adcdecimalI);
                 sprintf(cadenaamostrar2, "%3uV    ", (unsigned int) adcenteroV);
                 break;
             }
@@ -449,7 +449,7 @@ void main() {
         } else {
             estadofallavoltaje = FALLAVOLTAJE;
         }
-        mediciondecorriente = (float) medidaI_adc * 50 / 1024;
+        mediciondecorriente = (float) medidaI_adc * 50 / 1024- OFFSET_I;
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
         // </editor-fold>

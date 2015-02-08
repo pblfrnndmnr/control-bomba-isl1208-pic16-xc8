@@ -126,8 +126,8 @@ char cadenaamostrar2[9];
 float mediciondecorriente;
 float mediciondevoltaje;
 unsigned int adcenteroV;
-unsigned int adcenteroI;
-unsigned int adcdecimalI;
+signed int adcenteroI;
+signed int adcdecimalI;
 //Definicion de las entradas del menu
 #define MENU_INICIAL 0 //el menu donde se puede cambiar de manual a automatico y donde se puede encender la bomba en manual
 #define MENU_MUESTRAHORA_FECHA 1 //muestra la hora actual y el estado de la bomba, encendido apagado o falla de sobrecorriente, nivel bajo
@@ -220,7 +220,7 @@ bool manual_automatico = AUTOMATICO;
 bool alarma_encendido = NOALARMA;
 
 unsigned int medidaI_adc = 0;
-#define OFFSET_I .3
+#define OFFSET_I .2
 unsigned int medidaV_adc = 0;
 bool cambio_de_canal = 0;
 //int promedio_adc[4] = {0, 0, 0, 0};
