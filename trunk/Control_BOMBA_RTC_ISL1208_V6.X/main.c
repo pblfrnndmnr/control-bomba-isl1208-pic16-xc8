@@ -352,14 +352,15 @@ void main() {
             {
                 modificafecha = SINO;
                 banderasino = &usa_falla_de_corriente;
-                if (flanco)
+                if (flanco || haycambio) {
                     if (usa_falla_de_corriente) {
                         sprintf(cadenaamostrar, "FC:   SI");
                         sprintf(cadenaamostrar2, cadena_esp);
                     } else {
                         sprintf(cadenaamostrar, "FC:   NO");
                         sprintf(cadenaamostrar2, cadena_esp);
-                    } else {
+                    }
+                } else {
                     sprintf(cadenaamostrar, "FC:     ");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
@@ -371,11 +372,11 @@ void main() {
                 modificafecha = TIEMPOFALLA;
 
                 if (flanco || haycambio) {
-                    sprintf(cadenaamostrar, "TFC:  %02d", tiempofalla);
+                    sprintf(cadenaamostrar, "TFC: %02d'", tiempofalla);
                     sprintf(cadenaamostrar2, cadena_esp);
                     //haycambio = 0;
                 } else {
-                    sprintf(cadenaamostrar, "TFC:    ");
+                    sprintf(cadenaamostrar, "TFC:   '");
                     sprintf(cadenaamostrar2, cadena_esp);
                 }
                 bandera_graba_tiempofalla = 1;
@@ -441,6 +442,10 @@ void main() {
 
         // <editor-fold defaultstate="collapsed" desc="Verifica estados de falla">
 
+        if (!usa_falla_de_corriente) {
+            estadofallacorriente = CORRIENTENORMAL;
+            //TODO Agregado el uso o no de falla de corriente (probar si funciona)
+        }
 
         if ((estadonivel == NIVELNORMAL) && (estadofallacorriente == CORRIENTENORMAL) && (estadofallavoltaje == VOLTAJENORMAL)) {
 
