@@ -28,7 +28,7 @@ bool haycambio = 0;
 bool flanco = 0;
 bool actualizo_datos_rtc=0;
 unsigned char tiempoapagadolcd=0; //en segundos
-
+unsigned char tiemporegresaamenuinicial=0;
 //Definiciones para indicar el inicio de la posicion de los datos del LCD
 #define INICIOHORAS 1
 #define INICIOMINUTOS INICIOHORAS+3
