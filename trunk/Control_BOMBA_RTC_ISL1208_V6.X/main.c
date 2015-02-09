@@ -221,7 +221,7 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
 
                 if (flanco) {
-                    sprintf(cadenaamostrar, "%02d:%02d %02d", horarioactual.hrs, horarioactual.min, fecha.dow);
+                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                 } else {
                     sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
