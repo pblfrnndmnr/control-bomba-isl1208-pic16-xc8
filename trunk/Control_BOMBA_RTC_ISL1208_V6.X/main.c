@@ -34,7 +34,16 @@ void lee_y_transmite_date_and_time(void) {
 }
 
 void Obtiene_tiempo_restante_de_encendido(void) {
-    tiemporestantedias = fechaenc.dow - (fecha.dow + periodoencendido + 1) % 7;
+
+    if (fechaenc.dow >= fecha.dow) {
+        tiemporestantedias = fechaenc.dow - fecha.dow;
+    }
+    if (fechaenc.dow < fecha.dow) {
+        tiemporestantedias = fechaenc.dow + (7- fecha.dow);
+    }
+    if (periodoencendido==0) {
+        tiemporestantedias = 0;
+    }
     if (horarioactual.hrs <= horarioenc.hrs) {
         //si la hora de apagado es mayor que el horario actual significa que estamos en el mismo día
         //solo tengo que restar las horas
@@ -42,6 +51,11 @@ void Obtiene_tiempo_restante_de_encendido(void) {
     } else {
         //sino lo que hago es calcular el tiempo desde el horario actual hasta las 20hs de la noche y a eso le sumoola hora de apagado
         tiemporestantehora.hrs = horarioenc.hrs + (24 - horarioactual.hrs);
+        if (tiemporestantedias > 0) {
+            tiemporestantedias = tiemporestantedias - 1;
+        } else {
+            tiemporestantedias = 0;
+        }
     }
     if (horarioactual.min <= horarioenc.min) {
         //si los minutos de apagado ee mayor que el minuto actual significa que estamos en la misma hora
@@ -200,7 +214,7 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
 
                 if (flanco) {
-                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
+                    sprintf(cadenaamostrar, "%02d:%02d %02d", horarioactual.hrs, horarioactual.min, fecha.dow);
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                 } else {
                     sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
@@ -742,6 +756,7 @@ void main() {
                 }
             }
             if (bandera_graba_fecha) {
+                fecha.dow = dia_de_la_semana(&fecha.day, &fecha.month, &fecha.yr);
                 isl1208_set_date(&fecha.day, &fecha.month, &fecha.yr, &fecha.dow);
                 buzzer_on(10);
             }
