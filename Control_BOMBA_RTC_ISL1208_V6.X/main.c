@@ -159,7 +159,8 @@ void main() {
     if (isl1208SR.RTCF) {//Si se reseteo el RTC, envio directamente a configurar la hora
         isl1208_init();
         menuactual = SUBMENU_CONFIGURAHORA;
-
+        reseteafallas = FALLAPRESENTE;
+        ultimafalla = HUBOFALLARTC;
     } else {
 
         lee_y_transmite_date_and_time();
@@ -210,6 +211,8 @@ void main() {
                         sprintf(cadenaamostrar, "Falla: C");
                     } else if (ultimafalla == HUBOFALLANIVEL) {
                         sprintf(cadenaamostrar, "Falla: N");
+                    } else if (ultimafalla == HUBOFALLARTC) {
+                        sprintf(cadenaamostrar, "Falla: R");
                     }
                 }
 
