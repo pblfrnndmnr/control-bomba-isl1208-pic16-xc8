@@ -222,8 +222,8 @@ void main() {
 
                 if (flanco) {
                     sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    cadenaamostrar[6]=days_of_week[fecha.dow][0];
-                    cadenaamostrar[7]=days_of_week[fecha.dow][1];
+                    cadenaamostrar[6] = days_of_week[fecha.dow][0];
+                    cadenaamostrar[7] = days_of_week[fecha.dow][1];
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                 } else {
                     sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
