@@ -175,6 +175,7 @@ unsigned char cuenta_tiempofalla = 0;
 #define HUBOFALLACORRIENTE 1
 #define HUBOFALLAVOLTAJE 2
 #define HUBOFALLANIVEL 3
+#define HUBOFALLARTC 4
 unsigned char ultimafalla= NOHUBOFALLA;
 #define FALLAPRESENTE 0
 #define FALLARESETEADA 1
