@@ -103,7 +103,7 @@
 
 
 
-//const unsigned char days_of_week[7][3] = {"Do\0", "Lu\0", "Ma\0", "Mi\0", "Ju\0", "Vi\0", "Sa\0"};
+const unsigned char days_of_week[7][3] = {"Do\0", "Lu\0", "Ma\0", "Mi\0", "Ju\0", "Vi\0", "Sa\0"};
 const unsigned char cadena_esp[]="        ";
 bool ISL1208_ready(void);
 unsigned char isl1208_bin2bcd(unsigned char binary_value);
