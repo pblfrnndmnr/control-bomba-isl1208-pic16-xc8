@@ -11,7 +11,7 @@ _vWriteLCD: CODE, 2393 0 113
 __stringtab: STRCODE, 6144 0 18
 _dia_de_la_semana: CODE, 2582 0 123
 _openADC: CODE, 7876 0 21
-__stringdata: STRCODE, 6202 0 330
+__stringdata: STRCODE, 6202 0 347
 i1___lbmod: CODE, 2112 0 28
 _isl1208_init: CODE, 2556 0 8
 _vGotoxyLCD: CODE, 2201 0 35
@@ -78,4 +78,4 @@ i1_setADCChannel: CODE, 7863 0 13
 _isl1208_get_dow_enc: CODE, 2861 0 34
 _isl1208_set_dow_enc: CODE, 3077 0 37
 ___bmul: CODE, 3435 0 14
-Total: 2480
+Total: 2497

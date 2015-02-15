@@ -224,13 +224,14 @@ void main() {
                 //Se actualiza lo que se muestra en el display, solamente cuando hay cambios en lo que mostrar
 
                 if (flanco) {
-                    sprintf(cadenaamostrar, "%02d:%02d   ", horarioactual.hrs, horarioactual.min);
-                    cadenaamostrar[6] = days_of_week[fecha.dow][0];
-                    cadenaamostrar[7] = days_of_week[fecha.dow][1];
+                    sprintf(cadenaamostrar, "%02d:%02d:%02d", horarioactual.hrs, horarioactual.min, horarioactual.sec);
                     sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
                 } else {
-                    sprintf(cadenaamostrar, "%02d %02d   ", horarioactual.hrs, horarioactual.min);
-                    sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar, "%02d %02d %02d", horarioactual.hrs, horarioactual.min, horarioactual.sec);
+                    //sprintf(cadenaamostrar2, "%02d/%02d/%02d", fecha.day, fecha.month, fecha.yr);
+                    sprintf(cadenaamostrar2, cadena_esp);
+                    cadenaamostrar2[0] = days_of_week[fecha.dow][0];
+                    cadenaamostrar2[1] = days_of_week[fecha.dow][1];
                 }
                 break;
             }
