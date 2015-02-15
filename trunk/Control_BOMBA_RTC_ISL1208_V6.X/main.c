@@ -506,7 +506,8 @@ void main() {
         } else {
             estadofallavoltaje = FALLAVOLTAJE;
         }
-        mediciondecorriente = (float) medidaI_adc * 50 / 1024 - OFFSET_I;
+        mediciondecorriente = (float) medidaI_adc * 25 / 1024 - OFFSET_I;
+        //La ganancia de corriente se ajusta en 25,ya que el TI es de 50A:2A
         /////////////////////////////////////////////////////////////
         //Fin de procesamiento de medicion de voltaje, corriente
         // </editor-fold>

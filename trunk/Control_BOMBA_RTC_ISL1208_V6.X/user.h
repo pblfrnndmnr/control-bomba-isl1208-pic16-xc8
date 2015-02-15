@@ -184,7 +184,7 @@ unsigned char menuactual = MENU_INICIAL;
 
 //Variables para procesar la secuencia de arranque
 bool indica_secuencia_arranque = 0;
-#define TIEMPOSECUENCIAARRANQUE 15 //TODO ajustar el tiempo de secuencia de arranque
+#define TIEMPOSECUENCIAARRANQUE 10 //TODO ajustar el tiempo de secuencia de arranque
 unsigned char tiempo_secuencia_arranque = 0;
 bool bandera_orden_on_off_bomba = 0;
 bool bandera_orden_Alarma_bomba=0;
@@ -223,16 +223,16 @@ bool manual_automatico = AUTOMATICO;
 bool alarma_encendido = NOALARMA;
 
 unsigned int medidaI_adc = 0;
-#define OFFSET_I .2
+#define OFFSET_I .1
 unsigned int medidaV_adc = 0;
 bool cambio_de_canal = 0;
 //int promedio_adc[4] = {0, 0, 0, 0};
 
 #define VOLTAJEMAXIMO 240
 #define VOLTAJEMINIMO 190
-#define CORRIENTEMAXIMA 45.0 //AMPERES
+#define CORRIENTEMAXIMA 23.0 //AMPERES //TODO depende de la corriente consumida por el motor
 //#define CORRIENTEMINIMA 1.0 //AMPERES
-#define CORRIENTENORMALMAXIMA 10.0 //AMPERES //TODO DEPENDE DE LA CORRIENTE CONSUMIDA POR EL MOTOR
+#define CORRIENTENORMALMAXIMA 8.0 //AMPERES //TODO DEPENDE DE LA CORRIENTE CONSUMIDA POR EL MOTOR
 #define CORRIENTENORMALMINIMA 1.0 //AMPERES //TODO DEPENDE DE LA CORRIENTE CONSUMIDA POR EL MOTOR
 /******************************************************************************/
 /* User Function Prototypes                                                   */
