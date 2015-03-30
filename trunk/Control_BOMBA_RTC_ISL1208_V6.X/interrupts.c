@@ -317,6 +317,8 @@ void interrupt isr(void) {
             if (menuactual == MENU_INICIAL) {
                 bandera_orden_on_off_bomba = 0;
                 bandera_orden_Alarma_bomba = 0;
+                bandera_graba_global=1;
+                bandera_graba_manual_automatico=1;
                 manual_automatico = !manual_automatico;
             } else {
                 //Si no está en el menú inicial, la pulsación hace que se vuelva al menú inicial(tecla ESC)
