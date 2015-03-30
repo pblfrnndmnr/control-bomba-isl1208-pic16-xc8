@@ -119,6 +119,7 @@ void main() {
     __delay_us(20);
     openADC();
 
+    
     // <editor-fold defaultstate="collapsed" desc="Lectura de datos guardados en EEPROM">
     periodoencendido = eeprom_read(0);
     if (periodoencendido > TIEMPOMAXIMOPERIODO) periodoencendido = 0;
