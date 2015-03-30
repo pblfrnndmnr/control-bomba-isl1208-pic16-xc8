@@ -1,4 +1,4 @@
-_setADCChannel: CODE, 4096 0 11
+_setADCChannel: CODE, 7779 0 11
 ___awdiv: CODE, 2705 0 69
 _vLCD_Putc: CODE, 2236 0 40
 _stop_i2c: CODE, 3340 0 8
@@ -16,7 +16,7 @@ i1___lbmod: CODE, 2112 0 28
 _isl1208_init: CODE, 2556 0 8
 _vGotoxyLCD: CODE, 2201 0 35
 ___fltol: CODE, 8105 0 87
-_vBackLightLCD_On: CODE, 7749 0 4
+_vBackLightLCD_On: CODE, 7744 0 4
 ___flsub: CODE, 4471 0 28
 _dpowers: STRCODE, 6183 0 10
 ___flge: CODE, 8029 0 76
@@ -25,17 +25,17 @@ _isl1208_get_date: CODE, 3009 0 68
 _isl1208_set_date: CODE, 3215 0 75
 _isl1208_get_time: CODE, 2895 0 57
 _isl1208_set_time: CODE, 3155 0 60
-_main: CODE, 4107 0 4294965193
+_main: CODE, 4102 0 4294965198
 ___fldiv: CODE, 4528 0 149
 _vBackLightLCD_Off: CODE, 6140 0 4
 ___lwtofl: CODE, 4452 0 19
-_buzzer_on: CODE, 7779 0 11
+_buzzer_on: CODE, 7768 0 11
 _ISL1208_Set_Int: CODE, 2790 0 22
-_buzzer_off: CODE, 7758 0 6
+_buzzer_off: CODE, 4096 0 6
 _Obtiene_tiempo_restante_de_encendido: CODE, 7965 0 64
 i1_buzzer_on: CODE, 6129 0 8
 i1___lwmod: CODE, 6086 0 36
-i1_buzzer_off: CODE, 7753 0 5
+i1_buzzer_off: CODE, 7748 0 5
 __initialization: CODE, 19 0 32
 ___lwdiv: CODE, 4018 0 42
 ___flpack: CODE, 5048 0 75
@@ -65,9 +65,9 @@ _startADC: CODE, 6137 0 3
 _set_periodo_buzzer: CODE, 7868 0 17
 _set_duty: CODE, 7885 0 24
 ___wmul: CODE, 3993 0 25
-_getADCChannel: CODE, 7764 0 7
+_getADCChannel: CODE, 7753 0 7
 _ISL1208_ready: CODE, 2774 0 16
-i1_vBackLightLCD_On: CODE, 7745 0 4
+i1_vBackLightLCD_On: CODE, 7740 0 4
 _eeprom_read: CODE, 7841 0 27
 ___lbmod: CODE, 3510 0 28
 _eeprom_write: CODE, 2050 0 31
@@ -78,4 +78,4 @@ i1_setADCChannel: CODE, 7790 0 13
 _isl1208_get_dow_enc: CODE, 2861 0 34
 _isl1208_set_dow_enc: CODE, 3077 0 37
 ___bmul: CODE, 3435 0 14
-Total: 2524
+Total: 2529
