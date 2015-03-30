@@ -207,7 +207,10 @@ void main() {
             {
                 if (reseteafallas == FALLARESETEADA) {
                     ultimafalla = NOHUBOFALLA;
+                    if(manual_automatico!=MANUAL)
                     sprintf(cadenaamostrar, "%1dD%02dH%02dM", tiemporestantedias, tiemporestantehora.hrs, tiemporestantehora.min);
+                    else
+                    sprintf(cadenaamostrar, "        ");
                     // sprintf(cadenaamostrar, cadena_esp);
                 } else {
                     if (ultimafalla == HUBOFALLAVOLTAJE) {
