@@ -129,6 +129,8 @@ void main() {
     tiempofalla = eeprom_read(3);
     if (tiempofalla > TIEMPOMAXIMOFALLA)tiempofalla = 5;
     //si se produjo un error en la EEPROM, asigno valores predefinidos
+    manual_automatico=eeprom_read(4);
+
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Lectura del estado actual del RTC">
@@ -811,12 +813,17 @@ void main() {
                 eeprom_write(3, tiempofalla);
                 buzzer_on(10);
             }
+            if (bandera_graba_manual_automatico){
+                eeprom_write(4, manual_automatico);
+                buzzer_on(10);
+            }
             ei();
         }
         bandera_graba_global = 0;
         bandera_graba_periodoytiempoencendido = 0;
         bandera_graba_usa_falla_de_corriente = 0;
         bandera_graba_tiempofalla = 0;
+        bandera_graba_manual_automatico=0;
         // </editor-fold>
         // </editor-fold>
         NOP();

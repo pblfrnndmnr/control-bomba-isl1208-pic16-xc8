@@ -192,7 +192,7 @@ bool bandera_orden_Alarma_bomba=0;
 bool bandera_graba_hora = 0; //bandera para grabar la hora
 bool bandera_graba_fecha = 0; //bandera para grabar la fecha
 bool bandera_graba_global = 0; //bandera que habilita el grabago de datos cuando se pulsa el boton BOTON_ONOFF
-
+bool bandera_graba_manual_automatico=0; //bander aque habilita el grabado de manual o automatico en eeprom
 bool bandera_graba_periodoytiempoencendido = 0;
 //bool bandera_graba_tiempoencendido = 0;
 bool bandera_graba_usa_falla_de_corriente = 0;
@@ -216,7 +216,7 @@ bool estadofallacorriente = CORRIENTENORMAL;
 bool estadofallavoltaje = FALLAVOLTAJE;
 #define MANUAL 0
 #define AUTOMATICO 1
-bool manual_automatico = AUTOMATICO;
+bool manual_automatico;
 
 #define NOALARMA 0
 #define SIALARMA 1
